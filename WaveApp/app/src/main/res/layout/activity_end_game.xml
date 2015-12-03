@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Wave time:"
-        android:id="@+id/waveTimeLabel"
+        android:id="@+id/lastScreenWaveTimeLabel"
         android:layout_below="@+id/youWinLabel"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"/>
@@ -35,8 +35,8 @@
         android:textSize="24sp"
         android:textColor="#000000"
         android:text="07:35"
-        android:id="@+id/waveTimeText"
-        android:layout_below="@+id/waveTimeLabel"
+        android:id="@+id/lastScreenWaveTimeText"
+        android:layout_below="@+id/lastScreenWaveTimeLabel"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -46,10 +46,10 @@
         android:textColor="#ffa500"
         android:text="New high score!"
         android:id="@+id/newHighScoreLabel"
-        android:layout_below="@+id/waveTimeText"
+        android:layout_below="@+id/lastScreenWaveTimeText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:visibility="invisible"/>
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"/>
 
     <ImageView
         android:layout_width="wrap_content"
