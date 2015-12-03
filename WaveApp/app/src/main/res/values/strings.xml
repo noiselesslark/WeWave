@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WaveApp</string>
+    <string name="title_activity_test">Test</string>
 </resources>
