@@ -15,10 +15,13 @@ public class StartScreenActivity extends AppCompatActivity {
 
         Button playButton = (Button) findViewById(R.id.firstScreenPlayButton);
         playButton.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * On click handler for button.
+             * @param view - the view.
+             */
             @Override
             public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
 
                 Intent intent = new Intent(view.getContext(), MainGameActivity.class);
                 startActivity(intent);
