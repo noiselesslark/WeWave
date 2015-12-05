@@ -4,19 +4,25 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 /**
- * Created by Elise on 03/12/2015.
+ * This class defines the TouchZone object, which retains data on zones on the app screen that
+ * the user needs to touch within.
  */
 public class TouchZone {
     public static final float INNER_CIRCLE_RADIUS = 90f;
     public static final float OUTER_CIRCLE_RADIUS = 100f;
 
-    private boolean touching;
+    private boolean isTouched;
     private int x;
     private int y;
 
     protected Paint innerCirclePaint;
     protected Paint outerCirclePaint;
 
+    /**
+     * Constructor.
+     * @param x - the x-coordinate on the view for the centre of the touch zone.
+     * @param y - the y-coordinate on the view fr the centre of the touch zone.
+     */
     public TouchZone(int x, int y) {
         this.x = x;
         this.y = y;
@@ -33,30 +39,45 @@ public class TouchZone {
         // TODO: Write constructor with colours specifiable. Or find some other solution to this....
     }
 
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
+    /**
+     * Gets x.
+     * @return the x-coordinate of the centre of the touch zone.
+     */
     public int getX() {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    /**
+     * Gets y.
+     * @return the y-coordinate of the centre of the touch zone.
+     */
+    public int getY() {
+        return y;
     }
 
-    public boolean isTouching() {
-        return touching;
+    /**
+     * Checks whether the current zone is being touched or not.
+     * @return isTouched.
+     */
+    public boolean isTouched() {
+        return isTouched;
     }
 
-    public void setTouching(boolean touching) {
-        this.touching = touching;
+    /**
+     * Sets whether the touch zone is being touched  or not.
+     * @param touched - the boolean value specifying whether zone is touched.
+     */
+    public void setTouched(boolean touched) {
+        this.isTouched = touched;
     }
 
+    /**
+     * Checks whether the specified point is within the bounds of the touch zone.
+     *
+     * @param xPt - the x-coordinate of the point.
+     * @param yPt - the y-coordinate of the point.
+     * @return whether the point is within the touch zone.
+     */
     public boolean isPointWithin(int xPt, int yPt) {
         int radiusInt = Math.round(OUTER_CIRCLE_RADIUS);
         int xMin = x - radiusInt;
@@ -74,11 +95,23 @@ public class TouchZone {
         return false;
     }
 
+    /**
+     * Get the paint of the inner circle, i.e. the circle specifying the zone is being touched.
+     *
+     * TODO: Make this settable from the outside somehow.
+     * @return the inner circle paint.
+     */
     public Paint getInnerCirclePaint(){
         return innerCirclePaint;
     }
 
+    /**
+     * Get the paint of the outer circle, i.e. the circle specifying the boundary of the point. 
+     * @return
+     */
     public Paint getOuterCirclePaint() {
         return outerCirclePaint;
     }
+
+    // TODO: add icons to top of button.
 }
