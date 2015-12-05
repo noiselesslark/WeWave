@@ -3,10 +3,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
     tools:context="se.chalmers.halfwaytospirit.waveapp.EndGameActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="48sp"
+        android:textColor="#000000"
+        android:text="YOU WAVE!"
+        android:id="@+id/youWinLabel"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Wave time:"
+        android:id="@+id/lastScreenWaveTimeLabel"
+        android:layout_below="@+id/youWinLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:text="07:35"
+        android:id="@+id/lastScreenWaveTimeText"
+        android:layout_below="@+id/lastScreenWaveTimeLabel"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#ffa500"
+        android:text="New high score!"
+        android:id="@+id/newHighScoreLabel"
+        android:layout_below="@+id/lastScreenWaveTimeText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/winnerImage"
+        android:src="@drawable/winner_picture1"
+        android:layout_below="@+id/newHighScoreLabel"
+        android:layout_above="@+id/lastScreenPlayAgainButton"
+        android:layout_centerHorizontal="true" />
+
+    <!-- <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play again"
+        android:id="@+id/lastScreenPlayAgainButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" /> -->
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lastScreenPlayAgainButton"
+        android:src="@drawable/ic_play_again"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
