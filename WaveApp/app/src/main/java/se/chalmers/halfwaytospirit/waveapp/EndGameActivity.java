@@ -52,7 +52,8 @@ public class EndGameActivity extends AppCompatActivity {
             case 1: winnerImageID = R.drawable.winner_picture1;
                 break;
         }
-        ((ImageView)findViewById(R.id.winnerImage)).setImageResource(winnerImageID);
+        /* TODO fix
+        ((ImageView)findViewById(R.id.winnerImage)).setImageResource(winnerImageID);*/
     }
 
     public void saveChanges(SharedPreferences sharedPreferences) {

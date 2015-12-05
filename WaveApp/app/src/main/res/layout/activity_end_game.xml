@@ -51,6 +51,7 @@
         android:layout_marginBottom="8dp"
         android:visibility="visible"/>
 
+    <!-- TODO May need to be compressed
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,14 +59,6 @@
         android:src="@drawable/winner_picture1"
         android:layout_below="@+id/newHighScoreLabel"
         android:layout_above="@+id/lastScreenPlayAgainButton"
-        android:layout_centerHorizontal="true" />
-
-    <!-- <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Play again"
-        android:id="@+id/lastScreenPlayAgainButton"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" /> -->
 
     <ImageButton

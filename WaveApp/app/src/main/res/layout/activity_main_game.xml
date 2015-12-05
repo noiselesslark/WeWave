@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/stadium_galaxy_note3test_buttons"
     tools:context="se.chalmers.halfwaytospirit.waveapp.MainGameActivity">
     <se.chalmers.halfwaytospirit.waveapp.StadiumView
         android:layout_width="match_parent"
