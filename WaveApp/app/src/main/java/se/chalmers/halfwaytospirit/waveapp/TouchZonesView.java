@@ -3,6 +3,7 @@ package se.chalmers.halfwaytospirit.waveapp;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -13,6 +14,8 @@ import java.util.ArrayList;
  * as well as detecting multi-touch events.
  */
 public abstract class TouchZonesView extends View {
+    public static int width = 0;
+    public static int height = 0;
 
     protected final int MAX_NUMBER_OF_TOUCHES_DETECTED = 6;
     private ArrayList<TouchZone> touchZones;
@@ -25,6 +28,8 @@ public abstract class TouchZonesView extends View {
      */
     public TouchZonesView(Context context, AttributeSet attrs, int defStyle){
         super(context, attrs, defStyle);
+        width = getResources().getDisplayMetrics().widthPixels;
+        height = getResources().getDisplayMetrics().heightPixels;
         initView();
     }
 
@@ -35,6 +40,8 @@ public abstract class TouchZonesView extends View {
      */
     public TouchZonesView(Context context, AttributeSet attrs){
         super(context, attrs);
+        width = getResources().getDisplayMetrics().widthPixels;
+        height = getResources().getDisplayMetrics().heightPixels;
         initView();
     }
 
@@ -44,6 +51,8 @@ public abstract class TouchZonesView extends View {
      */
     public TouchZonesView(Context context) {
         super(context);
+        width = getResources().getDisplayMetrics().widthPixels;
+        height = getResources().getDisplayMetrics().heightPixels;
         initView();
     }
 
@@ -135,9 +144,21 @@ public abstract class TouchZonesView extends View {
      * Defines where on the canvas the touch zones should be drawn.
      */
     private void defineTouchZones() {
-        for( int i = 0; i< MAX_NUMBER_OF_TOUCHES_DETECTED; i++){
-            TouchZone tp = new TouchZone((i+1) * 150, (i+1) * 200);
-            touchZones.add(tp);
-        }
+        int circleRadius = Math.round(TouchZone.OUTER_CIRCLE_RADIUS/2);
+        int initWidth = 480; // width from my phone for which the offset was initially calculated
+        int offset = Math.round(width * 10 / initWidth);
+
+        TouchZone tpUp = new TouchZone(Math.round(width/2), circleRadius + offset);
+        touchZones.add(tpUp);
+        TouchZone tpLeftHigh = new TouchZone(circleRadius + offset, Math.round(height/3));
+        touchZones.add(tpLeftHigh);
+        TouchZone tpLeftDown = new TouchZone(circleRadius + offset, Math.round(2*height/3));
+        touchZones.add(tpLeftDown);
+        TouchZone tpRightUp = new TouchZone(width - circleRadius - offset, Math.round(height/3));
+        touchZones.add(tpRightUp);
+        TouchZone tpRightDown = new TouchZone(width - circleRadius - offset, Math.round(2*height/3));
+        touchZones.add(tpRightDown);
+        TouchZone tpDown = new TouchZone(Math.round(width/2), height - circleRadius - offset);
+        touchZones.add(tpDown);
     }
 }
