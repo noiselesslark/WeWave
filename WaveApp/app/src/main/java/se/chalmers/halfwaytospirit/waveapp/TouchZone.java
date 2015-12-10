@@ -8,8 +8,9 @@ import android.graphics.Paint;
  * the user needs to touch within.
  */
 public class TouchZone {
-    public static final float INNER_CIRCLE_RADIUS = 90f;
-    public static final float OUTER_CIRCLE_RADIUS = 100f;
+    // TODO make the size adaptable to several screen sizes
+    public static float INNER_CIRCLE_RADIUS = 90f;
+    public static float OUTER_CIRCLE_RADIUS = 100f;
 
     private boolean isTouched;
     private int x;
@@ -24,6 +25,9 @@ public class TouchZone {
      * @param y - the y-coordinate on the view fr the centre of the touch zone.
      */
     public TouchZone(int x, int y) {
+        OUTER_CIRCLE_RADIUS = TouchZonesView.width/10f;
+        INNER_CIRCLE_RADIUS = OUTER_CIRCLE_RADIUS - 5f;
+
         this.x = x;
         this.y = y;
 

@@ -3,6 +3,7 @@ package se.chalmers.halfwaytospirit.waveapp;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -13,6 +14,8 @@ import java.util.ArrayList;
  * as well as detecting multi-touch events.
  */
 public abstract class TouchZonesView extends View {
+    public static int screenWidth = 0;
+    public static int screenHeight = 0;
 
     protected final int MAX_NUMBER_OF_TOUCHES_DETECTED = 6;
     private ArrayList<TouchZone> touchZones;
@@ -52,7 +55,9 @@ public abstract class TouchZonesView extends View {
      */
     protected void initView(){
         touchZones = new ArrayList<>();
-
+        screenWidth = getResources().getDisplayMetrics().widthPixels;
+        screenHeight = getResources().getDisplayMetrics().heightPixels;
+        
         defineTouchZones();
     }
 
@@ -135,9 +140,24 @@ public abstract class TouchZonesView extends View {
      * Defines where on the canvas the touch zones should be drawn.
      */
     private void defineTouchZones() {
-        for( int i = 0; i< MAX_NUMBER_OF_TOUCHES_DETECTED; i++){
-            TouchZone tp = new TouchZone((i+1) * 150, (i+1) * 200);
-            touchZones.add(tp);
-        }
+        int circleRadius = Math.round(TouchZone.OUTER_CIRCLE_RADIUS/2);
+        int refWidth = 480; // Width from reference phone for which the offset was initially calculated.
+        int offset = Math.round(screenWidth * 10 / refWidth);
+        
+        int xLeft = circleRadius + offset;
+        int xCentre = Math.round(screenWidth/2);
+        int xRight = screenWidth - circleRadius - offset;
+
+        int yTop = circleRadius + offset;
+        int yHigh =  Math.round(screenHeight/3);
+        int yLow = Math.round(screenHeight/3);
+        int yDown = screenHeight - circleRadius - offset;
+        
+        touchZones.add(new TouchZone(xCentre, yTop));
+        touchZones.add(new TouchZone(xLeft, yHigh));
+        touchZones.add(new TouchZone(xLeft, yLow));
+        touchZones.add(new TouchZone(xRight, yHigh));
+        touchZones.add(new TouchZone(xRight, yLow));
+        touchZones.add(new TouchZone(xCentre, yDown));
     }
 }
