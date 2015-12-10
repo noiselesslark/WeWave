@@ -57,7 +57,6 @@ public abstract class TouchZonesView extends View {
         touchZones = new ArrayList<>();
         screenWidth = getResources().getDisplayMetrics().widthPixels;
         screenHeight = getResources().getDisplayMetrics().heightPixels;
-        
         defineTouchZones();
     }
 
@@ -140,7 +139,7 @@ public abstract class TouchZonesView extends View {
      * Defines where on the canvas the touch zones should be drawn.
      */
     private void defineTouchZones() {
-        int circleRadius = Math.round(TouchZone.OUTER_CIRCLE_RADIUS/2);
+        int circleRadius = Math.round(TouchZone.OUTER_CIRCLE_RADIUS);
         int refWidth = 480; // Width from reference phone for which the offset was initially calculated.
         int offset = Math.round(screenWidth * 10 / refWidth);
         
@@ -150,7 +149,7 @@ public abstract class TouchZonesView extends View {
 
         int yTop = circleRadius + offset;
         int yHigh =  Math.round(screenHeight/3);
-        int yLow = Math.round(screenHeight/3);
+        int yLow = Math.round(2*screenHeight/3);
         int yDown = screenHeight - circleRadius - offset;
         
         touchZones.add(new TouchZone(xCentre, yTop));

@@ -25,7 +25,7 @@ public class TouchZone {
      * @param y - the y-coordinate on the view fr the centre of the touch zone.
      */
     public TouchZone(int x, int y) {
-        OUTER_CIRCLE_RADIUS = TouchZonesView.width/10f;
+        OUTER_CIRCLE_RADIUS = TouchZonesView.screenWidth/10f;
         INNER_CIRCLE_RADIUS = OUTER_CIRCLE_RADIUS - 5f;
 
         this.x = x;
