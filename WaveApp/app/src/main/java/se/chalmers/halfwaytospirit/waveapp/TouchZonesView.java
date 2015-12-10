@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * This class is an extension of the view that handles the zoness within which users can touch.
@@ -21,7 +22,7 @@ public abstract class TouchZonesView extends View {
     private float outerCircleRadius = 100f;
 
     protected final int MAX_NUMBER_OF_TOUCHES_DETECTED = 6;
-    private ArrayList<TouchZone> touchZones;
+    private HashMap<String, TouchZone> touchZones;
 
     /**
      * Constructor.
@@ -63,7 +64,7 @@ public abstract class TouchZonesView extends View {
         outerCircleRadius = this.screenWidth/10f;
         innerCircleRadius = outerCircleRadius - 5f;
 
-        touchZones = new ArrayList<>();
+        touchZones = new HashMap<>();
 
         defineTouchZones();
     }
@@ -130,7 +131,7 @@ public abstract class TouchZonesView extends View {
      * @param action - the action of the event.
      */
     protected void handleTouchEvent(int x, int y, int action) {
-        for(TouchZone zone : touchZones){
+        for(TouchZone zone : touchZones.values()){
             if(zone.isPointWithin(x, y)){
                 if(action == MotionEvent.ACTION_POINTER_DOWN || action == MotionEvent.ACTION_DOWN){
                     zone.setTouched(true);
@@ -160,11 +161,11 @@ public abstract class TouchZonesView extends View {
         int yLow = Math.round(2*screenHeight/3);
         int yDown = screenHeight - integerOuterCircleRadius - offset;
         
-        touchZones.add(new TouchZone(xCentre, yTop, integerOuterCircleRadius));
-        touchZones.add(new TouchZone(xLeft, yHigh, integerOuterCircleRadius));
-        touchZones.add(new TouchZone(xLeft, yLow, integerOuterCircleRadius));
-        touchZones.add(new TouchZone(xRight, yHigh, integerOuterCircleRadius));
-        touchZones.add(new TouchZone(xRight, yLow, integerOuterCircleRadius));
-        touchZones.add(new TouchZone(xCentre, yDown, integerOuterCircleRadius));
+        touchZones.put(GameManager.PLAYER_1, new TouchZone(xCentre, yTop, integerOuterCircleRadius));
+        touchZones.put(GameManager.PLAYER_2, new TouchZone(xLeft, yHigh, integerOuterCircleRadius));
+        touchZones.put(GameManager.PLAYER_3, new TouchZone(xLeft, yLow, integerOuterCircleRadius));
+        touchZones.put(GameManager.PLAYER_4, new TouchZone(xRight, yHigh, integerOuterCircleRadius));
+        touchZones.put(GameManager.PLAYER_5, new TouchZone(xRight, yLow, integerOuterCircleRadius));
+        touchZones.put(GameManager.PLAYER_6, new TouchZone(xCentre, yDown, integerOuterCircleRadius));
     }
 }
