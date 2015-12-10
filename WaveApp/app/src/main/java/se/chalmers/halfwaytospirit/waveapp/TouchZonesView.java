@@ -14,8 +14,8 @@ import java.util.ArrayList;
  * as well as detecting multi-touch events.
  */
 public abstract class TouchZonesView extends View {
-    public static int width = 0;
-    public static int height = 0;
+    public static int screenWidth = 0;
+    public static int screenHeight = 0;
 
     protected final int MAX_NUMBER_OF_TOUCHES_DETECTED = 6;
     private ArrayList<TouchZone> touchZones;
@@ -28,8 +28,6 @@ public abstract class TouchZonesView extends View {
      */
     public TouchZonesView(Context context, AttributeSet attrs, int defStyle){
         super(context, attrs, defStyle);
-        width = getResources().getDisplayMetrics().widthPixels;
-        height = getResources().getDisplayMetrics().heightPixels;
         initView();
     }
 
@@ -40,8 +38,6 @@ public abstract class TouchZonesView extends View {
      */
     public TouchZonesView(Context context, AttributeSet attrs){
         super(context, attrs);
-        width = getResources().getDisplayMetrics().widthPixels;
-        height = getResources().getDisplayMetrics().heightPixels;
         initView();
     }
 
@@ -51,8 +47,6 @@ public abstract class TouchZonesView extends View {
      */
     public TouchZonesView(Context context) {
         super(context);
-        width = getResources().getDisplayMetrics().widthPixels;
-        height = getResources().getDisplayMetrics().heightPixels;
         initView();
     }
 
@@ -61,7 +55,9 @@ public abstract class TouchZonesView extends View {
      */
     protected void initView(){
         touchZones = new ArrayList<>();
-
+        screenWidth = getResources().getDisplayMetrics().widthPixels;
+        screenHeight = getResources().getDisplayMetrics().heightPixels;
+        
         defineTouchZones();
     }
 
@@ -146,16 +142,16 @@ public abstract class TouchZonesView extends View {
     private void defineTouchZones() {
         int circleRadius = Math.round(TouchZone.OUTER_CIRCLE_RADIUS/2);
         int refWidth = 480; // Width from reference phone for which the offset was initially calculated.
-        int offset = Math.round(width * 10 / refWidth);
+        int offset = Math.round(screenWidth * 10 / refWidth);
         
         int xLeft = circleRadius + offset;
-        int xCentre = Math.round(width/2);
-        int xRight = width - circleRadius - offset;
+        int xCentre = Math.round(screenWidth/2);
+        int xRight = screenWidth - circleRadius - offset;
 
         int yTop = circleRadius + offset;
-        int yHigh =  Math.round(height/3);
-        int yLow = Math.round(height/3);
-        int yDown = height - circleRadius - offset;
+        int yHigh =  Math.round(screenHeight/3);
+        int yLow = Math.round(screenHeight/3);
+        int yDown = screenHeight - circleRadius - offset;
         
         touchZones.add(new TouchZone(xCentre, yTop));
         touchZones.add(new TouchZone(xLeft, yHigh));
