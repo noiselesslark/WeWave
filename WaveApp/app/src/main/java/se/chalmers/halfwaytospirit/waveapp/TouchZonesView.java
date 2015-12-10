@@ -145,20 +145,23 @@ public abstract class TouchZonesView extends View {
      */
     private void defineTouchZones() {
         int circleRadius = Math.round(TouchZone.OUTER_CIRCLE_RADIUS/2);
-        int initWidth = 480; // width from my phone for which the offset was initially calculated
-        int offset = Math.round(width * 10 / initWidth);
+        int refWidth = 480; // Width from reference phone for which the offset was initially calculated.
+        int offset = Math.round(width * 10 / refWidth);
+        
+        int xLeft = circleRadius + offset;
+        int xCentre = Math.round(width/2);
+        int xRight = width - circleRadius - offset;
 
-        TouchZone tpUp = new TouchZone(Math.round(width/2), circleRadius + offset);
-        touchZones.add(tpUp);
-        TouchZone tpLeftHigh = new TouchZone(circleRadius + offset, Math.round(height/3));
-        touchZones.add(tpLeftHigh);
-        TouchZone tpLeftDown = new TouchZone(circleRadius + offset, Math.round(2*height/3));
-        touchZones.add(tpLeftDown);
-        TouchZone tpRightUp = new TouchZone(width - circleRadius - offset, Math.round(height/3));
-        touchZones.add(tpRightUp);
-        TouchZone tpRightDown = new TouchZone(width - circleRadius - offset, Math.round(2*height/3));
-        touchZones.add(tpRightDown);
-        TouchZone tpDown = new TouchZone(Math.round(width/2), height - circleRadius - offset);
-        touchZones.add(tpDown);
+        int yTop = circleRadius + offset;
+        int yHigh =  Math.round(height/3);
+        int yLow = Math.round(height/3);
+        int yDown = height - circleRadius - offset;
+        
+        touchZones.add(new TouchZone(xCentre, yTop));
+        touchZones.add(new TouchZone(xLeft, yHigh));
+        touchZones.add(new TouchZone(xLeft, yLow));
+        touchZones.add(new TouchZone(xRight, yHigh));
+        touchZones.add(new TouchZone(xRight, yLow));
+        touchZones.add(new TouchZone(xCentre, yDown));
     }
 }
