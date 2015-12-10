@@ -3,7 +3,6 @@ package se.chalmers.halfwaytospirit.waveapp;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -14,12 +13,12 @@ import java.util.ArrayList;
  * as well as detecting multi-touch events.
  */
 public abstract class TouchZonesView extends View {
-    public static int screenWidth = 0;
-    public static int screenHeight = 0;
+    private int screenWidth = 0;
+    private int screenHeight = 0;
 
     // TODO make the size adaptable to several screen sizes
-    public static float INNER_CIRCLE_RADIUS = 90f;
-    public static float OUTER_CIRCLE_RADIUS = 100f;
+    private float innerCircleRadius = 90f;
+    private float outerCircleRadius = 100f;
 
     protected final int MAX_NUMBER_OF_TOUCHES_DETECTED = 6;
     private ArrayList<TouchZone> touchZones;
@@ -61,8 +60,8 @@ public abstract class TouchZonesView extends View {
         screenWidth = getResources().getDisplayMetrics().widthPixels;
         screenHeight = getResources().getDisplayMetrics().heightPixels;
 
-        OUTER_CIRCLE_RADIUS = this.screenWidth/10f;
-        INNER_CIRCLE_RADIUS = OUTER_CIRCLE_RADIUS - 5f;
+        outerCircleRadius = this.screenWidth/10f;
+        innerCircleRadius = outerCircleRadius - 5f;
 
         touchZones = new ArrayList<>();
 
@@ -89,9 +88,9 @@ public abstract class TouchZonesView extends View {
         for(int i = 0; i < MAX_NUMBER_OF_TOUCHES_DETECTED; i++){
             TouchZone tp = touchZones.get(i);
 
-            canvas.drawCircle(tp.getX(), tp.getY(), OUTER_CIRCLE_RADIUS, tp.getOuterCirclePaint());
+            canvas.drawCircle(tp.getX(), tp.getY(), outerCircleRadius, tp.getOuterCirclePaint());
             if(tp.isTouched()){
-                canvas.drawCircle(tp.getX(), tp.getY(), INNER_CIRCLE_RADIUS, tp.getInnerCirclePaint());
+                canvas.drawCircle(tp.getX(), tp.getY(), innerCircleRadius, tp.getInnerCirclePaint());
             }
         }
     }
@@ -148,7 +147,7 @@ public abstract class TouchZonesView extends View {
      * Defines where on the canvas the touch zones should be drawn.
      */
     private void defineTouchZones() {
-        int integerOuterCircleRadius = Math.round(OUTER_CIRCLE_RADIUS);
+        int integerOuterCircleRadius = Math.round(outerCircleRadius);
         int refWidth = 480; // Width from reference phone for which the offset was initially calculated.
         int offset = Math.round(screenWidth * 10 / refWidth);
         
