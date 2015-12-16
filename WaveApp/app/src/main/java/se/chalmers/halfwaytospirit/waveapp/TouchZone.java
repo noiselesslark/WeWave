@@ -3,6 +3,7 @@ package se.chalmers.halfwaytospirit.waveapp;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
+import android.widget.Switch;
 
 /**
  * This class defines the TouchZone object, which retains data on zones on the app screen that
@@ -21,6 +22,7 @@ public class TouchZone extends Point{
      * Constructor.
      * @param x - the x-coordinate on the view for the centre of the touch zone.
      * @param y - the y-coordinate on the view fr the centre of the touch zone.
+     * @param touchZoneRadius - the radius of the outer circle.
      */
     public TouchZone(int x, int y, int touchZoneRadius) {
         super(x, y);
@@ -35,7 +37,6 @@ public class TouchZone extends Point{
         outerCirclePaint.setColor(Color.BLACK);
         outerCirclePaint.setStrokeWidth(1);
         outerCirclePaint.setStyle(Paint.Style.STROKE);
-        // TODO: Write constructor with colours specifiable. Or find some other solution to this....
     }
 
     /**
