@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -20,8 +19,9 @@ public abstract class TouchZonesView extends View {
     // TODO make the size adaptable to several screen sizes
     private float innerCircleRadius = 90f;
     private float outerCircleRadius = 100f;
+    private int stadiumOffset = 0;
 
-    protected final int MAX_NUMBER_OF_TOUCHES_DETECTED = 6;
+    protected final int MAX_NUMBER_OF_PLAYERS = 6;
     private HashMap<String, TouchZone> touchZones;
 
     /**
@@ -54,6 +54,22 @@ public abstract class TouchZonesView extends View {
         initView();
     }
 
+    protected int getScreenWidth() {
+        return this.screenWidth;
+    }
+
+    protected int getScreenHeight() {
+        return this.screenHeight;
+    }
+
+    protected int getStadiumOffset() {
+        return this.stadiumOffset;
+    }
+
+    protected int getCircleRadiusInt() {
+        return Math.round(this.outerCircleRadius);
+    }
+
     /**
      * Initialise the view. Draw basics.
      */
@@ -63,6 +79,9 @@ public abstract class TouchZonesView extends View {
 
         outerCircleRadius = this.screenWidth/10f;
         innerCircleRadius = outerCircleRadius - 5f;
+
+        int refWidth = 480; // Width from reference phone for which the offset was initially calculated.
+        stadiumOffset = Math.round(screenWidth * 10 / refWidth);
 
         touchZones = new HashMap<>();
 
@@ -86,8 +105,8 @@ public abstract class TouchZonesView extends View {
      */
     @Override
     protected void onDraw(Canvas canvas){
-        for(int i = 0; i < MAX_NUMBER_OF_TOUCHES_DETECTED; i++){
-            TouchZone tp = touchZones.get(i);
+        for(int i = 1; i <= MAX_NUMBER_OF_PLAYERS; i++){
+            TouchZone tp = touchZones.get("Player" + i);
 
             canvas.drawCircle(tp.getX(), tp.getY(), outerCircleRadius, tp.getOuterCirclePaint());
             if(tp.isTouched()){
@@ -111,7 +130,7 @@ public abstract class TouchZonesView extends View {
         for (int i = 0; i < pointCount; i++){
             int id = event.getPointerId(i);
 
-            if(id < MAX_NUMBER_OF_TOUCHES_DETECTED) {
+            if(id < MAX_NUMBER_OF_PLAYERS) {
                 int xPoint = (int)event.getX(i) - this.getLeft();
                 int yPoint = (int)event.getY(i) - this.getTop();
 
@@ -148,18 +167,17 @@ public abstract class TouchZonesView extends View {
      * Defines where on the canvas the touch zones should be drawn.
      */
     private void defineTouchZones() {
-        int integerOuterCircleRadius = Math.round(outerCircleRadius);
-        int refWidth = 480; // Width from reference phone for which the offset was initially calculated.
-        int offset = Math.round(screenWidth * 10 / refWidth);
+        int integerOuterCircleRadius = this.getCircleRadiusInt();
         
-        int xLeft = integerOuterCircleRadius + offset;
-        int xCentre = Math.round(screenWidth/2);
-        int xRight = screenWidth - integerOuterCircleRadius - offset;
+        int xLeft = integerOuterCircleRadius + this.stadiumOffset;
+        int xCentre = Math.round(this.screenWidth/2);
+        int xRight = this.screenWidth - integerOuterCircleRadius - this.stadiumOffset;
 
-        int yTop = integerOuterCircleRadius + offset;
-        int yHigh =  Math.round(screenHeight/3);
-        int yLow = Math.round(2*screenHeight/3);
-        int yDown = screenHeight - integerOuterCircleRadius - offset;
+        int yTop = integerOuterCircleRadius + this.stadiumOffset + integerOuterCircleRadius;
+        int yHigh =  Math.round(this.screenHeight/3);
+        int yLow = Math.round(2*this.screenHeight/3);
+        int yDown = this.screenHeight - integerOuterCircleRadius - this.stadiumOffset;
+
         
         touchZones.put(GameManager.PLAYER_1, new TouchZone(xCentre, yTop, integerOuterCircleRadius));
         touchZones.put(GameManager.PLAYER_2, new TouchZone(xLeft, yHigh, integerOuterCircleRadius));
