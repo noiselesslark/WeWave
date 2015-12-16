@@ -23,9 +23,26 @@ public class Player {
     private int playerColour = Color.BLACK;
 
     /**
+     * Number of consecutive success in the wave
+     * For personal record
+     */
+    private int consecutiveSuccess = 0;
+
+    /**
+     * If the player is the one currently supposed to wave
+     */
+    private boolean isCurrentPlayer = false;
+
+    /**
+     * Player identifier
+     */
+    private int id;
+
+    /**
      * Constructor
      */
-    public Player () {
+    public Player (int id) {
+        this.id = id;
 
     }
 
