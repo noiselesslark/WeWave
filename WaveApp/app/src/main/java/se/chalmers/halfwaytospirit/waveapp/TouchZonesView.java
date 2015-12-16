@@ -97,8 +97,7 @@ public abstract class TouchZonesView extends View {
         outerCircleRadius = this.screenWidth/10f;
         innerCircleRadius = outerCircleRadius - 5f;
 
-        int refWidth = 480; // Width from reference phone for which the offset was initially calculated.
-        stadiumOffset = Math.round(screenWidth * 10 / refWidth);
+        stadiumOffset = Math.round(screenWidth / 48);
 
         touchZones = new HashMap<>();
 
@@ -168,6 +167,7 @@ public abstract class TouchZonesView extends View {
      */
     protected void handleTouchEvent(int x, int y, int action) {
         for(TouchZone zone : touchZones.values()){
+            // TODO add a || !zone.isDisabled
             if(zone.isPointWithin(x, y)){
                 if(action == MotionEvent.ACTION_POINTER_DOWN || action == MotionEvent.ACTION_DOWN){
                     zone.setTouched(true);
@@ -176,6 +176,14 @@ public abstract class TouchZonesView extends View {
                 }
             }
         }
+    }
+
+    /**
+     * Getter of the Touch Zones
+     * @return the touch zones list
+     */
+    public HashMap getTouchZones() {
+        return this.touchZones;
     }
 
     /** Private Methods */
@@ -207,7 +215,7 @@ public abstract class TouchZonesView extends View {
         setTouchZoneColour (leftLowTouchZone, R.color.colorGreen);
         setTouchZoneColour (rightHighTouchZone, R.color.colorPurple);
         setTouchZoneColour (rightLowTouchZone, R.color.colorTurquoise);
-        setTouchZoneColour(downTouchZone, R.color.colorBlue);
+        setTouchZoneColour (downTouchZone, R.color.colorBlue);
 
         touchZones.put(GameManager.PLAYER_1, topTouchZone);
         touchZones.put(GameManager.PLAYER_2, leftHighTouchZone);
@@ -220,15 +228,15 @@ public abstract class TouchZonesView extends View {
     /**
      * Set the colour of the players in the touch zones
      */
-    private void setTouchZoneColour (TouchZone touchZone, int colour) {
+    public void setTouchZoneColour (TouchZone touchZone, int colour) {
+        //TODO colour will be a Player's parameter
         Paint innerCirclePaint = touchZone.getInnerCirclePaint();
         Paint outerCirclePaint = touchZone.getOuterCirclePaint();
 
         innerCirclePaint.setColor(ContextCompat.getColor(getContext(), colour));
         outerCirclePaint.setColor(ContextCompat.getColor(getContext(), colour));
 
-        // TODO adapt the stroke to several screens?
-        innerCirclePaint.setStrokeWidth(5);
-        outerCirclePaint.setStrokeWidth(5);
+        innerCirclePaint.setStrokeWidth(Math.round(this.stadiumOffset/2));
+        outerCirclePaint.setStrokeWidth(Math.round(this.stadiumOffset/2));
     }
 }

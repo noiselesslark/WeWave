@@ -12,6 +12,7 @@ import android.widget.Switch;
 public class TouchZone extends Point{
 
     private boolean isTouched;
+    //TODO add a isDisabled parameter
 
     private int touchZoneRadius = 0;
 
