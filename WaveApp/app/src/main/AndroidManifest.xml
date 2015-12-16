@@ -7,19 +7,19 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar"
-        android:screenOrientation="portrait">
-        <activity android:name=".StartScreenActivity" >
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".StartScreenActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainGameActivity" />
-        <activity android:name=".EndGameActivity" >
-
-        </activity>
+        <activity android:name=".MainGameActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".EndGameActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

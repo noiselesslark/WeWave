@@ -16,6 +16,10 @@ import java.util.HashMap;
 
 public class MainGameActivity extends AppCompatActivity {
 
+    /**
+     * Called when the activity is first created.
+     * @param savedInstanceState - the saved instance state.
+     */
     private GameManager gameManager;
 
     @Override
@@ -95,7 +99,6 @@ public class MainGameActivity extends AppCompatActivity {
 
         // Starts the animation
         StadiumPathAnimation pathAnimation = new StadiumPathAnimation(stadium, 360);
-        pathAnimation.setDuration(10000);
         stadium.startAnimation(pathAnimation);
     }
 }
