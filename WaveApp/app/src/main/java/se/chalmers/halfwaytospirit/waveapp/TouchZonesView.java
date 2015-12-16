@@ -209,7 +209,7 @@ public abstract class TouchZonesView extends View {
         setTouchZoneColour (leftLowTouchZone, R.color.colorGreen);
         setTouchZoneColour (rightHighTouchZone, R.color.colorPurple);
         setTouchZoneColour (rightLowTouchZone, R.color.colorTurquoise);
-        setTouchZoneColour(downTouchZone, R.color.colorBlue);
+        setTouchZoneColour (downTouchZone, R.color.colorBlue);
 
         touchZones.put(GameManager.PLAYER_1, topTouchZone);
         touchZones.put(GameManager.PLAYER_2, leftHighTouchZone);
@@ -219,10 +219,11 @@ public abstract class TouchZonesView extends View {
         touchZones.put(GameManager.PLAYER_6, downTouchZone);
     }
 
-    /*
- * Set the colour of the players in the touch zones
- */
+    /**
+     * Set the colour of the players in the touch zones
+     */
     private void setTouchZoneColour (TouchZone touchZone, int colour) {
+        //TODO colour will be a Player's parameter
         Paint innerCirclePaint = touchZone.getInnerCirclePaint();
         Paint outerCirclePaint = touchZone.getOuterCirclePaint();
 
