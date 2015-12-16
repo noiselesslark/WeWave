@@ -33,12 +33,12 @@ public class TouchZone {
 
         innerCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         innerCirclePaint.setColor(Color.BLACK);
-        innerCirclePaint.setStrokeWidth(2);
+        innerCirclePaint.setStrokeWidth(1);
         innerCirclePaint.setStyle(Paint.Style.FILL);
 
         outerCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         outerCirclePaint.setColor(Color.BLACK);
-        outerCirclePaint.setStrokeWidth(2);
+        outerCirclePaint.setStrokeWidth(1);
         outerCirclePaint.setStyle(Paint.Style.STROKE);
     }
 

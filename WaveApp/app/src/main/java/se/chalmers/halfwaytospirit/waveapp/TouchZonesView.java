@@ -2,6 +2,7 @@ package se.chalmers.halfwaytospirit.waveapp;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -187,7 +188,15 @@ public abstract class TouchZonesView extends View {
      * Set the colour of the players in the touch zones
      */
     private void setTouchZoneColour (TouchZone touchZone, int colour) {
-        touchZone.getInnerCirclePaint().setColor(ContextCompat.getColor(getContext(), colour));
-        touchZone.getOuterCirclePaint().setColor(ContextCompat.getColor(getContext(), colour));
+        Paint innerCirclePaint = touchZone.getInnerCirclePaint();
+        Paint outerCirclePaint = touchZone.getOuterCirclePaint();
+
+        innerCirclePaint.setColor(ContextCompat.getColor(getContext(), colour));
+        outerCirclePaint.setColor(ContextCompat.getColor(getContext(), colour));
+
+        int refWidth = 480; // Width from reference phone for which the offset was initially calculated.
+        int offset = Math.round(screenWidth * 5 / refWidth);
+        innerCirclePaint.setStrokeWidth(offset);
+        outerCirclePaint.setStrokeWidth(offset);
     }
 }
