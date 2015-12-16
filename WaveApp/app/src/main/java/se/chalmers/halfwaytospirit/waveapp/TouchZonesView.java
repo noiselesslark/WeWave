@@ -151,6 +151,7 @@ public abstract class TouchZonesView extends View {
     private void defineTouchZones() {
         int integerOuterCircleRadius = Math.round(outerCircleRadius);
         int refWidth = 480; // Width from reference phone for which the offset was initially calculated.
+        // TODO make it as a public static variable in another class
         int offset = Math.round(screenWidth * 10 / refWidth);
         
         int xLeft = integerOuterCircleRadius + offset;
@@ -194,9 +195,8 @@ public abstract class TouchZonesView extends View {
         innerCirclePaint.setColor(ContextCompat.getColor(getContext(), colour));
         outerCirclePaint.setColor(ContextCompat.getColor(getContext(), colour));
 
-        int refWidth = 480; // Width from reference phone for which the offset was initially calculated.
-        int offset = Math.round(screenWidth * 5 / refWidth);
-        innerCirclePaint.setStrokeWidth(offset);
-        outerCirclePaint.setStrokeWidth(offset);
+        // TODO adapt the stroke to several screens?
+        innerCirclePaint.setStrokeWidth(5);
+        outerCirclePaint.setStrokeWidth(5);
     }
 }
