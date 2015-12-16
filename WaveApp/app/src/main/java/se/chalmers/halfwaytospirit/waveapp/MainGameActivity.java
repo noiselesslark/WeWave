@@ -20,6 +20,12 @@ public class MainGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_game);
 
         startTimer();
+
+        // TODO - move within timer.
+        StadiumView stadium = (StadiumView) findViewById(R.id.stadium_view);
+        StadiumPathAnimation pathAnimation = new StadiumPathAnimation(stadium, 360);
+        pathAnimation.setDuration(10000);
+        stadium.startAnimation(pathAnimation);
     }
 
     /*

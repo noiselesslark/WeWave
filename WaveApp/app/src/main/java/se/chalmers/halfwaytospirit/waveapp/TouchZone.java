@@ -9,10 +9,9 @@ import android.widget.Switch;
  * This class defines the TouchZone object, which retains data on zones on the app screen that
  * the user needs to touch within.
  */
-public class TouchZone {
+public class TouchZone extends Point{
+
     private boolean isTouched;
-    private int x;
-    private int y;
 
     private int touchZoneRadius = 0;
 
@@ -26,10 +25,8 @@ public class TouchZone {
      * @param touchZoneRadius - the radius of the outer circle.
      */
     public TouchZone(int x, int y, int touchZoneRadius) {
+        super(x, y);
         this.touchZoneRadius = touchZoneRadius;
-
-        this.x = x;
-        this.y = y;
 
         innerCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         innerCirclePaint.setColor(Color.BLACK);
@@ -40,22 +37,6 @@ public class TouchZone {
         outerCirclePaint.setColor(Color.BLACK);
         outerCirclePaint.setStrokeWidth(1);
         outerCirclePaint.setStyle(Paint.Style.STROKE);
-    }
-
-    /**
-     * Gets x.
-     * @return the x-coordinate of the centre of the touch zone.
-     */
-    public int getX() {
-        return x;
-    }
-
-    /**
-     * Gets y.
-     * @return the y-coordinate of the centre of the touch zone.
-     */
-    public int getY() {
-        return y;
     }
 
     /**
@@ -83,10 +64,10 @@ public class TouchZone {
      */
     public boolean isPointWithin(int xPt, int yPt) {
         int radiusInt = touchZoneRadius;
-        int xMin = x - radiusInt;
-        int xMax = x + radiusInt;
-        int yMin = y - radiusInt;
-        int yMax = y + radiusInt;
+        int xMin = getX() - radiusInt;
+        int xMax = getX() + radiusInt;
+        int yMin = getY() - radiusInt;
+        int yMax = getY() + radiusInt;
 
         if(xPt> xMin
                 && xPt < xMax
