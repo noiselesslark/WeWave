@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
 public class MainGameActivity extends AppCompatActivity {
@@ -24,7 +26,6 @@ public class MainGameActivity extends AppCompatActivity {
         // TODO - move within timer.
         StadiumView stadium = (StadiumView) findViewById(R.id.stadium_view);
         StadiumPathAnimation pathAnimation = new StadiumPathAnimation(stadium, 360);
-        pathAnimation.setDuration(10000);
         stadium.startAnimation(pathAnimation);
     }
 

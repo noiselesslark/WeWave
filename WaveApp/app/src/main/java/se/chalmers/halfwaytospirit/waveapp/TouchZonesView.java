@@ -192,7 +192,7 @@ public abstract class TouchZonesView extends View {
         int xCentre = Math.round(this.screenWidth/2);
         int xRight = this.screenWidth - integerOuterCircleRadius - this.stadiumOffset;
 
-        int yTop = integerOuterCircleRadius + this.stadiumOffset + integerOuterCircleRadius;
+        int yTop = integerOuterCircleRadius + this.stadiumOffset;
         int yHigh =  Math.round(this.screenHeight/3);
         int yLow = Math.round(2*this.screenHeight/3);
         int yDown = this.screenHeight - integerOuterCircleRadius - this.stadiumOffset;
