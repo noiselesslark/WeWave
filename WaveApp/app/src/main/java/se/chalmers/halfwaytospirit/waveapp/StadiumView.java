@@ -15,13 +15,9 @@ public class StadiumView extends TouchZonesView {
     private static final int START_ANGLE_TOP = 180;
     private static final int START_ANGLE_BOTTOM = 0;
 
-    private boolean lineLeft = false;
-    private boolean lineRight = false;
-
     private Paint pathPaint;
     private float sweepAngle;
-    private int radius;
-
+    private int circleRadius;
 
     private Point centerTopCircle;
     private Point centerBottomCircle;
@@ -64,7 +60,7 @@ public class StadiumView extends TouchZonesView {
     protected void initView() {
         super.initView();
 
-        this.radius = getScreenWidth()/2 - getStadiumOffset() - getCircleRadiusInt();
+        this.circleRadius = getScreenWidth()/2 - getStadiumOffset() - getCircleRadiusInt();
 
         int circleCenterX = getScreenWidth()/2;
         int topY = getScreenHeight()/3 - getCircleRadiusInt();
@@ -73,8 +69,8 @@ public class StadiumView extends TouchZonesView {
         centerTopCircle = new Point(circleCenterX, topY);
         centerBottomCircle = new Point(circleCenterX, bottomY);
 
-        int leftX = circleCenterX - radius;
-        int rightX = circleCenterX + radius;
+        int leftX = circleCenterX - circleRadius;
+        int rightX = circleCenterX + circleRadius;
 
         topLineLeft = new Point(leftX, topY);
         bottomLineLeft = new Point(leftX, bottomY);
@@ -89,33 +85,35 @@ public class StadiumView extends TouchZonesView {
         pathPaint.setStyle(Paint.Style.STROKE);
         pathPaint.setShader(new SweepGradient(getScreenWidth()/2, getScreenHeight()/2, Color.RED, Color.BLUE));
 
-
         topRectangle = defineSemiCircle(centerTopCircle);
         bottomRectangle = defineSemiCircle(centerBottomCircle);
 
         sweepAngle = 0;
     }
 
+    /**
+     * Defines a rectangle for use in semicircle around the specified point.
+     * @param point - the point to use a s a centre.
+     * @return The rectangle.
+     */
     private RectF defineSemiCircle(Point point) {
-        int left = point.getX() - this.radius;
-        int right = point.getX() + this.radius;
-        int top = point.getY() - this.radius;
-        int bottom = point.getY() + this.radius;
+        int left = point.getX() - this.circleRadius;
+        int right = point.getX() + this.circleRadius;
+        int top = point.getY() - this.circleRadius;
+        int bottom = point.getY() + this.circleRadius;
 
         return new RectF(left, top, right, bottom );
     }
 
+    /**
+     * Called when canvas is re-drawn.
+     * @param canvas - the canvas.
+     */
     @Override
     protected void onDraw(Canvas canvas){
         if(sweepAngle > 180 && sweepAngle <= 360) {
             canvas.drawArc(topRectangle, START_ANGLE_TOP, sweepAngle -180, false, pathPaint);
-        }/* else if(sweepAngle > 180) {
-            lineLeft = true;
-
-        }*/ else {
-
-
-
+        } else {
             canvas.drawArc(bottomRectangle, START_ANGLE_BOTTOM, sweepAngle, false, pathPaint);
         }
 

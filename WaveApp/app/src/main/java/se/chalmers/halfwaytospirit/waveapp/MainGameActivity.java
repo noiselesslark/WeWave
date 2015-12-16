@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
 public class MainGameActivity extends AppCompatActivity {
 
+    /**
+     * Called when the activity is first created.
+     * @param savedInstanceState - the saved instance state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -29,8 +31,8 @@ public class MainGameActivity extends AppCompatActivity {
         stadium.startAnimation(pathAnimation);
     }
 
-    /*
-     * Starts the timer before the actual game
+    /**
+     * Starts the timer before the actual game.
      */
     public void startTimer() {
         new CountDownTimer(6000, 1000) {

@@ -20,8 +20,6 @@ public abstract class TouchZonesView extends View {
 
     private float innerCircleRadius = 90f;
     private float outerCircleRadius = 100f;
-
-    // TODO make it as a public static variable in another class
     private int stadiumOffset = 0;
 
     protected final int MAX_NUMBER_OF_PLAYERS = 6;
@@ -219,9 +217,9 @@ public abstract class TouchZonesView extends View {
         touchZones.put(GameManager.PLAYER_6, downTouchZone);
     }
 
-    /*
- * Set the colour of the players in the touch zones
- */
+    /**
+     * Set the colour of the players in the touch zones
+     */
     private void setTouchZoneColour (TouchZone touchZone, int colour) {
         Paint innerCirclePaint = touchZone.getInnerCirclePaint();
         Paint outerCirclePaint = touchZone.getOuterCirclePaint();
