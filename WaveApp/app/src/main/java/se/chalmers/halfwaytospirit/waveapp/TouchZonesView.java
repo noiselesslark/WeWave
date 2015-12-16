@@ -99,8 +99,7 @@ public abstract class TouchZonesView extends View {
         outerCircleRadius = this.screenWidth/10f;
         innerCircleRadius = outerCircleRadius - 5f;
 
-        int refWidth = 480; // Width from reference phone for which the offset was initially calculated.
-        stadiumOffset = Math.round(screenWidth * 10 / refWidth);
+        stadiumOffset = Math.round(screenWidth / 48);
 
         touchZones = new HashMap<>();
 
@@ -230,8 +229,7 @@ public abstract class TouchZonesView extends View {
         innerCirclePaint.setColor(ContextCompat.getColor(getContext(), colour));
         outerCirclePaint.setColor(ContextCompat.getColor(getContext(), colour));
 
-        // TODO adapt the stroke to several screens?
-        innerCirclePaint.setStrokeWidth(5);
-        outerCirclePaint.setStrokeWidth(5);
+        innerCirclePaint.setStrokeWidth(Math.round(this.stadiumOffset/2));
+        outerCirclePaint.setStrokeWidth(Math.round(this.stadiumOffset/2));
     }
 }
