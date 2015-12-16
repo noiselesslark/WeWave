@@ -2,19 +2,18 @@ package se.chalmers.halfwaytospirit.waveapp;
 
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 /**
  * This class defines the TouchZone object, which retains data on zones on the app screen that
  * the user needs to touch within.
  */
 public class TouchZone {
-    // TODO make the size adaptable to several screen sizes
-    public static float INNER_CIRCLE_RADIUS = 90f;
-    public static float OUTER_CIRCLE_RADIUS = 100f;
-
     private boolean isTouched;
     private int x;
     private int y;
+
+    private int touchZoneRadius = 0;
 
     protected Paint innerCirclePaint;
     protected Paint outerCirclePaint;
@@ -24,9 +23,8 @@ public class TouchZone {
      * @param x - the x-coordinate on the view for the centre of the touch zone.
      * @param y - the y-coordinate on the view fr the centre of the touch zone.
      */
-    public TouchZone(int x, int y) {
-        OUTER_CIRCLE_RADIUS = TouchZonesView.width/10f;
-        INNER_CIRCLE_RADIUS = OUTER_CIRCLE_RADIUS - 5f;
+    public TouchZone(int x, int y, int touchZoneRadius) {
+        this.touchZoneRadius = touchZoneRadius;
 
         this.x = x;
         this.y = y;
@@ -83,7 +81,7 @@ public class TouchZone {
      * @return whether the point is within the touch zone.
      */
     public boolean isPointWithin(int xPt, int yPt) {
-        int radiusInt = Math.round(OUTER_CIRCLE_RADIUS);
+        int radiusInt = touchZoneRadius;
         int xMin = x - radiusInt;
         int xMax = x + radiusInt;
         int yMin = y - radiusInt;
