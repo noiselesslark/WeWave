@@ -3,24 +3,19 @@ package se.chalmers.halfwaytospirit.waveapp;
 import android.graphics.Color;
 
 /**
- * Created by Elise on 03/12/2015.
+ * This class defines the player object, keeping track of all properties to do with the player's
+ * game state.
  */
 public class Player {
-
-    /**
-     * Identifies whether the player joined the game at the beginning.
-     */
-    private boolean isPlaying = false;
-
     /**
      * Identifies whether player has been eliminated from the game.
      */
     private boolean isEliminated = false;
 
     /**
-     * Colour identifying the player
+     * The touch-zone that the player is associated with.
      */
-    private int playerColour = Color.BLACK;
+    private TouchZone touchZone;
 
     /**
      * Number of consecutive success in the wave
@@ -34,33 +29,9 @@ public class Player {
     private boolean isCurrentPlayer = false;
 
     /**
-     * Player identifier
+     * Constructor.
      */
-    private int id;
-
-    /**
-     * Constructor
-     */
-    public Player (int id) {
-        this.id = id;
-
-    }
-
-    /**
-     * Getter for boolean isPlaying.
-     * @return isPlaying;
-     */
-    public boolean isPlaying() {
-        return isPlaying;
-    }
-
-    /**
-     * Setter for boolean isPlaying.
-     * @param isPlaying
-     */
-    public void setIsPlaying(boolean isPlaying) {
-        this.isPlaying = isPlaying;
-    }
+    public Player () {}
 
     /**
      * Getter for boolean isEliminated.
@@ -79,18 +50,10 @@ public class Player {
     }
 
     /**
-     * Getter for boolean playerColour.
-     * @return isEliminated
+     * Sets the touch zone of the player.
+     * @param touchZone - the touch zone.
      */
-    public int getPlayerColour() {
-        return playerColour;
-    }
-
-    /**
-     * Setter for boolean isEliminated.
-     * @param playerColour
-     */
-    public void setPlayerColour(int playerColour) {
-        this.playerColour = playerColour;
+    public void setTouchZone(TouchZone touchZone) {
+        this.touchZone = touchZone;
     }
 }

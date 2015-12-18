@@ -2,19 +2,16 @@ package se.chalmers.halfwaytospirit.waveapp;
 
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
-import android.widget.Switch;
 
 /**
  * This class defines the TouchZone object, which retains data on zones on the app screen that
  * the user needs to touch within.
  */
 public class TouchZone extends Point{
+    private boolean isTouched = false;
+    private boolean isEnabled = true;
 
-    private boolean isTouched;
-    //TODO add a isDisabled parameter
-
-    private int touchZoneRadius = 0;
+    private int radius = 0;
 
     protected Paint innerCirclePaint;
     protected Paint outerCirclePaint;
@@ -23,20 +20,20 @@ public class TouchZone extends Point{
      * Constructor.
      * @param x - the x-coordinate on the view for the centre of the touch zone.
      * @param y - the y-coordinate on the view fr the centre of the touch zone.
-     * @param touchZoneRadius - the radius of the outer circle.
+     * @param radius - the radius of the outer circle.
      */
-    public TouchZone(int x, int y, int touchZoneRadius) {
+    public TouchZone(int x, int y, int radius, int colour, int strokeWidth) {
         super(x, y);
-        this.touchZoneRadius = touchZoneRadius;
+        this.radius = radius;
 
         innerCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        innerCirclePaint.setColor(Color.BLACK);
+        innerCirclePaint.setColor(colour);
         innerCirclePaint.setStrokeWidth(1);
         innerCirclePaint.setStyle(Paint.Style.FILL);
 
         outerCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        outerCirclePaint.setColor(Color.BLACK);
-        outerCirclePaint.setStrokeWidth(1);
+        outerCirclePaint.setColor(colour);
+        outerCirclePaint.setStrokeWidth(strokeWidth);
         outerCirclePaint.setStyle(Paint.Style.STROKE);
     }
 
@@ -64,7 +61,7 @@ public class TouchZone extends Point{
      * @return whether the point is within the touch zone.
      */
     public boolean isPointWithin(int xPt, int yPt) {
-        int radiusInt = touchZoneRadius;
+        int radiusInt = radius;
         long xMin = getX() - radiusInt;
         long xMax = getX() + radiusInt;
         long yMin = getY() - radiusInt;
@@ -83,7 +80,6 @@ public class TouchZone extends Point{
     /**
      * Get the paint of the inner circle, i.e. the circle specifying the zone is being touched.
      *
-     * TODO: Make this settable from the outside somehow.
      * @return the inner circle paint.
      */
     public Paint getInnerCirclePaint(){
@@ -91,12 +87,31 @@ public class TouchZone extends Point{
     }
 
     /**
-     * Get the paint of the outer circle, i.e. the circle specifying the boundary of the point. 
-     * @return
+     * Get the paint of the outer circle, i.e. the circle specifying the boundary of the point.
+     *
+     * @return the paint of the outerCircle.
      */
     public Paint getOuterCirclePaint() {
         return outerCirclePaint;
     }
 
-    // TODO: add icons to top of button.
+    /**
+     * Gets whether this touch zone is enabled.
+     * @return whether it is enabled (true) or not (false).
+     */
+    public boolean isEnabled(){
+        return this.isEnabled;
+    }
+
+    /**
+     * Sets whether the touch zone is enabled or not.
+     * @param isEnabled - the bool indicating whether it is enabled or not.
+     * @param colour - the colour to set the touchZone to.
+     */
+    public void setEnabled(boolean isEnabled, int colour) {
+        this.isEnabled = isEnabled;
+
+        innerCirclePaint.setColor(colour);
+        outerCirclePaint.setColor(colour);
+    }
 }

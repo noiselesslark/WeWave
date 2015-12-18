@@ -2,16 +2,15 @@ package se.chalmers.halfwaytospirit.waveapp;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
- * This class is an extension of the view that handles the zoness within which users can touch.
+ * This class is an extension of the view that handles the zones within which users can touch.
  * as well as detecting multi-touch events.
  */
 public abstract class TouchZonesView extends View {
@@ -23,7 +22,7 @@ public abstract class TouchZonesView extends View {
     private int stadiumOffset = 0;
 
     protected final int MAX_NUMBER_OF_PLAYERS = 6;
-    private HashMap<String, TouchZone> touchZones;
+    private ArrayList<TouchZone> touchZones;
 
     /**
      * Constructor.
@@ -99,7 +98,7 @@ public abstract class TouchZonesView extends View {
 
         stadiumOffset = Math.round(screenWidth / 48);
 
-        touchZones = new HashMap<>();
+        touchZones = new ArrayList<>();
 
         defineTouchZones();
     }
@@ -121,11 +120,10 @@ public abstract class TouchZonesView extends View {
      */
     @Override
     protected void onDraw(Canvas canvas){
-        for(int i = 1; i <= MAX_NUMBER_OF_PLAYERS; i++){
-            TouchZone tp = touchZones.get("Player" + i);
+        for(TouchZone tp : touchZones){
 
             canvas.drawCircle(tp.getX(), tp.getY(), outerCircleRadius, tp.getOuterCirclePaint());
-            if(tp.isTouched()){
+            if(tp.isTouched() && tp.isEnabled()){
                 canvas.drawCircle(tp.getX(), tp.getY(), innerCircleRadius, tp.getInnerCirclePaint());
             }
         }
@@ -166,7 +164,7 @@ public abstract class TouchZonesView extends View {
      * @param action - the action of the event.
      */
     protected void handleTouchEvent(int x, int y, int action) {
-        for(TouchZone zone : touchZones.values()){
+        for(TouchZone zone : touchZones){
             // TODO add a || !zone.isDisabled
             if(zone.isPointWithin(x, y)){
                 if(action == MotionEvent.ACTION_POINTER_DOWN || action == MotionEvent.ACTION_DOWN){
@@ -182,7 +180,7 @@ public abstract class TouchZonesView extends View {
      * Getter of the Touch Zones
      * @return the touch zones list
      */
-    public HashMap getTouchZones() {
+    public ArrayList<TouchZone> getTouchZones() {
         return this.touchZones;
     }
 
@@ -192,51 +190,47 @@ public abstract class TouchZonesView extends View {
      * Defines where on the canvas the touch zones should be drawn.
      */
     private void defineTouchZones() {
-        int integerOuterCircleRadius = this.getCircleRadiusInt();
+        int tzRadius = this.getCircleRadiusInt();
         
-        int xLeft = integerOuterCircleRadius + this.stadiumOffset;
+        int xLeft = tzRadius + this.stadiumOffset;
         int xCentre = Math.round(this.screenWidth/2);
-        int xRight = this.screenWidth - integerOuterCircleRadius - this.stadiumOffset;
+        int xRight = this.screenWidth - tzRadius - this.stadiumOffset;
 
-        int yTop = integerOuterCircleRadius + this.stadiumOffset;
+        int yTop = tzRadius + this.stadiumOffset;
         int yHigh =  Math.round(this.screenHeight/3);
         int yLow = Math.round(2*this.screenHeight/3);
-        int yDown = this.screenHeight - integerOuterCircleRadius - this.stadiumOffset;
+        int yDown = this.screenHeight - tzRadius - this.stadiumOffset;
 
-        TouchZone topTouchZone = new TouchZone(xCentre, yTop, integerOuterCircleRadius);
-        TouchZone leftHighTouchZone = new TouchZone(xLeft, yHigh, integerOuterCircleRadius);
-        TouchZone leftLowTouchZone = new TouchZone(xLeft, yLow, integerOuterCircleRadius);
-        TouchZone rightHighTouchZone = new TouchZone(xRight, yHigh, integerOuterCircleRadius);
-        TouchZone rightLowTouchZone = new TouchZone(xRight, yLow, integerOuterCircleRadius);
-        TouchZone downTouchZone = new TouchZone(xCentre, yDown, integerOuterCircleRadius);
+        int strokeWidth = this.stadiumOffset/2;
 
-        setTouchZoneColour (topTouchZone, R.color.colorPink);
-        setTouchZoneColour (leftHighTouchZone, R.color.colorYellow);
-        setTouchZoneColour (leftLowTouchZone, R.color.colorGreen);
-        setTouchZoneColour (rightHighTouchZone, R.color.colorPurple);
-        setTouchZoneColour (rightLowTouchZone, R.color.colorTurquoise);
-        setTouchZoneColour (downTouchZone, R.color.colorBlue);
+        TouchZone topTouchZone = new TouchZone(xCentre, yTop, tzRadius,
+                getColour(R.color.colorPink), strokeWidth);
+        TouchZone leftHighTouchZone = new TouchZone(xLeft, yHigh, tzRadius,
+                getColour(R.color.colorYellow), strokeWidth);
+        TouchZone leftLowTouchZone = new TouchZone(xLeft, yLow, tzRadius,
+                getColour(R.color.colorGreen), strokeWidth);
+        TouchZone rightHighTouchZone = new TouchZone(xRight, yHigh, tzRadius,
+                getColour(R.color.colorPurple), strokeWidth);
+        TouchZone rightLowTouchZone = new TouchZone(xRight, yLow, tzRadius,
+                getColour(R.color.colorTurquoise), strokeWidth);
+        TouchZone downTouchZone = new TouchZone(xCentre, yDown, tzRadius,
+                getColour(R.color.colorBlue), strokeWidth);
 
-        touchZones.put(GameManager.PLAYER_1, topTouchZone);
-        touchZones.put(GameManager.PLAYER_2, leftHighTouchZone);
-        touchZones.put(GameManager.PLAYER_3, leftLowTouchZone);
-        touchZones.put(GameManager.PLAYER_4, rightHighTouchZone);
-        touchZones.put(GameManager.PLAYER_5, rightLowTouchZone);
-        touchZones.put(GameManager.PLAYER_6, downTouchZone);
+        touchZones.add(topTouchZone);
+        touchZones.add(leftHighTouchZone);
+        touchZones.add(leftLowTouchZone);
+        touchZones.add(rightHighTouchZone);
+        touchZones.add(rightLowTouchZone);
+        touchZones.add(downTouchZone);
     }
 
     /**
-     * Set the colour of the players in the touch zones
+     * Gets the colour from resources.
+     * @param color - the colour id.
+     * @return the colour resource.
      */
-    public void setTouchZoneColour (TouchZone touchZone, int colour) {
-        //TODO colour will be a Player's parameter
-        Paint innerCirclePaint = touchZone.getInnerCirclePaint();
-        Paint outerCirclePaint = touchZone.getOuterCirclePaint();
-
-        innerCirclePaint.setColor(ContextCompat.getColor(getContext(), colour));
-        outerCirclePaint.setColor(ContextCompat.getColor(getContext(), colour));
-
-        innerCirclePaint.setStrokeWidth(Math.round(this.stadiumOffset/2));
-        outerCirclePaint.setStrokeWidth(Math.round(this.stadiumOffset/2));
+    public int getColour(int color) {
+        return ContextCompat.getColor(getContext(), color);
     }
+
 }
