@@ -39,7 +39,7 @@ public class MainGameActivity extends AppCompatActivity {
     /**
      * Starts the timer before the actual game
      */
-    public void startTimer() {
+    private void startTimer() {
         new CountDownTimer(6000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -47,10 +47,14 @@ public class MainGameActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
-                ((TextView) findViewById(R.id.countdownArea)).setText("Let's" + System.getProperty("line.separator") + "WeWave!");
+                ((TextView) findViewById(R.id.countdownArea)).setText(
+                        R.string.countdownLetsText + System.getProperty("line.separator") +
+                                R.string.countdownWeWaveText);
 
                 findViewById(R.id.countdownBackground).postDelayed(new Runnable() {
                     public void run() {
+                        // TODO [EK]: We should probably only be starting the game once we've made
+                        // TODO [EK]: sure there is somebody playing.
                         startGame();
                     }
                 }, 1000);
@@ -59,11 +63,9 @@ public class MainGameActivity extends AppCompatActivity {
     }
 
     /**
-     * Start the game
-     * Checking the number of player on play
-     * Starting the wave animation
+     * Initialises and starts the game.
      */
-    public void startGame() {
+    private void startGame() {
         findViewById(R.id.countdownBackground).setVisibility(View.INVISIBLE);
 
         StadiumView stadium = (StadiumView) findViewById(R.id.stadium_view);
@@ -97,7 +99,7 @@ public class MainGameActivity extends AppCompatActivity {
             players.remove(eliminatedPlayer);
         }
 
-        // Starts the animation
+        // Starts the circular animation of the path.
         StadiumPathAnimation pathAnimation = new StadiumPathAnimation(stadium, 360);
         stadium.startAnimation(pathAnimation);
     }

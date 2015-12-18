@@ -65,10 +65,10 @@ public class TouchZone extends Point{
      */
     public boolean isPointWithin(int xPt, int yPt) {
         int radiusInt = touchZoneRadius;
-        int xMin = getX() - radiusInt;
-        int xMax = getX() + radiusInt;
-        int yMin = getY() - radiusInt;
-        int yMax = getY() + radiusInt;
+        long xMin = getX() - radiusInt;
+        long xMax = getX() + radiusInt;
+        long yMin = getY() - radiusInt;
+        long yMax = getY() + radiusInt;
 
         if(xPt> xMin
                 && xPt < xMax
