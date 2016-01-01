@@ -13,7 +13,7 @@ public class StadiumView extends TouchZonesView {
     private Paint pathPaint;
     private Paint pointPaint;
 
-    private Point wavePosition;
+    private ShapeDefinition wavePosition;
     private StadiumShape stadium;
 
     private float sweepAngle;
@@ -54,12 +54,12 @@ public class StadiumView extends TouchZonesView {
 
         long centerX = getScreenWidth()/2;
         long centerY = getScreenHeight()/2;
-        long stadiumRadius = centerX - getStadiumOffset() - getCircleRadiusInt();
-        int topY = getScreenHeight()/3 - getCircleRadiusInt();
-        int bottomY = 2*getScreenHeight()/3 + getCircleRadiusInt();
+        long stadiumRadius = centerX - getStadiumOffset() - Math.round(getTouchZoneRadius());
+        int topY = getScreenHeight()/3 - Math.round(getTouchZoneRadius());
+        int bottomY = 2*getScreenHeight()/3 + Math.round(getTouchZoneRadius());
 
         this.stadium = new StadiumShape(centerX, centerY, topY, bottomY, stadiumRadius);
-        this.wavePosition = new Point(centerX + stadiumRadius, centerY);
+        this.wavePosition = new ShapeDefinition(centerX + stadiumRadius, centerY);
 
         final int strokeWidth = getStadiumOffset()*2;
 
@@ -91,7 +91,7 @@ public class StadiumView extends TouchZonesView {
         canvas.drawLine(stadium.getXRight(), stadium.getYTop(),
                 stadium.getXRight(), stadium.getYBottom(), pathPaint);
 
-        canvas.drawCircle(wavePosition.getX(), wavePosition.getY(), pointRadius, pointPaint);
+        canvas.drawCircle(wavePosition.getCenterX(), wavePosition.getCenterY(), pointRadius, pointPaint);
 
         super.onDraw(canvas);
     }
@@ -100,7 +100,7 @@ public class StadiumView extends TouchZonesView {
         return this.stadium;
     }
 
-    public void setWavePosition(Point wavePosition) {
+    public void setWavePosition(ShapeDefinition wavePosition) {
         this.wavePosition = wavePosition;
     }
 

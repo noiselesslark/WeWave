@@ -72,8 +72,8 @@ public class StadiumPathAnimation extends Animation {
 
         StadiumShape stadium = stadiumView.getStadium();
         long radius = stadium.getRadius();
-        long centerX = stadium.getX();
-        long centerY = stadium.getY();
+        long centerX = stadium.getCenterX();
+        long centerY = stadium.getCenterY();
 
         double xPos = 0;
         double yPos = 0;
@@ -81,8 +81,8 @@ public class StadiumPathAnimation extends Animation {
 
         if(sweepAngle >= SECTOR_BOUNDARIES[0]  && sweepAngle <= SECTOR_BOUNDARIES[1]) {
             angle = Math.toRadians(sweepAngle);
-            xPos = stadium.getX() + radius;
-            yPos = stadium.getY() + Math.tan(angle) * radius;
+            xPos = stadium.getCenterX() + radius;
+            yPos = stadium.getCenterY() + Math.tan(angle) * radius;
 
         } else if (sweepAngle > SECTOR_BOUNDARIES[1]  && sweepAngle <= SECTOR_BOUNDARIES[2]) {
             // Bottom semicircle.
@@ -112,7 +112,7 @@ public class StadiumPathAnimation extends Animation {
             yPos = centerY - Math.tan(angle) * radius;
         }
 
-        stadiumView.setWavePosition(new Point(Math.round(xPos), Math.round(yPos)));
+        stadiumView.setWavePosition(new ShapeDefinition(Math.round(xPos), Math.round(yPos)));
         stadiumView.setSweepAngle(sweepAngle);
 
         stadiumView.requestLayout();

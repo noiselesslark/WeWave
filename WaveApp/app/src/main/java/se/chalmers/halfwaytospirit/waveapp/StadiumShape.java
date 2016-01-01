@@ -6,7 +6,7 @@ import android.graphics.RectF;
  * This class defines the shape of a stadium in 2D co-ordinates, as defined by a rectangle with an
  * adjoining semi-circle on each end, aligned vertically.
  */
-public class StadiumShape extends Point {
+public class StadiumShape extends ShapeDefinition {
     private long yTop;
     private long yBottom;
     private long radius;
@@ -56,7 +56,7 @@ public class StadiumShape extends Point {
      * @return the co-ordinate.
      */
     public long getXLeft() {
-        return this.getX() - radius;
+        return this.getCenterX() - radius;
     }
 
     /**
@@ -64,7 +64,7 @@ public class StadiumShape extends Point {
      * @return the co-ordinate.
      */
     public long getXRight(){
-        return this.getX() + radius;
+        return this.getCenterX() + radius;
     }
 
     /**
@@ -90,8 +90,8 @@ public class StadiumShape extends Point {
      * @return a rectangle.
      */
     private RectF getCircle(long y) {
-        long left = this.getX() - radius;
-        long right = this.getX() + radius;
+        long left = this.getCenterX() - radius;
+        long right = this.getCenterX() + radius;
         long top = y - radius;
         long bottom = y + radius;
 
