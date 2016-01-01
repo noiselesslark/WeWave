@@ -1,17 +1,17 @@
 package se.chalmers.halfwaytospirit.waveapp;
 
-import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 
 /**
  * This class defines the TouchZone object, which retains data on zones on the app screen that
  * the user needs to touch within.
  */
-public class TouchZone extends Point{
+public class TouchZone extends ShapeDefinition {
     private boolean isTouched = false;
     private boolean isEnabled = true;
 
-    private int radius = 0;
+    private float radius = 0;
 
     protected Paint innerCirclePaint;
     protected Paint outerCirclePaint;
@@ -22,7 +22,7 @@ public class TouchZone extends Point{
      * @param y - the y-coordinate on the view fr the centre of the touch zone.
      * @param radius - the radius of the outer circle.
      */
-    public TouchZone(int x, int y, int radius, int colour, int strokeWidth) {
+    public TouchZone(int x, int y, float radius, int colour, int strokeWidth) {
         super(x, y);
         this.radius = radius;
 
@@ -61,20 +61,16 @@ public class TouchZone extends Point{
      * @return whether the point is within the touch zone.
      */
     public boolean isPointWithin(int xPt, int yPt) {
-        int radiusInt = radius;
-        long xMin = getX() - radiusInt;
-        long xMax = getX() + radiusInt;
-        long yMin = getY() - radiusInt;
-        long yMax = getY() + radiusInt;
+        int radiusInt = Math.round(radius);
 
-        if(xPt> xMin
-                && xPt < xMax
-                && yPt > yMin
-                && yPt < yMax){
-            return true;
-        }
+        int left = (int)getCenterX() - radiusInt;
+        int right = (int)getCenterX() + radiusInt;
+        int top = (int)getCenterY() - radiusInt;
+        int bottom = (int)getCenterY() + radiusInt;
 
-        return false;
+        Rect bounds = new Rect(left, top, right, bottom);
+
+        return bounds.contains(xPt, yPt);
     }
 
     /**
