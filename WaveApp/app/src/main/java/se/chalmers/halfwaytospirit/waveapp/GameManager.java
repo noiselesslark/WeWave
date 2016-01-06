@@ -8,13 +8,7 @@ import java.util.ArrayList;
 public class GameManager {
     private ArrayList<Player> players = new ArrayList<>();
 
-    public static String PLAYER_TEXT = "Player";
-    public static String PLAYER_TOP = PLAYER_TEXT + "1";
-    public static String PLAYER_LEFT_HIGH = PLAYER_TEXT + "2";
-    public static String PLAYER_LEFT_LOW = PLAYER_TEXT + "3";
-    public static String PLAYER_RIGHT_HIGH = PLAYER_TEXT + "4";
-    public static String PLAYER_RIGHT_LOW = PLAYER_TEXT + "5";
-    public static String PLAYER_BOTTOM = PLAYER_TEXT + "6";
+    private boolean isRunning = false;
 
     /**
      * Constructor.
@@ -29,5 +23,13 @@ public class GameManager {
      */
     public ArrayList<Player> getPlayers() {
         return this.players;
+    }
+
+    public boolean gameIsRunning() {
+        return isRunning;
+    }
+
+    public void setGameIsRunning(boolean isRunning) {
+        this.isRunning = isRunning;
     }
 }

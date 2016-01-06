@@ -2,6 +2,7 @@ package se.chalmers.halfwaytospirit.waveapp;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -18,11 +19,9 @@ public abstract class TouchZonesView extends View {
     private int screenHeight = 0;
 
     private float innerTouchZoneRadius;
-
     private float outerTouchZoneRadius;
-    private int stadiumOffset = 0;
 
-    protected final int MAX_NUMBER_OF_PLAYERS = 6;
+    private int stadiumOffset = 0;
     private ArrayList<TouchZone> touchZones;
 
     /**
@@ -121,11 +120,16 @@ public abstract class TouchZonesView extends View {
      */
     @Override
     protected void onDraw(Canvas canvas){
-        for(TouchZone tz : touchZones){
+        for(TouchZone zone : touchZones){
+            Paint innerPaint = zone.getInnerPaint();
+            Paint outerPaint = zone.getOuterPaint();
 
-            canvas.drawCircle(tz.getCenterX(), tz.getCenterY(), outerTouchZoneRadius, tz.getOuterCirclePaint());
-            if(tz.isTouched() && tz.isEnabled()){
-                canvas.drawCircle(tz.getCenterX(), tz.getCenterY(), innerTouchZoneRadius, tz.getInnerCirclePaint());
+            if(outerPaint != null) {
+                canvas.drawCircle(zone.getCenterX(), zone.getCenterY(), outerTouchZoneRadius, zone.getOuterPaint());
+            }
+
+            if(innerPaint != null && zone.isTouched()) {
+                canvas.drawCircle(zone.getCenterX(), zone.getCenterY(), innerTouchZoneRadius, zone.getInnerPaint());
             }
         }
     }
@@ -145,17 +149,19 @@ public abstract class TouchZonesView extends View {
         for (int i = 0; i < pointCount; i++){
             int lastX = (int) event.getX(i);
             int lastY = (int) event.getY(i);
-            TouchZone lastZone = getTouchedZone(lastX, lastY);
+            TouchZone lastZone = getZoneAt(lastX, lastY);
 
             // Handling for move events.
             if(event.getHistorySize() > 0) {
                 int firstX = (int) event.getHistoricalX(i, 0);
                 int firstY = (int) event.getHistoricalY(i, 0);
-                TouchZone firstZone = getTouchedZone(firstX, firstY);
+                TouchZone firstZone = getZoneAt(firstX, firstY);
 
                 // If movement was not within a zone.
                 if (firstZone != lastZone && firstZone != null) {
                     firstZone.setTouched(false);
+
+                    this.checkZoneActive(firstZone);
                 }
             }
 
@@ -164,6 +170,8 @@ public abstract class TouchZonesView extends View {
                     lastZone.setTouched(true);
                 } else if (action == MotionEvent.ACTION_POINTER_UP || action == MotionEvent.ACTION_UP) {
                     lastZone.setTouched(false);
+
+                    this.checkZoneActive(lastZone);
                 }
             }
         }
@@ -173,14 +181,13 @@ public abstract class TouchZonesView extends View {
     }
 
     /**
-     * Handles touch events logic.
+     * Gets the zone that the specified point is within.
      *
      * @param x - the x position of the touch event.
      * @param y - the y position of the touch event.
      */
-    protected TouchZone getTouchedZone(int x, int y) {
+    protected TouchZone getZoneAt(int x, int y) {
         for(TouchZone zone : touchZones){
-            // TODO add a || !zone.isDisabled
             if(zone.isPointWithin(x, y)){
                 return zone;
             }
@@ -190,7 +197,7 @@ public abstract class TouchZonesView extends View {
     }
 
     /**
-     * Getter of the Touch Zones
+     * Gets the touch zones list.
      * @return the touch zones list
      */
     public ArrayList<TouchZone> getTouchZones() {
@@ -245,5 +252,8 @@ public abstract class TouchZonesView extends View {
     public int getColour(int color) {
         return ContextCompat.getColor(getContext(), color);
     }
+
+    public abstract void checkTouchZoneState(TouchZone currentZone);
+    public abstract void checkZoneActive(TouchZone zone);
 
 }

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/stadium_nobutton_2048"
     tools:context="se.chalmers.halfwaytospirit.waveapp.MainGameActivity">
-    <se.chalmers.halfwaytospirit.waveapp.StadiumView
+    <se.chalmers.halfwaytospirit.waveapp.GameView
         android:id="@+id/stadium_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

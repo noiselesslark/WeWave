@@ -13,6 +13,14 @@ public class MainGameActivity extends AppCompatActivity {
     private GameManager gameManager;
 
     /**
+     * Gets the game manager.
+     * @return the game manager.
+     */
+    public GameManager getGameManager() {
+        return gameManager;
+    }
+
+    /**
      * Called when the activity is created.
      * @param savedInstanceState - the saved instance state.
      */
@@ -47,8 +55,6 @@ public class MainGameActivity extends AppCompatActivity {
 
                 findViewById(R.id.countdownBackground).postDelayed(new Runnable() {
                     public void run() {
-                        // TODO [EK]: We should probably only be starting the game once we've made
-                        // TODO [EK]: sure there is somebody playing.
                         startGame();
                     }
                 }, 1000);
@@ -61,27 +67,35 @@ public class MainGameActivity extends AppCompatActivity {
      */
     private void startGame() {
 
-        StadiumView gameView = (StadiumView) findViewById(R.id.stadium_view);
+        GameView gameView = (GameView) findViewById(R.id.stadium_view);
+        gameView.setPlayerLostListener(new IOnPlayerLostListener() {
+            @Override
+            public void onPlayerLost(Player player) {
+                gameManager.getPlayers().remove(player);
+            }
+        });
 
-        for (TouchZone tz : gameView.getTouchZones()) {
-
-            if (tz.isTouched()) {
+        for (TouchZone zone : gameView.getTouchZones()) {
+            if (zone.isTouched()) {
                 Player player = new Player();
-                player.setTouchZone(tz);
+
+                zone.setPlayer(player);
 
                 gameManager.getPlayers().add(player);
 
             } else {
-                // Change the color to the eliminated one.
-                tz.setEnabled(false, gameView.getColour(R.color.colorGrey));
+                zone.setEnabled(false);
             }
         }
 
-        // Hide the countdown.
-        findViewById(R.id.countdownBackground).setVisibility(View.INVISIBLE);
+        if(gameManager.getPlayers().size() > 1) {
+            // Hide the countdown.
+            findViewById(R.id.countdownBackground).setVisibility(View.INVISIBLE);
 
-        // Starts the circular animation of the path.
-        StadiumPathAnimation pathAnimation = new StadiumPathAnimation(gameView, 360);
-        gameView.startAnimation(pathAnimation);
+            gameManager.setGameIsRunning(true);
+            // Starts the circular animation of the path.
+            StadiumPathAnimation pathAnimation = new StadiumPathAnimation(gameView, 360);
+            gameView.startAnimation(pathAnimation);
+        }
     }
 }

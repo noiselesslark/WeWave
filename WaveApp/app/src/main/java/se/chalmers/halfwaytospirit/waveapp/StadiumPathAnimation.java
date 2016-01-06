@@ -14,7 +14,7 @@ public class StadiumPathAnimation extends Animation {
     private static final int THREE_QUARTERS = 270;
     private static final int FULL = 360;
 
-    private StadiumView stadiumView;
+    private WaveView stadiumView;
     private float oldAngle;
     private float newAngle;
 
@@ -23,7 +23,7 @@ public class StadiumPathAnimation extends Animation {
      * @param stadiumView - the stadiumView view to animate.
      * @param newAngle - the final angle to reach.
      */
-    public StadiumPathAnimation(StadiumView stadiumView, int newAngle) {
+    public StadiumPathAnimation(WaveView stadiumView, int newAngle) {
         this.oldAngle = stadiumView.getSweepAngle();
         this.newAngle = newAngle;
         this.stadiumView = stadiumView;
