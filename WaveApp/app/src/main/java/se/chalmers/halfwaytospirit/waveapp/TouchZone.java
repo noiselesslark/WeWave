@@ -120,6 +120,10 @@ public class TouchZone extends ShapeDefinition {
         return this.defaultOuterPaint;
     }
 
+    /**
+     * Gets whether the touch zone is enabled or not.
+     * @return isEnabled.
+     */
     public boolean isEnabled() {
         return isEnabled;
     }

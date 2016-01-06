@@ -253,7 +253,16 @@ public abstract class TouchZonesView extends View {
         return ContextCompat.getColor(getContext(), color);
     }
 
-    public abstract void checkTouchZoneState(TouchZone currentZone);
+    /**
+     * Processes the touch zone state - whether the wave is entering or leaving.
+     * @param currentZone - the currentZone.
+     */
+    public abstract void processTouchZoneState(TouchZone currentZone);
+
+    /**
+     * Checks whether the zone is active.
+     * @param zone - the zone. 
+     */
     public abstract void checkZoneActive(TouchZone zone);
 
 }

@@ -114,7 +114,7 @@ public abstract class WaveView extends TouchZonesView {
         TouchZone currentZone = getZoneAt((int)wavePosition.getCenterX(), (int)wavePosition.getCenterY());
 
         if(currentZone!= null && currentZone.isEnabled() && !currentZone.isEliminated()) {
-            this.checkTouchZoneState(currentZone);
+            this.processTouchZoneState(currentZone);
         }
     }
 

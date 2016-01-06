@@ -41,6 +41,9 @@ public class GameView extends WaveView {
         super(context);
     }
 
+    /**
+     * Initialises the view.
+     */
     @Override
     public void initView() {
         super.initView();
@@ -89,7 +92,7 @@ public class GameView extends WaveView {
      * @param currentZone - the zone to check state of.
      */
     @Override
-    public void checkTouchZoneState(TouchZone currentZone){
+    public void processTouchZoneState(TouchZone currentZone){
         if (this.activeTouchZone == null && currentZone != null) {
             this.onTouchZoneEnter(currentZone);
         } else if (this.activeTouchZone != null && currentZone == null) {
