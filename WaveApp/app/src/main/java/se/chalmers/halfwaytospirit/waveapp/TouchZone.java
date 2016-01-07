@@ -22,6 +22,8 @@ public class TouchZone extends ShapeDefinition {
     private Paint eliminatedOuterPaint;
 
     private Player player;
+    private int colourName;
+    private AvatarView avatar;
 
     /**
      * Constructor.
@@ -29,9 +31,10 @@ public class TouchZone extends ShapeDefinition {
      * @param y - the y-coordinate on the view fr the centre of the touch zone.
      * @param radius - the radius of the outer circle.
      */
-    public TouchZone(int x, int y, float radius, int colour, int strokeWidth) {
+    public TouchZone(int x, int y, float radius, int colour, int colourName, int strokeWidth) {
         super(x, y);
         this.radius = radius;
+        this.colourName = colourName;
 
         defaultInnerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         defaultInnerPaint.setColor(colour);
@@ -177,5 +180,37 @@ public class TouchZone extends ShapeDefinition {
      */
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    /**
+     * Gets the name of the colour.
+     * @return the name of the colour.
+     */
+    public int getColourName() {
+        return colourName;
+    }
+
+    /**
+     * Gets the radius.
+     * @return the radius.
+     */
+    public float getRadius() {
+        return radius;
+    }
+
+    /**
+     * Gets the avatar.
+     * @return the avatar.
+     */
+    public AvatarView getAvatar() {
+        return avatar;
+    }
+
+    /**
+     * Sets the avatar.
+     * @param avatar - the avatar view.
+     */
+    public void setAvatar(AvatarView avatar) {
+        this.avatar = avatar;
     }
 }

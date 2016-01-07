@@ -7,7 +7,7 @@ import android.view.animation.Transformation;
 /**
  * This class animates a circle moving around the stadiumView, following the path of the stadium.
  */
-public class StadiumPathAnimation extends Animation {
+public class WaveAnimation extends Animation {
     private static final int[] SECTOR_BOUNDARIES = {0, 45, 135, 180, 225, 315};
     private static final int QUARTER = 90;
     private static final int HALF = 180;
@@ -23,7 +23,7 @@ public class StadiumPathAnimation extends Animation {
      * @param stadiumView - the stadiumView view to animate.
      * @param newAngle - the final angle to reach.
      */
-    public StadiumPathAnimation(WaveView stadiumView, int newAngle) {
+    public WaveAnimation(WaveView stadiumView, int newAngle) {
         this.oldAngle = stadiumView.getSweepAngle();
         this.newAngle = newAngle;
         this.stadiumView = stadiumView;

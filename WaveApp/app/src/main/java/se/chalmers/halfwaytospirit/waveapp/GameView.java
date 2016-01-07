@@ -48,7 +48,7 @@ public class GameView extends WaveView {
     public void initView() {
         super.initView();
 
-        this.manager = ((MainGameActivity)getContext()).getGameManager();
+        this.manager = ((MainGameActivity) getContext()).getGameManager();
     }
 
     /**
@@ -69,6 +69,7 @@ public class GameView extends WaveView {
         }
 
         zone.setEliminated(true);
+        zone.setPlayer(null);
     }
 
     /**
@@ -78,7 +79,7 @@ public class GameView extends WaveView {
     @Override
     public void checkZoneActive(TouchZone zone) {
 
-        if(manager.gameIsRunning()) {
+        if(manager.isGameRunning()) {
             if (zone != this.activeTouchZone) {
                 this.onPlayerLost(zone);
             } else {

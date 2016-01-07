@@ -59,7 +59,7 @@ public abstract class WaveView extends TouchZonesView {
         int bottomY = 2*getScreenHeight()/3 + Math.round(getTouchZoneRadius());
 
         this.stadium = new StadiumShape(centerX, centerY, topY, bottomY, stadiumRadius);
-        this.wavePosition = new ShapeDefinition(centerX + stadiumRadius, centerY);
+        this.wavePosition = new ShapeDefinition(centerX, bottomY + stadiumRadius);
 
         final int strokeWidth = getStadiumOffset()*2;
 
@@ -85,7 +85,7 @@ public abstract class WaveView extends TouchZonesView {
         int pointRadius = getStadiumOffset();
 
         canvas.drawArc(stadium.getTopSemiCircle(), 180, 180, false, pathPaint);
-        canvas.drawArc(stadium.getBottomSemiCircle(), 0, 180, false,pathPaint);
+        canvas.drawArc(stadium.getBottomSemiCircle(), 0, 180, false, pathPaint);
         canvas.drawLine(stadium.getXLeft(), stadium.getYTop(),
                 stadium.getXLeft(), stadium.getYBottom(), pathPaint);
         canvas.drawLine(stadium.getXRight(), stadium.getYTop(),

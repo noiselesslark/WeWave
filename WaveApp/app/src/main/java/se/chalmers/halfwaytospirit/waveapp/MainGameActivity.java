@@ -1,16 +1,26 @@
 package se.chalmers.halfwaytospirit.waveapp;
 
+import android.graphics.Matrix;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MainGameActivity extends AppCompatActivity {
 
     private GameManager gameManager;
+    private TextView countDownArea;
+    private TextView playerLostArea;
+    private GameView gameView;
 
     /**
      * Gets the game manager.
@@ -35,6 +45,17 @@ public class MainGameActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main_game);
 
+        Typeface pixelFont = Typeface.createFromAsset(getAssets(), "fonts/motorola.ttf");
+        countDownArea = ((TextView) findViewById(R.id.countdownArea));
+        playerLostArea = ((TextView) findViewById(R.id.playerLostText));
+        countDownArea.setTypeface(pixelFont);
+        playerLostArea.setTypeface(pixelFont);
+        gameView = (GameView) findViewById(R.id.stadium_view);
+
+        for(TouchZone zone: gameView.getTouchZones()) {
+            drawAvatar(zone);
+        }
+
         startTimer();
     }
 
@@ -43,18 +64,18 @@ public class MainGameActivity extends AppCompatActivity {
      */
     private void startTimer() {
         new CountDownTimer(6000, 1000) {
-
             public void onTick(long millisUntilFinished) {
-                ((TextView)findViewById(R.id.countdownArea)).setText("" + millisUntilFinished / 1000);
+                countDownArea.setText("" + millisUntilFinished/1000);
+
             }
 
             public void onFinish() {
-                ((TextView) findViewById(R.id.countdownArea)).setText(
-                        getString(R.string.countdownLetsText)+ System.getProperty("line.separator") +
-                                getString(R.string.countdownWeWaveText));
-
                 findViewById(R.id.countdownBackground).postDelayed(new Runnable() {
                     public void run() {
+               countDownArea.setText(
+                        getString(R.string.countdownLetsText)+ System.getProperty("line.separator") +
+                                getString(R.string.weWaveText));
+
                         startGame();
                     }
                 }, 1000);
@@ -71,31 +92,88 @@ public class MainGameActivity extends AppCompatActivity {
         gameView.setPlayerLostListener(new IOnPlayerLostListener() {
             @Override
             public void onPlayerLost(Player player) {
-                gameManager.getPlayers().remove(player);
+                gameManager.eliminatePlayer(player);
             }
         });
 
         for (TouchZone zone : gameView.getTouchZones()) {
             if (zone.isTouched()) {
-                Player player = new Player();
-
+                Player player = new Player(zone.getColourName());
                 zone.setPlayer(player);
 
-                gameManager.getPlayers().add(player);
+                gameManager.getActivePlayers().add(player);
 
             } else {
                 zone.setEnabled(false);
             }
         }
 
-        if(gameManager.getPlayers().size() > 1) {
+        if(gameManager.getActivePlayers().size() > 1) {
             // Hide the countdown.
             findViewById(R.id.countdownBackground).setVisibility(View.INVISIBLE);
 
-            gameManager.setGameIsRunning(true);
-            // Starts the circular animation of the path.
-            StadiumPathAnimation pathAnimation = new StadiumPathAnimation(gameView, 360);
+            gameManager.setGameRunning(true);
+
+            // Starts the animation of the path.
+            WaveAnimation pathAnimation = new WaveAnimation(gameView, 360);
             gameView.startAnimation(pathAnimation);
         }
+    }
+
+    /**
+     * Draws an avatar for the specified touch zone.
+     * @param zone
+     */
+    private void drawAvatar(TouchZone zone){
+        AvatarView avatarView = new AvatarView(this);
+        avatarView.setIsEmpty(true);
+
+        int size = Math.round(zone.getRadius()*4);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(size, size);
+        params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+        avatarView.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        int marginX = Math.round(zone.getCenterX()) - size/2;
+        int marginY = Math.round(zone.getCenterY()) - size/2;
+
+        int drawableId = R.drawable.avatar_blue;
+        float offset = size;
+
+        switch (zone.getColourName()) {
+            case R.color.colorGreen:
+                drawableId = R.drawable.avatar_green;
+                marginX += offset;
+                break;
+            case R.color.colorYellow:
+                drawableId = R.drawable.avatar_yellow;
+                marginX += offset;
+                break;
+            case R.color.colorPink:
+                drawableId = R.drawable.avatar_pink;
+                marginY += offset;
+                break;
+            case R.color.colorPurple:
+                drawableId = R.drawable.avatar_purple;
+                marginX -= offset;
+                break;
+            case R.color.colorBlue:
+                drawableId = R.drawable.avatar_blue;
+                marginX -= offset;
+                break;
+            case R.color.colorTurquoise:
+                drawableId = R.drawable.avatar_turquoise;
+                marginY -= offset;
+                break;
+        }
+
+        Drawable drawable = getResources().getDrawable(drawableId);
+
+        avatarView.setImageDrawable(drawable);
+        params.setMargins(marginX, marginY, 0, 0);
+
+        ((ViewGroup)findViewById(R.id.stadium_view_layout)).addView(avatarView, params);
+        zone.setAvatar(avatarView);
     }
 }

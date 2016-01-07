@@ -1,10 +1,14 @@
 package se.chalmers.halfwaytospirit.waveapp;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -124,12 +128,15 @@ public abstract class TouchZonesView extends View {
             Paint innerPaint = zone.getInnerPaint();
             Paint outerPaint = zone.getOuterPaint();
 
+            long x = zone.getCenterX();
+            long y = zone.getCenterY();
+
             if(outerPaint != null) {
-                canvas.drawCircle(zone.getCenterX(), zone.getCenterY(), outerTouchZoneRadius, zone.getOuterPaint());
+                canvas.drawCircle(x, y, outerTouchZoneRadius, zone.getOuterPaint());
             }
 
             if(innerPaint != null && zone.isTouched()) {
-                canvas.drawCircle(zone.getCenterX(), zone.getCenterY(), innerTouchZoneRadius, zone.getInnerPaint());
+                canvas.drawCircle(x, y, innerTouchZoneRadius, zone.getInnerPaint());
             }
         }
     }
@@ -143,18 +150,20 @@ public abstract class TouchZonesView extends View {
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        int action = event.getActionMasked();
-        int pointCount = event.getPointerCount();
+        int action = MotionEventCompat.getActionMasked(event);
+        int index = MotionEventCompat.getActionIndex(event);
 
-        for (int i = 0; i < pointCount; i++){
-            int lastX = (int) event.getX(i);
-            int lastY = (int) event.getY(i);
+        //int pointerId = event.getPointerId(0);
+        //int pointerIndex = event.findPointerIndex(pointerId);
+
+            int lastX = (int) MotionEventCompat.getX(event, index);
+            int lastY = (int) MotionEventCompat.getY(event, index);
             TouchZone lastZone = getZoneAt(lastX, lastY);
-
             // Handling for move events.
             if(event.getHistorySize() > 0) {
-                int firstX = (int) event.getHistoricalX(i, 0);
-                int firstY = (int) event.getHistoricalY(i, 0);
+                // TODO [EK]: do we need to do this for all historical xs?
+                int firstX = (int) event.getHistoricalX(index, 0);
+                int firstY = (int) event.getHistoricalY(index, 0);
                 TouchZone firstZone = getZoneAt(firstX, firstY);
 
                 // If movement was not within a zone.
@@ -174,9 +183,8 @@ public abstract class TouchZonesView extends View {
                     this.checkZoneActive(lastZone);
                 }
             }
-        }
 
-        invalidate(); //Refresh canvas.
+        invalidate();
         return true;
     }
 
@@ -219,29 +227,29 @@ public abstract class TouchZonesView extends View {
         int yTop = radius + this.stadiumOffset;
         int yHigh =  Math.round(this.screenHeight/3);
         int yLow = Math.round(2*this.screenHeight/3);
-        int yDown = this.screenHeight - radius - this.stadiumOffset;
+        // int yDown = this.screenHeight - radius - this.stadiumOffset;
 
         int strokeWidth = this.stadiumOffset/2;
 
         TouchZone topTouchZone = new TouchZone(xCentre, yTop, radius,
-                getColour(R.color.colorPink), strokeWidth);
+                getColour(R.color.colorPink), R.string.playerPink, strokeWidth);
         TouchZone leftHighTouchZone = new TouchZone(xLeft, yHigh, radius,
-                getColour(R.color.colorYellow), strokeWidth);
+                getColour(R.color.colorYellow), R.string.playerYellow, strokeWidth);
         TouchZone leftLowTouchZone = new TouchZone(xLeft, yLow, radius,
-                getColour(R.color.colorGreen), strokeWidth);
+                getColour(R.color.colorGreen),R.string.playerGreen, strokeWidth);
         TouchZone rightHighTouchZone = new TouchZone(xRight, yHigh, radius,
-                getColour(R.color.colorPurple), strokeWidth);
+                getColour(R.color.colorPurple), R.string.playerPurple, strokeWidth);
         TouchZone rightLowTouchZone = new TouchZone(xRight, yLow, radius,
-                getColour(R.color.colorTurquoise), strokeWidth);
-        TouchZone downTouchZone = new TouchZone(xCentre, yDown, radius,
-                getColour(R.color.colorBlue), strokeWidth);
+                getColour(R.color.colorBlue), R.string.playerBlue, strokeWidth);
+        /* TouchZone downTouchZone = new TouchZone(xCentre, yDown, radius,
+                getColour(R.color.colorTurquoise), getString(R.string.playerTurquoise), strokeWidth); */
 
         touchZones.add(topTouchZone);
         touchZones.add(leftHighTouchZone);
         touchZones.add(leftLowTouchZone);
         touchZones.add(rightHighTouchZone);
         touchZones.add(rightLowTouchZone);
-        touchZones.add(downTouchZone);
+        //touchZones.add(downTouchZone);
     }
 
     /**
@@ -253,6 +261,10 @@ public abstract class TouchZonesView extends View {
         return ContextCompat.getColor(getContext(), color);
     }
 
+    public String getString(int string) {
+        return getContext().getString(string);
+    }
+
     /**
      * Processes the touch zone state - whether the wave is entering or leaving.
      * @param currentZone - the currentZone.
@@ -261,7 +273,7 @@ public abstract class TouchZonesView extends View {
 
     /**
      * Checks whether the zone is active.
-     * @param zone - the zone. 
+     * @param zone - the zone.
      */
     public abstract void checkZoneActive(TouchZone zone);
 

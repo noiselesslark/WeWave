@@ -5,10 +5,7 @@ package se.chalmers.halfwaytospirit.waveapp;
  * game state.
  */
 public class Player {
-    /**
-     * Identifies whether player has been eliminated from the game.
-     */
-    private boolean isEliminated = false;
+    private int playerId;
 
     /**
      * Number of consecutive success in the wave
@@ -19,22 +16,7 @@ public class Player {
     /**
      * Constructor.
      */
-    public Player () {}
-
-    /**
-     * Getter for boolean isEliminated.
-     * @return isEliminated
-     */
-    public boolean isEliminated() {
-        return isEliminated;
+    public Player (int id) {
+        this.playerId = id;
     }
-
-    /**
-     * Setter for boolean isEliminated.
-     * @param isEliminated - whether the player is eliminated or not.
-     */
-    public void setIsEliminated(boolean isEliminated) {
-        this.isEliminated = isEliminated;
-    }
-
 }
