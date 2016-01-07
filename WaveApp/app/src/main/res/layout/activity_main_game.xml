@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/stadium_nobutton_2048"
     tools:context="se.chalmers.halfwaytospirit.waveapp.MainGameActivity">
-    <se.chalmers.halfwaytospirit.waveapp.StadiumView
+
+    <se.chalmers.halfwaytospirit.waveapp.GameView
         android:id="@+id/stadium_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -16,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/countdownBackground"
-        android:background="#90FFFFFF"
+        android:background="@color/fadeOutBackground"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
@@ -25,13 +26,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Countdown"
             android:gravity="center"
             android:textSize="48sp"
             android:id="@+id/countdownArea"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
-
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/playerLostBackground"
+        android:background="@color/fadeOutBackground"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center"
+            android:textSize="48sp"
+            android:id="@+id/playerLostText"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
 </RelativeLayout>

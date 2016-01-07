@@ -1,11 +1,22 @@
 <resources>
     <string name="app_name">WeWave</string>
+
     <string name="app_firstScreenTitle">WeWave</string>
     <string name="countdownInitialText">Countdown</string>
     <string name="countdownLetsText">Let\'s</string>
-    <string name="countdownWeWaveText">WeWave</string>
+    <string name="weWaveText">WeWave</string>
+    <string name="playText">PLAY</string>
 
     <string name="winnerLabel">YOU WAVE!</string>
     <string name="lastScreenWaveTimeLabel">Wave time:</string>
     <string name="lastScreenNewHighScoreText">New high score!</string>
+
+    <string name="playerPurple">Purple</string>
+    <string name="playerPink">Pink</string>
+    <string name="playerGreen">Green</string>
+    <string name="playerYellow">Yellow</string>
+    <string name="playerTurquoise">Turquoise</string>
+    <string name="playerBlue">Blue</string>
+    <string name="playerText">Player</string>
+
 </resources>

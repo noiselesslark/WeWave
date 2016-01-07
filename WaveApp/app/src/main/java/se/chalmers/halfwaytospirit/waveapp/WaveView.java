@@ -7,9 +7,9 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 
 /**
- * This class sets up and handles the stadium view.
+ * This class manages the position of the wave.
  */
-public class StadiumView extends TouchZonesView {
+public abstract class WaveView extends TouchZonesView {
     private Paint pathPaint;
     private Paint pointPaint;
 
@@ -24,7 +24,7 @@ public class StadiumView extends TouchZonesView {
      * @param attrs - the attributes.
      * @param defStyle - the style definition.
      */
-    public StadiumView(Context context, AttributeSet attrs, int defStyle) {
+    public WaveView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -33,7 +33,7 @@ public class StadiumView extends TouchZonesView {
      * @param context - the context.
      * @param attrs - the attributes.
      */
-    public StadiumView(Context context, AttributeSet attrs) {
+    public WaveView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -41,7 +41,7 @@ public class StadiumView extends TouchZonesView {
      * Constructor.
      * @param context - the context.
      */
-    public StadiumView(Context context) {
+    public WaveView(Context context) {
         super(context);
     }
 
@@ -59,7 +59,7 @@ public class StadiumView extends TouchZonesView {
         int bottomY = 2*getScreenHeight()/3 + Math.round(getTouchZoneRadius());
 
         this.stadium = new StadiumShape(centerX, centerY, topY, bottomY, stadiumRadius);
-        this.wavePosition = new ShapeDefinition(centerX + stadiumRadius, centerY);
+        this.wavePosition = new ShapeDefinition(centerX, bottomY + stadiumRadius);
 
         final int strokeWidth = getStadiumOffset()*2;
 
@@ -85,7 +85,7 @@ public class StadiumView extends TouchZonesView {
         int pointRadius = getStadiumOffset();
 
         canvas.drawArc(stadium.getTopSemiCircle(), 180, 180, false, pathPaint);
-        canvas.drawArc(stadium.getBottomSemiCircle(), 0, 180, false,pathPaint);
+        canvas.drawArc(stadium.getBottomSemiCircle(), 0, 180, false, pathPaint);
         canvas.drawLine(stadium.getXLeft(), stadium.getYTop(),
                 stadium.getXLeft(), stadium.getYBottom(), pathPaint);
         canvas.drawLine(stadium.getXRight(), stadium.getYTop(),
@@ -96,18 +96,42 @@ public class StadiumView extends TouchZonesView {
         super.onDraw(canvas);
     }
 
+    /**
+     * Gets the stadium shape.
+     * @return the stadium shape.
+     */
     public StadiumShape getStadium() {
         return this.stadium;
     }
 
+    /**
+     * Sets the wave position.
+     * @param wavePosition - the wave position.
+     */
     public void setWavePosition(ShapeDefinition wavePosition) {
         this.wavePosition = wavePosition;
+
+        TouchZone currentZone = getZoneAt((int)wavePosition.getCenterX(), (int)wavePosition.getCenterY());
+
+        if(currentZone!= null && currentZone.isEnabled() && !currentZone.isEliminated()) {
+            this.processTouchZoneState(currentZone);
+        }
     }
 
+
+
+    /**
+     * Gets the sweep angle of the arc that the position is at.
+     * @return the sweep angle.
+     */
     public float getSweepAngle() {
         return sweepAngle;
     }
 
+    /**
+     * Sets the sweep angle.
+     * @param sweepAngle - the sweep angle.
+     */
     public void setSweepAngle(float sweepAngle) {
         this.sweepAngle = sweepAngle;
     }

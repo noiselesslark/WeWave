@@ -1,33 +1,60 @@
 package se.chalmers.halfwaytospirit.waveapp;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class keeps track of the game state.
  */
 public class GameManager {
-    private ArrayList<Player> players = new ArrayList<>();
+    private List<Player> activePlayers = new ArrayList<>();
+    private List<Player> eliminatedPlayers = new ArrayList<>();
 
-    public static String PLAYER_TEXT = "Player";
-    public static String PLAYER_TOP = PLAYER_TEXT + "1";
-    public static String PLAYER_LEFT_HIGH = PLAYER_TEXT + "2";
-    public static String PLAYER_LEFT_LOW = PLAYER_TEXT + "3";
-    public static String PLAYER_RIGHT_HIGH = PLAYER_TEXT + "4";
-    public static String PLAYER_RIGHT_LOW = PLAYER_TEXT + "5";
-    public static String PLAYER_BOTTOM = PLAYER_TEXT + "6";
+    private boolean isGameRunning = false;
 
     /**
      * Constructor.
      */
-    public GameManager() {
-        ArrayList<Player> playerList = new ArrayList<>();
+    public GameManager() {}
+
+    /**
+     * Gets the list of active players.
+     * @return the list of active players.
+     */
+    public List<Player> getActivePlayers() {
+        return this.activePlayers;
     }
 
     /**
-     * Getter of the player list.
-     * @return the list of players.
+     * Gets the list of eliminated players.
+     * @return the list of eliminated players.
      */
-    public ArrayList<Player> getPlayers() {
-        return this.players;
+    public List<Player> getEliminatedPlayers() {
+        return eliminatedPlayers;
+    }
+
+    /**
+     * Gets whether the game is running.
+     * @return whether the game is running.
+     */
+    public boolean isGameRunning() {
+        return isGameRunning;
+    }
+
+    /**
+     * Sets whether the game is running or not.
+     * @param isRunning - is the game running or not?
+     */
+    public void setGameRunning(boolean isRunning) {
+        this.isGameRunning = isRunning;
+    }
+
+    /**
+     * Eliminates the specified player from the game.
+     * @param player - the player.
+     */
+    public void eliminatePlayer(Player player) {
+        activePlayers.remove(player);
+        eliminatedPlayers.add(player);
     }
 }
