@@ -61,6 +61,8 @@ public class TouchZone extends ShapeDefinition {
      * @return isTouched.
      */
     public boolean isTouched() {
+        this.avatar.setIsSitting(true);
+        this.avatar.refreshDrawableState();
         return isTouched;
     }
 
