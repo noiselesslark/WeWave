@@ -129,7 +129,7 @@ public class MainGameActivity extends AppCompatActivity {
         AvatarView avatarView = new AvatarView(this);
         avatarView.setIsEmpty(true);
 
-        int size = Math.round(TouchZone.OUTER_RADIUS*4);
+        int size = Math.round(TouchZone.OUTER_RADIUS*3);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(size, size);
         params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
@@ -140,30 +140,30 @@ public class MainGameActivity extends AppCompatActivity {
         int marginY = Math.round(zone.getCenterY()) - size/2;
 
         int drawableId = R.drawable.avatar_blue;
-        float offset = size;
+        float offset = 2*size/3;
 
-        switch (zone.getColourName()) {
-            case R.color.colorGreen:
+        switch (getString(zone.getColourName())) {
+            case "Green":
                 drawableId = R.drawable.avatar_green;
                 marginX += offset;
                 break;
-            case R.color.colorYellow:
+            case "Yellow":
                 drawableId = R.drawable.avatar_yellow;
                 marginX += offset;
                 break;
-            case R.color.colorPink:
+            case "Pink":
                 drawableId = R.drawable.avatar_pink;
                 marginY += offset;
                 break;
-            case R.color.colorPurple:
+            case "Purple":
                 drawableId = R.drawable.avatar_purple;
                 marginX -= offset;
                 break;
-            case R.color.colorBlue:
+            case "Blue":
                 drawableId = R.drawable.avatar_blue;
                 marginX -= offset;
                 break;
-            case R.color.colorTurquoise:
+            case "Turquoise":
                 drawableId = R.drawable.avatar_turquoise;
                 marginY -= offset;
                 break;

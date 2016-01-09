@@ -10,11 +10,16 @@ import android.widget.ImageView;
 public class AvatarView extends ImageView {
     private static final int[] STATE_EMPTY = {R.attr.state_empty};
     private static final int[] STATE_SITTING = {R.attr.state_sitting};
-    private static final int[] STATE_WAVING = {R.attr.state_waving};
+    private static final int[] STATE_WAVING1 = {R.attr.state_waving1};
+    private static final int[] STATE_WAVING2 = {R.attr.state_waving2};
+    private static final int[] STATE_WAVING3 = {R.attr.state_waving3};
+    private static final int[] STATE_DEAD = {R.attr.state_dead};
+
 
     private boolean isEmpty = false;
     private boolean isSitting = false;
     private boolean isWaving = false;
+    private boolean isDead = false;
 
     /**
      * Constructor.
@@ -62,7 +67,11 @@ public class AvatarView extends ImageView {
         }
 
         if(isWaving) {
-            mergeDrawableStates(drawableState, STATE_WAVING);
+            mergeDrawableStates(drawableState, STATE_WAVING3);
+        }
+
+        if(isDead) {
+            mergeDrawableStates(drawableState, STATE_DEAD);
         }
 
         return drawableState;
@@ -73,6 +82,7 @@ public class AvatarView extends ImageView {
      * @param isEmpty - whether empty or not.
      */
     public void setIsEmpty(boolean isEmpty) {
+        this.resetAllStates();
         this.isEmpty = isEmpty;
     }
 
@@ -81,6 +91,7 @@ public class AvatarView extends ImageView {
      * @param isSitting - whether sitting or not.
      */
     public void setIsSitting(boolean isSitting) {
+        this.resetAllStates();
         this.isSitting = isSitting;
     }
 
@@ -89,6 +100,26 @@ public class AvatarView extends ImageView {
      * @param isWaving - whether waving or not.
      */
     public void setIsWaving(boolean isWaving) {
+        this.resetAllStates();
         this.isWaving = isWaving;
+    }
+
+    /**
+     * Set whether the avatar is dead.
+     * @param isDead - whether dead or not.
+     */
+    public void setIsDead(boolean isDead) {
+        this.resetAllStates();
+        this.isDead = isDead;
+    }
+
+    /**
+     * Reset the states in order to change one to true afterwards.
+     */
+    private void resetAllStates() {
+        this.isEmpty = false;
+        this.isSitting = false;
+        this.isWaving = false;
+        this.isDead = false;
     }
 }

@@ -3,6 +3,9 @@
     <declare-styleable name="avatar">
         <attr name="state_empty" format="boolean"/>
         <attr name="state_sitting" format="boolean"/>
-        <attr name="state_waving" format="boolean" />
+        <attr name="state_waving1" format="boolean" />
+        <attr name="state_waving2" format="boolean" />
+        <attr name="state_waving3" format="boolean" />
+        <attr name="state_dead" format="boolean" />
     </declare-styleable>
 </resources>
