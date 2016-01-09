@@ -61,8 +61,6 @@ public class TouchZone extends ShapeDefinition {
      * @return isTouched.
      */
     public boolean isTouched() {
-        this.avatar.setIsSitting(true);
-        this.avatar.refreshDrawableState();
         return isTouched;
     }
 
@@ -71,6 +69,10 @@ public class TouchZone extends ShapeDefinition {
      * @param touched - the boolean value specifying whether zone is touched.
      */
     public void setTouched(boolean touched) {
+        if(touched) {
+            this.avatar.setIsSitting(true);
+            this.avatar.refreshDrawableState();
+        }
         this.isTouched = touched;
     }
 
