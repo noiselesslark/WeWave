@@ -68,7 +68,11 @@ public class WaveAnimation extends Animation {
      */
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation transformation) {
-        float sweepAngle = oldAngle + ((newAngle - oldAngle) * interpolatedTime);
+        float sweepAngle = oldAngle + ((newAngle - oldAngle) * interpolatedTime) + 90;
+        if(sweepAngle >= 360) {
+            sweepAngle-=360;
+        }
+
 
         StadiumShape stadium = stadiumView.getStadium();
         long radius = stadium.getRadius();
@@ -96,7 +100,7 @@ public class WaveAnimation extends Animation {
             yPos = centerY + Math.tan(angle) * radius;
 
         } else if (sweepAngle > SECTOR_BOUNDARIES[3]  && sweepAngle <= SECTOR_BOUNDARIES[4]) {
-            angle = Math.toRadians(sweepAngle-HALF);
+            angle = Math.toRadians(sweepAngle - HALF);
             xPos = centerX - radius;
             yPos = centerY - Math.tan(angle) * radius;
 
@@ -107,7 +111,7 @@ public class WaveAnimation extends Animation {
             yPos = stadium.getYTop() + Math.sin(angle)* radius;
 
         } else if( sweepAngle > SECTOR_BOUNDARIES[5]){
-            angle = Math.toRadians(FULL-sweepAngle);
+            angle = Math.toRadians(FULL - sweepAngle);
             xPos = centerX + radius;
             yPos = centerY - Math.tan(angle) * radius;
         }

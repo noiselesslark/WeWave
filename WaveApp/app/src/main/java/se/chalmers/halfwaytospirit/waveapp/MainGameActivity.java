@@ -1,12 +1,10 @@
 package se.chalmers.halfwaytospirit.waveapp;
 
-import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -15,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+/**
+ * This class manages the game activity.
+ */
 public class MainGameActivity extends AppCompatActivity {
 
     private GameManager gameManager;
@@ -122,7 +123,7 @@ public class MainGameActivity extends AppCompatActivity {
 
     /**
      * Draws an avatar for the specified touch zone.
-     * @param zone
+     * @param zone - the touch zone.
      */
     private void drawAvatar(TouchZone zone){
         AvatarView avatarView = new AvatarView(this);

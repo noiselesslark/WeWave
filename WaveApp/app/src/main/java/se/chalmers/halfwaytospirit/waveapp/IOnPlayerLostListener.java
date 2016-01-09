@@ -7,7 +7,7 @@ public interface IOnPlayerLostListener {
 
     /**
      * Called when player has lost.
-     * @param player - the player that has lost. 
+     * @param player - the player that has lost.
      */
     void onPlayerLost(Player player);
 }
