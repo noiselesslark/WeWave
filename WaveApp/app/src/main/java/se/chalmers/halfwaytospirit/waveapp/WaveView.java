@@ -51,17 +51,18 @@ public abstract class WaveView extends TouchZonesView {
     @Override
     protected void initView() {
         super.initView();
+        int zoneRadius = Math.round(TouchZone.OUTER_RADIUS);
 
-        long centerX = getScreenWidth()/2;
-        long centerY = getScreenHeight()/2;
-        long stadiumRadius = centerX - getStadiumOffset() - Math.round(getTouchZoneRadius());
-        int topY = getScreenHeight()/3 - Math.round(getTouchZoneRadius());
-        int bottomY = 2*getScreenHeight()/3 + Math.round(getTouchZoneRadius());
+        long centerX = TouchZonesView.VIEW_WIDTH /2;
+        long centerY = TouchZonesView.VIEW_HEIGHT /2;
+        long stadiumRadius = centerX - TouchZonesView.STADIUM_OFFSET - zoneRadius;
+        int topY = TouchZonesView.VIEW_HEIGHT /3 - zoneRadius;
+        int bottomY = 2*TouchZonesView.VIEW_HEIGHT /3 + zoneRadius;
 
         this.stadium = new StadiumShape(centerX, centerY, topY, bottomY, stadiumRadius);
         this.wavePosition = new ShapeDefinition(centerX, bottomY + stadiumRadius);
 
-        final int strokeWidth = getStadiumOffset()*2;
+        final int strokeWidth = TouchZonesView.STADIUM_OFFSET *2;
 
         pathPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         pathPaint.setColor(Color.BLACK);
@@ -82,7 +83,7 @@ public abstract class WaveView extends TouchZonesView {
      */
     @Override
     protected void onDraw(Canvas canvas){
-        int pointRadius = getStadiumOffset();
+        int pointRadius = TouchZonesView.STADIUM_OFFSET;
 
         canvas.drawArc(stadium.getTopSemiCircle(), 180, 180, false, pathPaint);
         canvas.drawArc(stadium.getBottomSemiCircle(), 0, 180, false, pathPaint);
@@ -113,12 +114,8 @@ public abstract class WaveView extends TouchZonesView {
 
         TouchZone currentZone = getZoneAt((int)wavePosition.getCenterX(), (int)wavePosition.getCenterY());
 
-        if(currentZone!= null && currentZone.isEnabled() && !currentZone.isEliminated()) {
-            this.processTouchZoneState(currentZone);
-        }
+        this.processTouchZoneState(currentZone);
     }
-
-
 
     /**
      * Gets the sweep angle of the arc that the position is at.
@@ -135,4 +132,10 @@ public abstract class WaveView extends TouchZonesView {
     public void setSweepAngle(float sweepAngle) {
         this.sweepAngle = sweepAngle;
     }
+
+    /**
+     * Processes the touch zone state - whether the wave is entering or leaving.
+     * @param currentZone - the currentZone.
+     */
+    public abstract void processTouchZoneState(TouchZone currentZone);
 }

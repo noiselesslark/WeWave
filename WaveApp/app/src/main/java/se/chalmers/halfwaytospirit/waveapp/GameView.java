@@ -94,7 +94,7 @@ public class GameView extends WaveView {
      */
     @Override
     public void processTouchZoneState(TouchZone currentZone){
-        if (this.activeTouchZone == null && currentZone != null) {
+        if (this.activeTouchZone == null && currentZone != null && currentZone.isEnabled() && !currentZone.isEliminated()) {
             this.onTouchZoneEnter(currentZone);
         } else if (this.activeTouchZone != null && currentZone == null) {
             this.onTouchZoneLeave();
@@ -111,7 +111,7 @@ public class GameView extends WaveView {
             this.onPlayerLost(currentZone);
         }
 
-        currentZone.setActive(true);
+        currentZone.setWaving(true);
         this.activeTouchZone = currentZone;
     }
 
@@ -123,7 +123,7 @@ public class GameView extends WaveView {
             this.onPlayerLost(this.activeTouchZone);
         }
 
-        this.activeTouchZone.setActive(false);
+        this.activeTouchZone.setWaving(false);
         this.activeTouchZone = null;
     }
 }

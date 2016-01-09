@@ -129,7 +129,7 @@ public class MainGameActivity extends AppCompatActivity {
         AvatarView avatarView = new AvatarView(this);
         avatarView.setIsEmpty(true);
 
-        int size = Math.round(zone.getRadius()*4);
+        int size = Math.round(TouchZone.OUTER_RADIUS*4);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(size, size);
         params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);

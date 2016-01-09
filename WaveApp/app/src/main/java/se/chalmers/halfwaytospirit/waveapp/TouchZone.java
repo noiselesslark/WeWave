@@ -12,13 +12,15 @@ public class TouchZone extends ShapeDefinition {
     private boolean isTouched = false;
     private boolean isEnabled = true;
     private boolean isEliminated = false;
-    private boolean isActive = false;
+    private boolean isWaving = false;
 
-    private float radius = 0;
+    static float OUTER_RADIUS = 0;
+    static float INNER_RADIUS = 0;
+    static float OUTER_STROKE_WIDTH = 0;
 
     private Paint defaultInnerPaint;
     private Paint defaultOuterPaint;
-    private Paint activePaint;
+    private Paint wavingOuterPaint;
     private Paint eliminatedOuterPaint;
 
     private Player player;
@@ -29,31 +31,28 @@ public class TouchZone extends ShapeDefinition {
      * Constructor.
      * @param x - the x-coordinate on the view for the centre of the touch zone.
      * @param y - the y-coordinate on the view fr the centre of the touch zone.
-     * @param radius - the radius of the outer circle.
      */
-    public TouchZone(int x, int y, float radius, int colour, int colourName, int strokeWidth) {
+    public TouchZone(int x, int y, int colour, int colourName) {
         super(x, y);
-        this.radius = radius;
         this.colourName = colourName;
 
         defaultInnerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         defaultInnerPaint.setColor(colour);
-        defaultInnerPaint.setStrokeWidth(1);
         defaultInnerPaint.setStyle(Paint.Style.FILL);
 
         defaultOuterPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         defaultOuterPaint.setColor(colour);
-        defaultOuterPaint.setStrokeWidth(strokeWidth);
+        defaultOuterPaint.setStrokeWidth(OUTER_STROKE_WIDTH);
         defaultOuterPaint.setStyle(Paint.Style.STROKE);
 
-        activePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        activePaint.setColor(Color.WHITE);
-        activePaint.setStrokeWidth(strokeWidth);
-        activePaint.setStyle(Paint.Style.FILL);
+        wavingOuterPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        wavingOuterPaint.setColor(Color.WHITE);
+        wavingOuterPaint.setStyle(Paint.Style.STROKE);
+        wavingOuterPaint.setStrokeWidth(OUTER_STROKE_WIDTH);
 
         eliminatedOuterPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         eliminatedOuterPaint.setColor(Color.GRAY);
-        eliminatedOuterPaint.setStrokeWidth(strokeWidth);
+        eliminatedOuterPaint.setStrokeWidth(OUTER_STROKE_WIDTH);
         eliminatedOuterPaint.setStyle(Paint.Style.FILL_AND_STROKE);
     }
 
@@ -81,7 +80,7 @@ public class TouchZone extends ShapeDefinition {
      * @return whether the point is within the touch zone.
      */
     public boolean isPointWithin(int xPt, int yPt) {
-        int radiusInt = Math.round(radius);
+        int radiusInt = Math.round(OUTER_RADIUS);
 
         int left = (int)getCenterX() - radiusInt;
         int right = (int)getCenterX() + radiusInt;
@@ -99,13 +98,11 @@ public class TouchZone extends ShapeDefinition {
      * @return the inner circle paint.
      */
     public Paint getInnerPaint(){
-        if(!this.isEliminated() && this.isEnabled()) {
-            return defaultInnerPaint;
-        } else if(this.isActive) {
-            return this.activePaint;
-        } else {
-            return null;
+        if(this.isEnabled && !this.isEliminated && this.isTouched) {
+            return this.defaultInnerPaint;
         }
+
+        return null;
     }
 
     /**
@@ -114,13 +111,17 @@ public class TouchZone extends ShapeDefinition {
      * @return the paint of the outerCircle.
      */
     public Paint getOuterPaint() {
-        if(this.isEliminated) {
-            return this.eliminatedOuterPaint;
-        }else if (!this.isEnabled()) {
-            return null;
+        if(this.isEnabled) {
+            if (this.isEliminated) {
+                return this.eliminatedOuterPaint;
+            } else if (this.isWaving) {
+                return this.wavingOuterPaint;
+            }else {
+                return this.defaultOuterPaint;
+            }
         }
 
-        return this.defaultOuterPaint;
+        return null;
     }
 
     /**
@@ -128,23 +129,31 @@ public class TouchZone extends ShapeDefinition {
      * @return isEnabled.
      */
     public boolean isEnabled() {
-        return isEnabled;
+        return this.isEnabled;
     }
 
     /**
      * Sets whether the touch zone is enabled or not.
-     * @param isEnabled - the bool indicating whether it is enabled or not.
+     * @param isEnabled - the boolean indicating whether it is enabled or not.
      */
     public void setEnabled(boolean isEnabled) {
         this.isEnabled = isEnabled;
     }
 
     /**
-     * Sets whether this zone is active or not.
-     * @param isActive - whether the zone is active.
+     * Gets whether the touch zone is active or not.
+     * @return isWaving.
      */
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public boolean isWaving() {
+        return this.isWaving;
+    }
+
+    /**
+     * Sets whether this zone is active or not.
+     * @param isWaving - whether the zone is waving.
+     */
+    public void setWaving(boolean isWaving) {
+        this.isWaving = isWaving;
     }
 
     /**
@@ -152,7 +161,7 @@ public class TouchZone extends ShapeDefinition {
      * @return isEliminated.
      */
     public boolean isEliminated() {
-        return isEliminated;
+        return this.isEliminated;
     }
 
     /**
@@ -161,9 +170,6 @@ public class TouchZone extends ShapeDefinition {
      */
     public void setEliminated(boolean isEliminated) {
         this.isEliminated = isEliminated;
-        if(this.isEliminated()) {
-            this.setEnabled(false);
-        }
     }
 
     /**
@@ -187,15 +193,7 @@ public class TouchZone extends ShapeDefinition {
      * @return the name of the colour.
      */
     public int getColourName() {
-        return colourName;
-    }
-
-    /**
-     * Gets the radius.
-     * @return the radius.
-     */
-    public float getRadius() {
-        return radius;
+        return this.colourName;
     }
 
     /**
@@ -203,7 +201,7 @@ public class TouchZone extends ShapeDefinition {
      * @return the avatar.
      */
     public AvatarView getAvatar() {
-        return avatar;
+        return this.avatar;
     }
 
     /**

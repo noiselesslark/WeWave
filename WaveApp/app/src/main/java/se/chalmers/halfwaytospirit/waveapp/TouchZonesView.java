@@ -1,14 +1,11 @@
 package se.chalmers.halfwaytospirit.waveapp;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -19,13 +16,10 @@ import java.util.ArrayList;
  * as well as detecting multi-touch events.
  */
 public abstract class TouchZonesView extends View {
-    private int screenWidth = 0;
-    private int screenHeight = 0;
+    static int VIEW_WIDTH = 0;
+    static int VIEW_HEIGHT = 0;
+    static int STADIUM_OFFSET = 0;
 
-    private float innerTouchZoneRadius;
-    private float outerTouchZoneRadius;
-
-    private int stadiumOffset = 0;
     private ArrayList<TouchZone> touchZones;
 
     /**
@@ -59,48 +53,13 @@ public abstract class TouchZonesView extends View {
     }
 
     /**
-     * Gets the screen width.
-     * @return screen width.
-     */
-    protected int getScreenWidth() {
-        return this.screenWidth;
-    }
-
-    /**
-     * Gets the screen height.
-     * @return screen height. 
-     */
-    protected int getScreenHeight() {
-        return this.screenHeight;
-    }
-
-    /**
-     * Gets the stadium offset. 
-     * @return stadium offset.
-     */
-    protected int getStadiumOffset() {
-        return this.stadiumOffset;
-    }
-
-    /**
-     * Gets the touch zone radius.
-     * @return the touch zone radius.
-     */
-    public float getTouchZoneRadius() {
-        return outerTouchZoneRadius;
-    }
-
-    /**
      * Initialise the view. Draw basics.
      */
     protected void initView(){
-        screenWidth = getResources().getDisplayMetrics().widthPixels;
-        screenHeight = getResources().getDisplayMetrics().heightPixels;
+        VIEW_WIDTH = getResources().getDisplayMetrics().widthPixels;
+        VIEW_HEIGHT = getResources().getDisplayMetrics().heightPixels;
 
-        outerTouchZoneRadius = this.screenWidth/10f;
-        innerTouchZoneRadius = outerTouchZoneRadius - 5f;
-
-        stadiumOffset = Math.round(screenWidth / 48);
+        STADIUM_OFFSET = Math.round(VIEW_WIDTH / 48);
 
         touchZones = new ArrayList<>();
 
@@ -131,12 +90,12 @@ public abstract class TouchZonesView extends View {
             long x = zone.getCenterX();
             long y = zone.getCenterY();
 
-            if(outerPaint != null) {
-                canvas.drawCircle(x, y, outerTouchZoneRadius, zone.getOuterPaint());
+            if(innerPaint != null) {
+                canvas.drawCircle(x, y, TouchZone.INNER_RADIUS, zone.getInnerPaint());
             }
 
-            if(innerPaint != null && zone.isTouched()) {
-                canvas.drawCircle(x, y, innerTouchZoneRadius, zone.getInnerPaint());
+            if(outerPaint != null) {
+                canvas.drawCircle(x, y, TouchZone.OUTER_RADIUS, zone.getOuterPaint());
             }
         }
     }
@@ -218,30 +177,32 @@ public abstract class TouchZonesView extends View {
      * Defines where on the canvas the touch zones should be drawn.
      */
     private void defineTouchZones() {
-        int radius = Math.round(this.outerTouchZoneRadius);
+        TouchZone.OUTER_RADIUS = VIEW_WIDTH /10;;
+        TouchZone.INNER_RADIUS = TouchZone.OUTER_RADIUS - 10f;
+        TouchZone.OUTER_STROKE_WIDTH = STADIUM_OFFSET /2;
+
+        int radius = Math.round(TouchZone.OUTER_RADIUS);
         
-        int xLeft = radius + this.stadiumOffset;
-        int xCentre = Math.round(this.screenWidth/2);
-        int xRight = this.screenWidth - radius - this.stadiumOffset;
+        int xLeft = radius + STADIUM_OFFSET;
+        int xCentre = Math.round(VIEW_WIDTH /2);
+        int xRight = VIEW_WIDTH - radius - STADIUM_OFFSET;
 
-        int yTop = radius + this.stadiumOffset;
-        int yHigh =  Math.round(this.screenHeight/3);
-        int yLow = Math.round(2*this.screenHeight/3);
-        // int yDown = this.screenHeight - radius - this.stadiumOffset;
+        int yTop = radius + STADIUM_OFFSET;
+        int yHigh =  Math.round(VIEW_HEIGHT /3);
+        int yLow = Math.round(2* VIEW_HEIGHT /3);
+        // int yDown = VIEW_HEIGHT - radius - STADIUM_OFFSET;
 
-        int strokeWidth = this.stadiumOffset/2;
-
-        TouchZone topTouchZone = new TouchZone(xCentre, yTop, radius,
-                getColour(R.color.colorPink), R.string.playerPink, strokeWidth);
-        TouchZone leftHighTouchZone = new TouchZone(xLeft, yHigh, radius,
-                getColour(R.color.colorYellow), R.string.playerYellow, strokeWidth);
-        TouchZone leftLowTouchZone = new TouchZone(xLeft, yLow, radius,
-                getColour(R.color.colorGreen),R.string.playerGreen, strokeWidth);
-        TouchZone rightHighTouchZone = new TouchZone(xRight, yHigh, radius,
-                getColour(R.color.colorPurple), R.string.playerPurple, strokeWidth);
-        TouchZone rightLowTouchZone = new TouchZone(xRight, yLow, radius,
-                getColour(R.color.colorBlue), R.string.playerBlue, strokeWidth);
-        /* TouchZone downTouchZone = new TouchZone(xCentre, yDown, radius,
+        TouchZone topTouchZone = new TouchZone(xCentre, yTop,
+                getColour(R.color.colorPink), R.string.playerPink);
+        TouchZone leftHighTouchZone = new TouchZone(xLeft, yHigh,
+                getColour(R.color.colorYellow), R.string.playerYellow);
+        TouchZone leftLowTouchZone = new TouchZone(xLeft, yLow,
+                getColour(R.color.colorGreen),R.string.playerGreen);
+        TouchZone rightHighTouchZone = new TouchZone(xRight, yHigh,
+                getColour(R.color.colorPurple), R.string.playerPurple);
+        TouchZone rightLowTouchZone = new TouchZone(xRight, yLow,
+                getColour(R.color.colorBlue), R.string.playerBlue);
+        /* TouchZone downTouchZone = new TouchZone(xCentre, yDown,
                 getColour(R.color.colorTurquoise), getString(R.string.playerTurquoise), strokeWidth); */
 
         touchZones.add(topTouchZone);
@@ -266,15 +227,8 @@ public abstract class TouchZonesView extends View {
     }
 
     /**
-     * Processes the touch zone state - whether the wave is entering or leaving.
-     * @param currentZone - the currentZone.
-     */
-    public abstract void processTouchZoneState(TouchZone currentZone);
-
-    /**
      * Checks whether the zone is active.
      * @param zone - the zone.
      */
     public abstract void checkZoneActive(TouchZone zone);
-
 }
