@@ -8,5 +8,45 @@
         app:state_waving2="false"
         app:state_waving3="false"
         app:state_dead="false"
-        android:drawable="@drawable/avimg_chair_empty"/>
+        android:drawable="@drawable/img_left_chair_empty"/>
+    <item
+        app:state_empty="false"
+        app:state_sitting="true"
+        app:state_waving1="false"
+        app:state_waving2="false"
+        app:state_waving3="false"
+        app:state_dead="false"
+        android:drawable="@drawable/av_yellow_sitting"/>
+    <item
+        app:state_empty="false"
+        app:state_sitting="false"
+        app:state_waving1="true"
+        app:state_waving2="false"
+        app:state_waving3="false"
+        app:state_dead="false"
+        android:drawable="@drawable/av_yellow_waving1"/>
+    <item
+        app:state_empty="false"
+        app:state_sitting="false"
+        app:state_waving1="false"
+        app:state_waving2="true"
+        app:state_waving3="false"
+        app:state_dead="false"
+        android:drawable="@drawable/av_yellow_waving2"/>
+    <item
+        app:state_empty="false"
+        app:state_sitting="false"
+        app:state_waving1="false"
+        app:state_waving2="false"
+        app:state_waving3="true"
+        app:state_dead="false"
+        android:drawable="@drawable/av_yellow_waving3"/>
+    <item
+        app:state_empty="false"
+        app:state_sitting="false"
+        app:state_waving1="false"
+        app:state_waving2="false"
+        app:state_waving3="false"
+        app:state_dead="true"
+        android:drawable="@drawable/av_yellow_dead"/>
 </selector>
