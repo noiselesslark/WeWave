@@ -82,6 +82,7 @@ public class AvatarView extends ImageView {
      * @param isEmpty - whether empty or not.
      */
     public void setIsEmpty(boolean isEmpty) {
+        this.resetAllStates();
         this.isEmpty = isEmpty;
     }
 
@@ -90,6 +91,7 @@ public class AvatarView extends ImageView {
      * @param isSitting - whether sitting or not.
      */
     public void setIsSitting(boolean isSitting) {
+        this.resetAllStates();
         this.isSitting = isSitting;
     }
 
@@ -98,6 +100,7 @@ public class AvatarView extends ImageView {
      * @param isWaving - whether waving or not.
      */
     public void setIsWaving(boolean isWaving) {
+        this.resetAllStates();
         this.isWaving = isWaving;
     }
 
@@ -105,5 +108,18 @@ public class AvatarView extends ImageView {
      * Set whether the avatar is dead.
      * @param isDead - whether dead or not.
      */
-    public void setIsDead(boolean isDead) { this.isDead = isDead; }
+    public void setIsDead(boolean isDead) {
+        this.resetAllStates();
+        this.isDead = isDead;
+    }
+
+    /**
+     * Reset the states in order to change one to true afterwards.
+     */
+    private void resetAllStates() {
+        this.isEmpty = false;
+        this.isSitting = false;
+        this.isWaving = false;
+        this.isDead = false;
+    }
 }

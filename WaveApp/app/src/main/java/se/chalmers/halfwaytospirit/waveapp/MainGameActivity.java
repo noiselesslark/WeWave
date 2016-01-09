@@ -100,6 +100,10 @@ public class MainGameActivity extends AppCompatActivity {
         for (TouchZone zone : gameView.getTouchZones()) {
             if (zone.isTouched()) {
                 Player player = new Player(zone.getColourName());
+                AvatarView avatar = zone.getAvatar();
+                avatar.setIsSitting(true);
+                avatar.refreshDrawableState();
+
                 zone.setPlayer(player);
 
                 gameManager.getActivePlayers().add(player);
