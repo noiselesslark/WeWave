@@ -5,18 +5,39 @@ package se.chalmers.halfwaytospirit.waveapp;
  * game state.
  */
 public class Player {
-    private int playerId;
+    private String playerName;
 
-    /**
-     * Number of consecutive success in the wave
-     * For personal record
-     */
     private int circuitCount = 0;
 
     /**
      * Constructor.
      */
-    public Player (int id) {
-        this.playerId = id;
+    public Player (String name) {
+        this.playerName = name;
     }
+
+    /**
+     * Gets the player name.
+     * @return the player name.
+     */
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    /**
+     * Gets the circuit count.
+     * @return the circuit count.
+     */
+    public int getCircuitCount() {
+        return circuitCount;
+    }
+
+    /**
+     * Sets the circuit count.
+     * @param circuitCount - the circuit count.
+     */
+    public void setCircuitCount(int circuitCount) {
+        this.circuitCount = circuitCount;
+    }
+
 }
