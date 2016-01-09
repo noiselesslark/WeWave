@@ -4,6 +4,9 @@
     <item
         app:state_empty="true"
         app:state_sitting="false"
-        app:state_waving="false"
+        app:state_waving1="false"
+        app:state_waving2="false"
+        app:state_waving3="false"
+        app:state_dead="false"
         android:drawable="@drawable/avimg_chair_empty"/>
 </selector>
