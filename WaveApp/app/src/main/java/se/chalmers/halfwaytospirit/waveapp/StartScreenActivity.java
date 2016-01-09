@@ -10,8 +10,15 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * This class manages the start screen activity.
+ */
 public class StartScreenActivity extends AppCompatActivity {
 
+    /**
+     * Called when the activity is created.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
