@@ -6,14 +6,5 @@
         app:state_sitting="false"
         app:state_waving="false"
         android:drawable="@drawable/avimg_chair_empty"/>
-    <item
-        app:state_empty="false"
-        app:state_sitting="true"
-        app:state_waving="false"
-        android:drawable="@drawable/avimg"/>
-    <item
-        app:state_empty="false"
-        app:state_sitting="false"
-        app:state_waving="true"
-        android:drawable="@drawable/avatar_blue_wave"/>
+
 </selector>
