@@ -52,6 +52,33 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startWaveField"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/countdownAndErrorField">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startWaveArrow"
+                android:src="@drawable/start_pointer"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startWaveLabel"
+                android:text="Wave starts here"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/startWaveArrow"/>
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <RelativeLayout

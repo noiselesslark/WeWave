@@ -58,6 +58,12 @@ public class MainGameActivity extends AppCompatActivity {
             drawAvatar(zone);
         }
 
+        // Place the start arrow correctly
+        ImageView waveStartArrow = (ImageView) findViewById(R.id.startWaveArrow);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) waveStartArrow.getLayoutParams();
+        params.setMargins(0, 0, 0, Math.round(TouchZone.OUTER_RADIUS));
+        waveStartArrow.setLayoutParams(params);
+
         startTimer();
     }
 
