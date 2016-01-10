@@ -33,8 +33,8 @@ public class EndGameActivity extends AppCompatActivity {
             }
         });
 
-        /* TODO link the time from the previous screen
-        String waveTime = getIntent().getExtras().getString("waveTime");
-        ((TextView)findViewById(R.id.lastScreenWaveTimeText)).setText(waveTime);*/
+        /* TODO link the counter from the winner
+        String waveSuccess = getIntent().getExtras().getString("waveSuccess");
+        ((TextView)findViewById(R.id.lastScreenWaveSuccessText)).setText(waveSuccess);*/
     }
 }

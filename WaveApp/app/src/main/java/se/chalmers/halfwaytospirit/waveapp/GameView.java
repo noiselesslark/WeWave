@@ -84,6 +84,8 @@ public class GameView extends WaveView {
                 this.onPlayerLost(zone);
             } else {
                 this.detectedPlayerLift = true;
+                Player currentPlayer = zone.getPlayer();
+                currentPlayer.setCircuitCount(currentPlayer.getCircuitCount() + 1);
             }
         }
     }

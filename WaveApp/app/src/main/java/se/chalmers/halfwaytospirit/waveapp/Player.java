@@ -19,4 +19,20 @@ public class Player {
     public Player (int id) {
         this.playerId = id;
     }
+
+    /**
+     * Getter for the number of wave success of the player
+     * @return the counter
+     */
+    public int getCircuitCount() {
+        return this.circuitCount;
+    }
+
+    /**
+     * Setter for the circuit count
+     * @param circuitCount the new count
+     */
+    public void setCircuitCount(int circuitCount) {
+        this.circuitCount = circuitCount;
+    }
 }

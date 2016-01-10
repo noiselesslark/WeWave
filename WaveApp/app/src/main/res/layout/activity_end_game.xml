@@ -23,8 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Wave time:"
-        android:id="@+id/lastScreenWaveTimeLabel"
+        android:text="Number of waves succeeded:"
+        android:id="@+id/lastScreenWaveSuccessLabel"
         android:layout_below="@+id/youWinLabel"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"/>
@@ -34,9 +34,9 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:textColor="#000000"
-        android:text="07:35"
-        android:id="@+id/lastScreenWaveTimeText"
-        android:layout_below="@+id/lastScreenWaveTimeLabel"
+        android:text="4"
+        android:id="@+id/lastScreenWaveSuccessText"
+        android:layout_below="@+id/lastScreenWaveSuccessLabel"
         android:layout_centerHorizontal="true" />
 
     <TextView
