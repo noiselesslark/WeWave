@@ -75,7 +75,7 @@ public class MainGameActivity extends AppCompatActivity {
                 findViewById(R.id.countdownBackground).postDelayed(new Runnable() {
                     public void run() {
                countDownArea.setText(
-                        getString(R.string.countdownLetsText)+ System.getProperty("line.separator") +
+                        getString(R.string.countdownLetsText) + System.getProperty("line.separator") +
                                 getString(R.string.weWaveText));
 
                         startGame();
@@ -111,14 +111,22 @@ public class MainGameActivity extends AppCompatActivity {
         }
 
         if(gameManager.getActivePlayers().size() > 1) {
-            // Hide the countdown.
+            // Hide the countdown and the error if appeared.
             findViewById(R.id.countdownBackground).setVisibility(View.INVISIBLE);
+            findViewById(R.id.playerNumberError).setVisibility(View.GONE);
 
             gameManager.setGameRunning(true);
 
             // Starts the animation of the path.
             WaveAnimation pathAnimation = new WaveAnimation(gameView, 360);
             gameView.startAnimation(pathAnimation);
+        } else {
+            // Show the error.
+            TextView numberPlayerError = (TextView)findViewById(R.id.playerNumberError);
+            numberPlayerError.setText("At least 2 players" + System.getProperty("line.separator") +
+                    "are needed to" + System.getProperty("line.separator") +
+                    "launch" + System.getProperty("line.separator") + "the game.");
+                    numberPlayerError.setVisibility(View.VISIBLE);
         }
     }
 
