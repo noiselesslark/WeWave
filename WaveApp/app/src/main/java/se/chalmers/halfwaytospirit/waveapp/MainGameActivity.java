@@ -152,8 +152,8 @@ public class MainGameActivity extends AppCompatActivity {
         float offset = 2*size/3;
 
         switch (getString(zone.getColourName())) {
-            case "Green":
-                drawableId = R.drawable.avatar_green;
+            case "Turquoise":
+                drawableId = R.drawable.avatar_turquoise;
                 marginX += offset;
                 break;
             case "Yellow":
@@ -172,8 +172,8 @@ public class MainGameActivity extends AppCompatActivity {
                 drawableId = R.drawable.avatar_blue;
                 marginX -= offset;
                 break;
-            case "Turquoise":
-                drawableId = R.drawable.avatar_turquoise;
+            case "Green":
+                drawableId = R.drawable.avatar_green;
                 marginY -= offset;
                 break;
         }

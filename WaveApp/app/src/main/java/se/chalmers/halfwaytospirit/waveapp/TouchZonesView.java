@@ -197,13 +197,13 @@ public abstract class TouchZonesView extends View {
         TouchZone leftHighTouchZone = new TouchZone(xLeft, yHigh,
                 getColour(R.color.colorYellow), R.string.playerYellow);
         TouchZone leftLowTouchZone = new TouchZone(xLeft, yLow,
-                getColour(R.color.colorGreen),R.string.playerGreen);
+                getColour(R.color.colorTurquoise),R.string.playerTurquoise);
         TouchZone rightHighTouchZone = new TouchZone(xRight, yHigh,
                 getColour(R.color.colorPurple), R.string.playerPurple);
         TouchZone rightLowTouchZone = new TouchZone(xRight, yLow,
                 getColour(R.color.colorBlue), R.string.playerBlue);
         /* TouchZone downTouchZone = new TouchZone(xCentre, yDown,
-                getColour(R.color.colorTurquoise), getString(R.string.playerTurquoise), strokeWidth); */
+                getColour(R.color.colorGreen), getString(R.string.playerGreen), strokeWidth); */
 
         touchZones.add(topTouchZone);
         touchZones.add(leftHighTouchZone);
