@@ -18,7 +18,9 @@ public class AvatarView extends ImageView {
 
     private boolean isEmpty = false;
     private boolean isSitting = false;
-    private boolean isWaving = false;
+    private boolean isWaving1 = false;
+    private boolean isWaving2 = false;
+    private boolean isWaving3 = false;
     private boolean isDead = false;
 
     /**
@@ -66,7 +68,13 @@ public class AvatarView extends ImageView {
             mergeDrawableStates(drawableState, STATE_SITTING);
         }
 
-        if(isWaving) {
+        if(isWaving1) {
+            mergeDrawableStates(drawableState, STATE_WAVING1);
+        }
+        if(isWaving2) {
+            mergeDrawableStates(drawableState, STATE_WAVING2);
+        }
+        if(isWaving3) {
             mergeDrawableStates(drawableState, STATE_WAVING3);
         }
 
@@ -96,12 +104,22 @@ public class AvatarView extends ImageView {
     }
 
     /**
-     * Sets whether the avatar is waving.
-     * @param isWaving - whether waving or not.
+     * Sets whether the avatar is waving for the different states.
+     * @param isWaving1 - whether waving or not.
+     * @param isWaving2 - whether waving or not.
+     * @param isWaving3 - whether waving or not.
      */
-    public void setIsWaving(boolean isWaving) {
+    public void setIsWaving1(boolean isWaving1) {
         this.resetAllStates();
-        this.isWaving = isWaving;
+        this.isWaving1 = isWaving1;
+    }
+    public void setIsWaving2(boolean isWaving2) {
+        this.resetAllStates();
+        this.isWaving2 = isWaving2;
+    }
+    public void setIsWaving3(boolean isWaving3) {
+        this.resetAllStates();
+        this.isWaving3 = isWaving3;
     }
 
     /**
@@ -119,7 +137,9 @@ public class AvatarView extends ImageView {
     private void resetAllStates() {
         this.isEmpty = false;
         this.isSitting = false;
-        this.isWaving = false;
+        this.isWaving1 = false;
+        this.isWaving2 = false;
+        this.isWaving3 = false;
         this.isDead = false;
     }
 }

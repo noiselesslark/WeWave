@@ -3,6 +3,7 @@ package se.chalmers.halfwaytospirit.waveapp;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Handler;
 
 /**
  * This class defines the TouchZone object, which retains data on zones on the app screen that
@@ -74,8 +75,27 @@ public class TouchZone extends ShapeDefinition {
             this.avatar.refreshDrawableState();
         }
         else if(!touched && !isEliminated) {
-            this.avatar.setIsWaving(true);
-            this.avatar.refreshDrawableState();
+            // 1st state of the waving avatar
+            avatar.setIsWaving1(true);
+            avatar.refreshDrawableState();
+
+            // 2nd state of the waving avatar after 0.1 second
+            final AvatarView avatar = this.avatar;
+            Handler handler1 = new Handler();
+            handler1.postDelayed(new Runnable() {
+                public void run() {
+                    avatar.setIsWaving2(true);
+                    avatar.refreshDrawableState();
+                }
+            }, 100);
+
+            // 3rd state of the waving avatar 0.1 second after
+            handler1.postDelayed(new Runnable() {
+                public void run() {
+                    avatar.setIsWaving3(true);
+                    avatar.refreshDrawableState();
+                }
+            }, 200);
         }
         this.isTouched = touched;
     }
