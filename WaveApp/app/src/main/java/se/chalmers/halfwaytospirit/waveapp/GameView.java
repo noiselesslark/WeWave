@@ -2,7 +2,6 @@ package se.chalmers.halfwaytospirit.waveapp;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 
 /**
  * This class manages the game logic for the view, and communication with the main activity.
@@ -65,13 +64,12 @@ public class GameView extends WaveView {
      * @param zone - the zone in which a player has lost.
      */
     protected void onPlayerLost(TouchZone zone) {
-        Log.v("player in zone", zone.getPlayer()+"");
         if(this.playerLostListener != null) {
             this.playerLostListener.onPlayerLost(zone.getPlayer());
-        }
 
-        zone.setEliminated(true);
-        zone.setPlayer(null);
+            zone.setEliminated(true);
+            zone.setPlayer(null);
+        }
     }
 
     /**

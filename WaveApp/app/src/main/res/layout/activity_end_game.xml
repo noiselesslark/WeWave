@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/end_game_score_label"
-        android:id="@+id/lastScreenWaveTimeLabel"
+        android:id="@+id/winningWaveCountLabel"
         android:layout_below="@+id/youWinLabel"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"/>
@@ -35,7 +35,7 @@
         android:textSize="24sp"
         android:text="0"
         android:id="@+id/waveCountValue"
-        android:layout_below="@+id/lastScreenWaveTimeLabel"
+        android:layout_below="@+id/winningWaveCountLabel"
         android:layout_centerHorizontal="true" />
 
     <ImageView
@@ -43,10 +43,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/winnerImage"
         android:src="@drawable/av_pink_waving3"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/waveCountValue"
+        android:layout_centerHorizontal="true" />
 
-        android:layout_alignTop="@+id/youWinLabel"
-        android:layout_alignParentBottom="true" />
+    <TableLayout
+        android:id="@+id/otherPlayersTable"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/replayButtonLayout"
+        android:layout_below="@+id/winnerImage"></TableLayout>
 
     <LinearLayout
         android:id="@+id/replayButtonLayout"
@@ -78,4 +84,5 @@
             android:gravity="center"
             android:text="@string/replayGame"/>
     </LinearLayout>
+
 </RelativeLayout>
