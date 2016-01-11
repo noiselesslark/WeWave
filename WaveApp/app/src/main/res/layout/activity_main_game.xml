@@ -5,7 +5,7 @@
     android:keepScreenOn="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/stadium_nobutton_2048"
+    android:background="@drawable/stadium_background"
     tools:context="se.chalmers.halfwaytospirit.waveapp.MainGameActivity">
 
     <se.chalmers.halfwaytospirit.waveapp.GameView
@@ -49,6 +49,33 @@
                 android:textColor="@color/colorRed"
                 android:visibility="gone"
                 android:layout_below="@+id/countdownArea" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startWaveField"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/countdownAndErrorField">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startWaveArrow"
+                android:src="@drawable/start_pointer"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startWaveLabel"
+                android:text="Wave starts here"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/startWaveArrow"/>
 
         </RelativeLayout>
 
