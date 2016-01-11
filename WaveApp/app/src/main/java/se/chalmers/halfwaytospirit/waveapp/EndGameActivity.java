@@ -2,6 +2,7 @@ package se.chalmers.halfwaytospirit.waveapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +25,11 @@ public class EndGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_game);
 
-        ImageButton playAgainButton = (ImageButton) findViewById(R.id.lastScreenPlayAgainButton);
+        Typeface pixelFont = Typeface.createFromAsset(getAssets(), "fonts/motorola.ttf");
+
+        Button playAgainButton = (Button) findViewById(R.id.replayButton);
+        playAgainButton.setTypeface(pixelFont);
+
         playAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,8 +38,17 @@ public class EndGameActivity extends AppCompatActivity {
             }
         });
 
-        /* TODO link the time from the previous screen
-        String waveTime = getIntent().getExtras().getString("waveTime");
-        ((TextView)findViewById(R.id.lastScreenWaveTimeText)).setText(waveTime);*/
+        Bundle extras = getIntent().getExtras();
+        String playerName = extras.getString(getString(R.string.playerNameId));
+
+        TextView winLabel = (TextView)findViewById(R.id.youWinLabel);
+        String label = getString(R.string.winnerText) + System.getProperty("line.separator") +
+                getString(R.string.playerText) + " " + playerName + "!";
+        winLabel.setText(label);
+        winLabel.setTypeface(pixelFont);
+
+        TextView countText = (TextView)findViewById(R.id.waveCountValue);
+        countText.setTypeface(pixelFont);
+        countText.setText("" + extras.getInt(getString(R.string.waveCountId)));
     }
 }

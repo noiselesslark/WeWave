@@ -13,17 +13,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="48sp"
-        android:textColor="#000000"
-        android:text="YOU WAVE!"
+        android:text="@string/winnerText"
         android:id="@+id/youWinLabel"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Wave time:"
+        android:text="@string/end_game_score_label"
         android:id="@+id/lastScreenWaveTimeLabel"
         android:layout_below="@+id/youWinLabel"
         android:layout_centerHorizontal="true"
@@ -33,40 +33,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-        android:textColor="#000000"
-        android:text="07:35"
-        android:id="@+id/lastScreenWaveTimeText"
+        android:text="0"
+        android:id="@+id/waveCountValue"
         android:layout_below="@+id/lastScreenWaveTimeLabel"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="#ffa500"
-        android:text="New high score!"
-        android:id="@+id/newHighScoreLabel"
-        android:layout_below="@+id/lastScreenWaveTimeText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
-        android:visibility="visible"/>
-
-    <!-- TODO May need to be compressed
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/winnerImage"
-        android:src="@drawable/winner_picture1"
-        android:layout_below="@+id/newHighScoreLabel"
-        android:layout_above="@+id/lastScreenPlayAgainButton"
-        android:layout_centerHorizontal="true" /> -->
+        android:src="@drawable/av_pink_waving3"
+        android:layout_centerHorizontal="true"
 
-    <ImageButton
+        android:layout_alignTop="@+id/youWinLabel"
+        android:layout_alignParentBottom="true" />
+
+    <LinearLayout
+        android:id="@+id/replayButtonLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lastScreenPlayAgainButton"
-        android:src="@drawable/ic_play_again"
+        android:clickable="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@color/buttonGray"
+        android:paddingRight="10dip"
+        android:paddingLeft="10dip"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_replay" />
+
+        <Button
+            android:id="@+id/replayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/borderlessButtonStyle"
+            android:paddingLeft="20dp"
+            android:gravity="center"
+            android:text="@string/replayGame"/>
+    </LinearLayout>
 </RelativeLayout>

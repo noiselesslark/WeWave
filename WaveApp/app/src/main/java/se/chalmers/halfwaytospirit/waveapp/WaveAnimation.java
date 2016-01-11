@@ -18,6 +18,12 @@ public class WaveAnimation extends Animation {
     private float oldAngle;
     private float newAngle;
 
+    private IOnCircuitCompleteListener circuitCompleteListener;
+
+    public void setCircuitCompleteListener(IOnCircuitCompleteListener circuitCompleteListener) {
+        this.circuitCompleteListener = circuitCompleteListener;
+    }
+
     /**
      * Constructor.
      * @param stadiumView - the stadiumView view to animate.
@@ -45,7 +51,9 @@ public class WaveAnimation extends Animation {
              * @param animation - the animation.
              */
             @Override
-            public void onAnimationEnd(Animation animation) {}
+            public void onAnimationEnd(Animation animation) {
+
+            }
 
             /**
              * Called each time the animation repeats.
@@ -57,6 +65,8 @@ public class WaveAnimation extends Animation {
                 long newSpeed = animation.getDuration()/10*9;
                 if (newSpeed <= 2000) newSpeed = 2000;
                 animation.setDuration(newSpeed);
+
+                circuitCompleteListener.onCircuitComplete();
             }
         });
     }

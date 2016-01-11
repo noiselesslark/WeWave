@@ -28,9 +28,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/startPlayButton"
             android:text="@string/playText"
+            android:background="@color/buttonGray"
             android:layout_below="@+id/logoText"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="48dp" />
+            android:layout_marginTop="48dip" />
 
     </RelativeLayout>
 
