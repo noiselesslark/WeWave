@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Animatable;
-import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.StateListDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -142,6 +140,10 @@ public class EndGameActivity extends AppCompatActivity {
         return ContextCompat.getColor(this, id);
     }
 
+    /**
+     * Shows the winner image.
+     * @param winnerName - the winner's name.
+     */
     private void showWinner(String winnerName) {
         ImageView winnerView = new ImageView(this);
         int drawableId = 0;
