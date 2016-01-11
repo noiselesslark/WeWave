@@ -46,7 +46,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/startWaveField"
             android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dip">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -65,6 +66,7 @@
                 android:layout_below="@id/startWaveLabel"/>
 
         </RelativeLayout>
+
         <LinearLayout
             android:id="@+id/tryAgainLayout"
             android:layout_width="wrap_content"
@@ -104,9 +106,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/playerLostBackground"
-        android:background="@color/fadeOutBackground"
-        android:visibility="gone"
         android:layout_alignParentTop="true"
+        android:visibility="gone"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
@@ -115,10 +116,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:gravity="center"
-            android:textSize="48sp"
+            android:textSize="30sp"
             android:id="@+id/playerLostText"
+            android:background="@color/blackOverlay"
+            android:textColor="@color/colorWhite"
+            android:text = "@string/playerMissedWaveText"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>
