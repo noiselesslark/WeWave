@@ -106,8 +106,6 @@ public class AvatarView extends ImageView {
     /**
      * Sets whether the avatar is waving for the different states.
      * @param isWaving1 - whether waving or not.
-     * @param isWaving2 - whether waving or not.
-     * @param isWaving3 - whether waving or not.
      */
     public void setIsWaving1(boolean isWaving1) {
         this.resetAllStates();

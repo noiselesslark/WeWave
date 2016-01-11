@@ -9,6 +9,8 @@
     <color name="colorRed">#FF0000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="fadeOutBackground">#90FFFFFF</color>
-    <color name="buttonGray">#999999</color>
+    <color name="buttonGray">#cccccc</color>
     <color name="transparent">#00000000</color>
+    <color name="colorBlack">#000000</color>
+    <color name="blackOverlay">#000000cc</color>
 </resources>
