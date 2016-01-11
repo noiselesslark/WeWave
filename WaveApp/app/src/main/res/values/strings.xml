@@ -11,6 +11,7 @@
     <string name="noPlayerError">Oh wait....\nYou can\'t do a wave\nwith no audience!</string>
     <string name="playerNumberError">Oh wait...\nYou can\'t do a\nwave all alone!</string>
     <string name="tryAgainBtnText">Try again</string>
+    <string name="playerMissedWaveText">Player %1$s\nmissed the wave!</string>
 
     <string name="winnerText">You waved it\n Player %1$s!</string>
     <string name="end_game_score_label">Survived</string>

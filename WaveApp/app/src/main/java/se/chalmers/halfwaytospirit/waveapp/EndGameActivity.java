@@ -3,7 +3,10 @@ package se.chalmers.halfwaytospirit.waveapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -62,7 +66,6 @@ public class EndGameActivity extends AppCompatActivity {
         TextView countText = (TextView)findViewById(R.id.waveCountValue);
         countText.setTypeface(pixelFont);
         countText.setText(getString(R.string.wavesText, winnerCount));
-
         showWinner(winnerName);
 
         TableLayout table = (TableLayout)findViewById(R.id.otherPlayersTable);
@@ -140,35 +143,36 @@ public class EndGameActivity extends AppCompatActivity {
     }
 
     private void showWinner(String winnerName) {
-        WinnerView winnerView = new WinnerView(this);
-        winnerView.setIsWinnerBlue(true);
-
-        int drawableId = R.drawable.winning_animation;
+        ImageView winnerView = new ImageView(this);
+        int drawableId = 0;
 
         switch (winnerName) {
             case "Blue":
-                winnerView.setIsWinnerBlue(true);
+                drawableId = R.drawable.winning_blue;
                 break;
             case "Green":
-                winnerView.setIsWinnerGreen(true);
+                drawableId = R.drawable.winning_green;
                 break;
             case "Pink":
-                winnerView.setIsWinnerPink(true);
+                drawableId = R.drawable.winning_pink;
                 break;
             case "Purple":
-                winnerView.setIsWinnerPurple(true);
+                drawableId = R.drawable.winning_purple;
                 break;
             case "Turquoise":
-                winnerView.setIsWinnerTurquoise(true);
+                drawableId = R.drawable.winning_turquoise;
                 break;
             case "Yellow":
-                winnerView.setIsWinnerYellow(true);
+                drawableId = R.drawable.winning_yellow;
                 break;
             }
 
         Drawable drawable = ResourcesCompat.getDrawable(getResources(), drawableId, getTheme());
 
         winnerView.setImageDrawable(drawable);
+        drawable.setCallback(winnerView);
+        drawable.setVisible(true, true);
+        ((Animatable)drawable).start();
 
         ((ViewGroup)findViewById(R.id.winnerPictureField)).addView(winnerView);
 

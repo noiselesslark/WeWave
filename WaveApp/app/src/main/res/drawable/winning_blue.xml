@@ -1,0 +1,9 @@
+<animation-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+    <item android:drawable="@drawable/av_blue_winning1" android:duration="100" />
+    <item android:drawable="@drawable/av_blue_winning2" android:duration="100" />
+    <item android:drawable="@drawable/av_blue_winning3" android:duration="100" />
+    <item android:drawable="@drawable/av_blue_winning4" android:duration="100" />
+    <item android:drawable="@drawable/av_blue_winning5" android:duration="100" />
+</animation-list>

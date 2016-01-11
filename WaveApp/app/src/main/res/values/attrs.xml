@@ -6,13 +6,4 @@
         <attr name="state_waving" format="boolean" />
         <attr name="state_dead" format="boolean" />
     </declare-styleable>
-
-    <declare-styleable name="winner">
-        <attr name="winner_blue" format="boolean"/>
-        <attr name="winner_green" format="boolean"/>
-        <attr name="winner_pink" format="boolean" />
-        <attr name="winner_purple" format="boolean" />
-        <attr name="winner_turquoise" format="boolean" />
-        <attr name="winner_yellow" format="boolean" />
-    </declare-styleable>
 </resources>

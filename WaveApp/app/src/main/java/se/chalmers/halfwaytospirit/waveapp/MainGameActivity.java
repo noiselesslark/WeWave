@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 /**
  * This class manages the game activity.
@@ -86,10 +88,10 @@ public class MainGameActivity extends AppCompatActivity {
         }
 
         // Place the start arrow correctly
-        ImageView waveStartArrow = (ImageView) findViewById(R.id.startWaveArrow);
+        /*ImageView waveStartArrow = (ImageView) findViewById(R.id.startWaveArrow);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) waveStartArrow.getLayoutParams();
         params.setMargins(0, 0, 0, Math.round(TouchZone.OUTER_RADIUS));
-        waveStartArrow.setLayoutParams(params);
+        waveStartArrow.setLayoutParams(params);*/
 
         startTimer();
     }
@@ -145,6 +147,7 @@ public class MainGameActivity extends AppCompatActivity {
                 public void onPlayerLost(Player player) {
                     player.setCircuitCount(gameManager.getCompletedCircuits());
                     boolean playerWon = gameManager.eliminatePlayer(player);
+                    showPlayerLostNotification(player.getPlayerName());
 
                     if (playerWon) {
                         endGame(player);
@@ -181,6 +184,17 @@ public class MainGameActivity extends AppCompatActivity {
         gameManager.setGameRunning(true);
         AnimatorUtility.showView(tryAgainWidget);
         AnimatorUtility.hideView(waveStartView);
+    }
+
+    private void showPlayerLostNotification(String name) {
+        playerLostArea.setText(getString(R.string.playerMissedWaveText, name));
+        AnimatorUtility.showView(playerLostArea);
+        playerLostArea.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                AnimatorUtility.hideView(playerLostArea);
+            }
+        }, 100);
     }
 
     /**
