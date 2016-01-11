@@ -34,6 +34,7 @@ public class StartScreenActivity extends AppCompatActivity {
 
         Button startButton = (Button) findViewById(R.id.startPlayButton);
         startButton.setTypeface(pixelFont);
+
         startButton.setOnClickListener(new View.OnClickListener() {
 
             /**

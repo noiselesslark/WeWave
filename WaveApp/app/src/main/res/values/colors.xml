@@ -7,4 +7,6 @@
     <color name="colorTurquoise">#22AFAF</color>
     <color name="colorBlue">#007CF7</color>
     <color name="fadeOutBackground">#90FFFFFF</color>
+    <color name="buttonGray">#999999</color>
+    <color name="transparent">#00000000</color>
 </resources>

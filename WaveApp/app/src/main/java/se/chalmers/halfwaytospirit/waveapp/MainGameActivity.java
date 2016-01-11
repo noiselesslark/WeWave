@@ -1,8 +1,12 @@
 package se.chalmers.halfwaytospirit.waveapp;
 
+import android.annotation.TargetApi;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.CountDownTimer;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +26,7 @@ public class MainGameActivity extends AppCompatActivity {
     private TextView countDownArea;
     private TextView playerLostArea;
     private GameView gameView;
+    private WaveAnimation wave;
 
     /**
      * Gets the game manager.
@@ -93,13 +98,18 @@ public class MainGameActivity extends AppCompatActivity {
         gameView.setPlayerLostListener(new IOnPlayerLostListener() {
             @Override
             public void onPlayerLost(Player player) {
-                gameManager.eliminatePlayer(player);
+                player.setCircuitCount(gameManager.getCompletedCircuits());
+                boolean playerWon = gameManager.eliminatePlayer(player);
+
+                if(playerWon) {
+                    endGame(player);
+                }
             }
         });
 
         for (TouchZone zone : gameView.getTouchZones()) {
             if (zone.isTouched()) {
-                Player player = new Player(zone.getColourName());
+                Player player = new Player(getString(zone.getColourName()));
                 zone.setPlayer(player);
 
                 gameManager.getActivePlayers().add(player);
@@ -116,8 +126,15 @@ public class MainGameActivity extends AppCompatActivity {
             gameManager.setGameRunning(true);
 
             // Starts the animation of the path.
-            WaveAnimation pathAnimation = new WaveAnimation(gameView, 360);
-            gameView.startAnimation(pathAnimation);
+            wave = new WaveAnimation(gameView, 360);
+            wave.setCircuitCompleteListener(new IOnCircuitCompleteListener() {
+                @Override
+                public void onCircuitComplete() {
+                    gameManager.incrementCircuitCount();
+                }
+            });
+
+            gameView.startAnimation(wave);
         }
     }
 
@@ -125,6 +142,7 @@ public class MainGameActivity extends AppCompatActivity {
      * Draws an avatar for the specified touch zone.
      * @param zone - the touch zone.
      */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void drawAvatar(TouchZone zone){
         AvatarView avatarView = new AvatarView(this);
         avatarView.setIsEmpty(true);
@@ -169,12 +187,46 @@ public class MainGameActivity extends AppCompatActivity {
                 break;
         }
 
-        Drawable drawable = getResources().getDrawable(drawableId);
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), drawableId, getTheme());
 
         avatarView.setImageDrawable(drawable);
         params.setMargins(marginX, marginY, 0, 0);
 
-        ((ViewGroup)findViewById(R.id.stadium_view_layout)).addView(avatarView, params);
+        ((ViewGroup)findViewById(R.id.gameRootView)).addView(avatarView, params);
         zone.setAvatar(avatarView);
+    }
+
+    private void endGame(Player winningPlayer) {
+        wave.cancel();
+        gameManager.setGameRunning(false);
+        this.finish();
+
+        Intent intent = new Intent(this, EndGameActivity.class);
+        Bundle playerData = new Bundle();
+        playerData.putString(getString(R.string.playerNameId), winningPlayer.getPlayerName());
+        playerData.putInt(getString(R.string.waveCountId), winningPlayer.getCircuitCount());
+        intent.putExtras(playerData);
+
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        unbindDrawables(findViewById(R.id.gameRootView));
+        System.gc();
+    }
+
+    private void unbindDrawables(View view) {
+        if (view.getBackground() != null) {
+            view.getBackground().setCallback(null);
+        }
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                unbindDrawables(((ViewGroup) view).getChildAt(i));
+            }
+            ((ViewGroup) view).removeAllViews();
+        }
     }
 }

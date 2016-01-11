@@ -12,6 +12,8 @@ public class GameManager {
 
     private boolean isGameRunning = false;
 
+    private int completedCircuits = 0;
+
     /**
      * Constructor.
      */
@@ -34,6 +36,14 @@ public class GameManager {
     }
 
     /**
+     * This method gets the number of completed circuits.
+     * @return the number of completed circuits.
+     */
+    public int getCompletedCircuits() {
+        return completedCircuits;
+    }
+
+    /**
      * Gets whether the game is running.
      * @return whether the game is running.
      */
@@ -53,8 +63,21 @@ public class GameManager {
      * Eliminates the specified player from the game.
      * @param player - the player.
      */
-    public void eliminatePlayer(Player player) {
+    public boolean eliminatePlayer(Player player) {
         activePlayers.remove(player);
         eliminatedPlayers.add(player);
+
+        if(activePlayers.size()==0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * This method increments the number of completed circuits by one.
+     */
+    public void incrementCircuitCount() {
+        this.completedCircuits++;
     }
 }
