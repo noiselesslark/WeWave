@@ -1,6 +1,8 @@
 package se.chalmers.halfwaytospirit.waveapp;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -64,12 +66,19 @@ public class GameManager {
      * @param player - the player.
      */
     public boolean eliminatePlayer(Player player) {
-        activePlayers.remove(player);
-        eliminatedPlayers.add(player);
+        if(activePlayers.size()==1) {
 
-        if(activePlayers.size()==0) {
+            Collections.sort(eliminatedPlayers, new Comparator<Player>() {
+                @Override
+                public int compare(Player lhs, Player rhs) {
+                    return rhs.getCircuitCount() - lhs.getCircuitCount();
+                }
+            });
+
             return true;
         } else {
+            activePlayers.remove(player);
+            eliminatedPlayers.add(player);
             return false;
         }
     }

@@ -9,7 +9,7 @@ import android.os.CountDownTimer;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -64,10 +64,10 @@ public class MainGameActivity extends AppCompatActivity {
         }
 
         // Place the start arrow correctly
-        ImageView waveStartArrow = (ImageView) findViewById(R.id.startWaveArrow);
+        /*ImageView waveStartArrow = (ImageView) findViewById(R.id.startWaveArrow);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) waveStartArrow.getLayoutParams();
         params.setMargins(0, 0, 0, Math.round(TouchZone.OUTER_RADIUS));
-        waveStartArrow.setLayoutParams(params);
+        waveStartArrow.setLayoutParams(params);*/
 
         startTimer();
     }
@@ -85,8 +85,8 @@ public class MainGameActivity extends AppCompatActivity {
             public void onFinish() {
                 findViewById(R.id.countdownBackground).postDelayed(new Runnable() {
                     public void run() {
-               countDownArea.setText(
-                        getString(R.string.countdownLetsText)+ System.getProperty("line.separator") +
+                        countDownArea.setText(
+                            getString(R.string.countdownLetsText)+ System.getProperty("line.separator") +
                                 getString(R.string.weWaveText));
 
                         startGame();
@@ -116,7 +116,7 @@ public class MainGameActivity extends AppCompatActivity {
 
         for (TouchZone zone : gameView.getTouchZones()) {
             if (zone.isTouched()) {
-                Player player = new Player(getString(zone.getColourName()));
+                Player player = new Player(getString(zone.getColourId()));
                 zone.setPlayer(player);
 
                 gameManager.getActivePlayers().add(player);
@@ -176,7 +176,7 @@ public class MainGameActivity extends AppCompatActivity {
         int drawableId = R.drawable.avatar_blue;
         float offset = 2*size/3;
 
-        switch (getString(zone.getColourName())) {
+        switch (getString(zone.getColourId())) {
             case "Turquoise":
                 drawableId = R.drawable.avatar_turquoise;
                 marginX += offset;
@@ -219,8 +219,19 @@ public class MainGameActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, EndGameActivity.class);
         Bundle playerData = new Bundle();
-        playerData.putString(getString(R.string.playerNameId), winningPlayer.getPlayerName());
-        playerData.putInt(getString(R.string.waveCountId), winningPlayer.getCircuitCount());
+
+        playerData.putString(getString(R.string.winningPlayerNameId), winningPlayer.getPlayerName());
+        playerData.putInt(getString(R.string.winningWaveCountId), winningPlayer.getCircuitCount());
+
+        int playerPos = 2;
+        for(Player lostPlayer : gameManager.getEliminatedPlayers()) {
+            Log.d("Eliminated:", lostPlayer.getPlayerName());
+
+            playerData.putString(getString(R.string.playeridprefix) + playerPos, lostPlayer.getPlayerName());
+            playerData.putInt(lostPlayer.getPlayerName(), lostPlayer.getCircuitCount());
+            playerPos++;
+        }
+
         intent.putExtras(playerData);
 
         startActivity(intent);
