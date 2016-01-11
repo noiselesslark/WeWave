@@ -1,20 +1,20 @@
 package se.chalmers.halfwaytospirit.waveapp;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.CountDownTimer;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,9 +27,13 @@ import java.io.InputStream;
 public class MainGameActivity extends AppCompatActivity {
 
     private GameManager gameManager;
-    private TextView countDownArea;
+    private TextView countDownText;
+    private RelativeLayout countDownBackground;
     private TextView playerLostArea;
     private GameView gameView;
+    private LinearLayout tryAgainWidget;
+    private RelativeLayout waveStartView;
+
     private WaveAnimation wave;
 
     /**
@@ -55,22 +59,37 @@ public class MainGameActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main_game);
 
-        Typeface pixelFont = Typeface.createFromAsset(getAssets(), "fonts/motorola.ttf");
-        countDownArea = ((TextView) findViewById(R.id.countdownArea));
-        playerLostArea = ((TextView) findViewById(R.id.playerLostText));
-        countDownArea.setTypeface(pixelFont);
-        playerLostArea.setTypeface(pixelFont);
+        countDownText = (TextView) findViewById(R.id.countdownText);
+        countDownBackground = (RelativeLayout) findViewById(R.id.countdownBackground);
+        playerLostArea = (TextView) findViewById(R.id.playerLostText);
+        tryAgainWidget = (LinearLayout) findViewById(R.id.tryAgainLayout);
         gameView = (GameView) findViewById(R.id.stadium_view);
+        waveStartView = (RelativeLayout) findViewById(R.id.startWaveField);
+
+        Button tryAgainButton = ((Button)findViewById(R.id.tryAgainButton));
+
+        Typeface pixelFont = Typeface.createFromAsset(getAssets(), "fonts/motorola.ttf");
+        countDownText.setTypeface(pixelFont);
+        playerLostArea.setTypeface(pixelFont);
+        tryAgainButton.setTypeface(pixelFont);
+        ((TextView)findViewById(R.id.startWaveLabel)).setTypeface(pixelFont);
+
+        tryAgainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restartGame();
+            }
+        });
 
         for(TouchZone zone: gameView.getTouchZones()) {
             drawAvatar(zone);
         }
 
         // Place the start arrow correctly
-        /*ImageView waveStartArrow = (ImageView) findViewById(R.id.startWaveArrow);
+        ImageView waveStartArrow = (ImageView) findViewById(R.id.startWaveArrow);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) waveStartArrow.getLayoutParams();
         params.setMargins(0, 0, 0, Math.round(TouchZone.OUTER_RADIUS));
-        waveStartArrow.setLayoutParams(params);*/
+        waveStartArrow.setLayoutParams(params);
 
         startTimer();
     }
@@ -79,22 +98,18 @@ public class MainGameActivity extends AppCompatActivity {
      * Starts the timer before the actual game
      */
     private void startTimer() {
-        new CountDownTimer(6000, 1000) {
+        new CountDownTimer(6000, 500) {
             public void onTick(long millisUntilFinished) {
-                countDownArea.setText("" + millisUntilFinished/1000);
+                int count = Math.round(millisUntilFinished/1000);
+                countDownText.setText(getString(R.string.countDownText, count));
 
+                if(count < 1) {
+                    countDownText.setText(getString(R.string.letsWeWaveText));
+                }
             }
 
             public void onFinish() {
-                findViewById(R.id.countdownBackground).postDelayed(new Runnable() {
-                    public void run() {
-                        countDownArea.setText(
-                            getString(R.string.countdownLetsText)+ System.getProperty("line.separator") +
-                                getString(R.string.weWaveText));
-
-                        startGame();
-                    }
-                }, 1000);
+                startGame();
             }
         }.start();
     }
@@ -105,17 +120,6 @@ public class MainGameActivity extends AppCompatActivity {
     private void startGame() {
 
         GameView gameView = (GameView) findViewById(R.id.stadium_view);
-        gameView.setPlayerLostListener(new IOnPlayerLostListener() {
-            @Override
-            public void onPlayerLost(Player player) {
-                player.setCircuitCount(gameManager.getCompletedCircuits());
-                boolean playerWon = gameManager.eliminatePlayer(player);
-
-                if (playerWon) {
-                    endGame(player);
-                }
-            }
-        });
 
         for (TouchZone zone : gameView.getTouchZones()) {
             if (zone.isTouched()) {
@@ -129,10 +133,24 @@ public class MainGameActivity extends AppCompatActivity {
             }
         }
 
-        if(gameManager.getActivePlayers().size() > 1) {
-            // Hide the countdown and the error if appeared.
-            findViewById(R.id.countdownBackground).setVisibility(View.INVISIBLE);
-            findViewById(R.id.playerNumberError).setVisibility(View.GONE);
+        if(gameManager.getActivePlayers().size()==1) {
+            showOnePlayerError();
+        }else if (gameManager.getActivePlayers().size()==0) {
+            showNoPlayerError();
+        } else {
+            AnimatorUtility.hideView(countDownBackground);
+
+            gameView.setPlayerLostListener(new IOnPlayerLostListener() {
+                @Override
+                public void onPlayerLost(Player player) {
+                    player.setCircuitCount(gameManager.getCompletedCircuits());
+                    boolean playerWon = gameManager.eliminatePlayer(player);
+
+                    if (playerWon) {
+                        endGame(player);
+                    }
+                }
+            });
 
             gameManager.setGameRunning(true);
 
@@ -146,22 +164,62 @@ public class MainGameActivity extends AppCompatActivity {
             });
 
             gameView.startAnimation(wave);
-        } else {
-            // Show the error.
-            TextView numberPlayerError = (TextView)findViewById(R.id.playerNumberError);
-            numberPlayerError.setText("At least 2 players" + System.getProperty("line.separator") +
-                    "are needed to" + System.getProperty("line.separator") +
-                    "launch" + System.getProperty("line.separator") + "the game.");
-            numberPlayerError.setVisibility(View.VISIBLE);
-
         }
+    }
+
+    private void showNoPlayerError() {
+        countDownText.setText(getString(R.string.noPlayerError));
+        countDownBackground.setBackgroundColor(ContextCompat.getColor(this, R.color.transparent));
+        countDownText.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
+        countDownText.setBackgroundColor(ContextCompat.getColor(this, R.color.blackOverlay));
+
+        for (TouchZone zone : gameView.getTouchZones()) {
+            zone.setEnabled(true);
+            zone.setEliminated(true);
+        }
+        gameView.invalidate();
+        gameManager.setGameRunning(true);
+        AnimatorUtility.showView(tryAgainWidget);
+        AnimatorUtility.hideView(waveStartView);
+    }
+
+    /**
+     * Shows the error for only one player playing.
+     */
+    private void showOnePlayerError() {
+        countDownText.setText(getString(R.string.playerNumberError));
+
+        AnimatorUtility.showView(tryAgainWidget);
+        AnimatorUtility.hideView(waveStartView);
+    }
+
+    /**
+     * Resets and restarts the game.
+     */
+    private void restartGame() {
+        countDownBackground.setBackgroundColor(ContextCompat.getColor(this, R.color.fadeOutBackground));
+        AnimatorUtility.showView(countDownBackground);
+        countDownText.setTextColor(ContextCompat.getColor(this, R.color.colorBlack));
+        countDownText.setBackgroundColor(ContextCompat.getColor(this, R.color.transparent));
+
+        for (TouchZone zone : gameView.getTouchZones()) {
+            zone.setEnabled(true);
+            zone.setEliminated(false);
+            zone.getAvatar().setIsEmpty(true);
+            zone.getAvatar().refreshDrawableState();
+        }
+        gameView.invalidate();
+        gameManager.resetGame();
+
+        AnimatorUtility.hideView(tryAgainWidget);
+        AnimatorUtility.showView(waveStartView);
+        startTimer();
     }
 
     /**
      * Draws an avatar for the specified touch zone.
      * @param zone - the touch zone.
      */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void drawAvatar(TouchZone zone) {
         AvatarView avatarView = new AvatarView(this);
         avatarView.setIsEmpty(true);
@@ -215,6 +273,10 @@ public class MainGameActivity extends AppCompatActivity {
         zone.setAvatar(avatarView);
     }
 
+    /**
+     * Ends the game.
+     * @param winningPlayer
+     */
     private void endGame(Player winningPlayer) {
         wave.cancel();
         gameManager.setGameRunning(false);
@@ -228,8 +290,6 @@ public class MainGameActivity extends AppCompatActivity {
 
         int playerPos = 2;
         for(Player lostPlayer : gameManager.getEliminatedPlayers()) {
-            Log.d("Eliminated:", lostPlayer.getPlayerName());
-
             playerData.putString(getString(R.string.playeridprefix) + playerPos, lostPlayer.getPlayerName());
             playerData.putInt(lostPlayer.getPlayerName(), lostPlayer.getCircuitCount());
             playerPos++;
@@ -240,6 +300,9 @@ public class MainGameActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Called when activity is destroyed.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -248,6 +311,10 @@ public class MainGameActivity extends AppCompatActivity {
         System.gc();
     }
 
+    /**
+     * Unbinds all drawables.
+     * @param view - the root view.
+     */
     private void unbindDrawables(View view) {
         if (view.getBackground() != null) {
             view.getBackground().setCallback(null);

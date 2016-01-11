@@ -5,7 +5,7 @@
     android:keepScreenOn="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/stadium_background"
+    android:background="@drawable/backgroundcrowdblack"
     tools:context="se.chalmers.halfwaytospirit.waveapp.MainGameActivity">
 
     <se.chalmers.halfwaytospirit.waveapp.GameView
@@ -32,23 +32,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:gravity="center"
-                android:textSize="48sp"
-                android:id="@+id/countdownArea"
+                android:textSize="30sp"
+                android:padding="10dip"
+                android:text="@string/countDownText"
+                android:id="@+id/countdownText"
                 android:layout_centerHorizontal="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:layout_marginTop="16dp"
-                android:id="@+id/playerNumberError"
-                android:textColor="@color/colorRed"
-                android:visibility="gone"
-                android:layout_below="@+id/countdownArea" />
 
         </RelativeLayout>
 
@@ -57,15 +46,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/startWaveField"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/countdownAndErrorField">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/startWaveArrow"
-                android:src="@drawable/start_pointer"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -74,10 +55,48 @@
                 android:text="@string/waveStartText"
                 android:textColor="@color/colorWhite"
                 android:textSize="16sp"
+                android:layout_centerHorizontal="true"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startWaveArrow"
+                android:src="@drawable/start_pointer"
                 android:layout_centerHorizontal="true"
-                android:layout_above="@+id/startWaveArrow"/>
+                android:layout_below="@id/startWaveLabel"/>
 
         </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/tryAgainLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@color/buttonGray"
+            android:paddingRight="10dip"
+            android:paddingLeft="10dip"
+            android:layout_marginBottom="30dip"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="top"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_replay" />
+
+            <Button
+                android:id="@+id/tryAgainButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:paddingLeft="20dp"
+                android:gravity="center"
+                android:text="@string/tryAgainBtnText"/>
+        </LinearLayout>
 
     </RelativeLayout>
 

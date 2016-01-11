@@ -3,13 +3,16 @@
 
     <string name="app_firstScreenTitle">WeWave</string>
     <string name="countdownInitialText">Countdown</string>
-    <string name="countdownLetsText">Let\'s</string>
-    <string name="weWaveText">WeWave</string>
+    <string name="letsWeWaveText"> Let\'s \n WeWave!</string>
     <string name="playText">PLAY</string>
 
     <string name="waveStartText">Wave starts here</string>
+    <string name="countDownText">Please,\ntake your seats.\nWave starts in\n%1$d</string>
+    <string name="noPlayerError">Oh wait....\nYou can\'t do a wave\nwith no audience!</string>
+    <string name="playerNumberError">Oh wait...\nYou can\'t do a\nwave all alone!</string>
+    <string name="tryAgainBtnText">Try again</string>
 
-    <string name="winnerText">You waved it,\n Player %1$s!</string>
+    <string name="winnerText">You waved it\n Player %1$s!</string>
     <string name="end_game_score_label">Survived</string>
     <string name="lastScreenNewHighScoreText">New high score!</string>
     <string name="replayGame">Play again</string>

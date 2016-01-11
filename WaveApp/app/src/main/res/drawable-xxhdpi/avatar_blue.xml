@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        app:state_empty="true"
+        app:state_sitting="false"
+        app:state_waving="false"
+        app:state_dead="false"
+        android:drawable="@drawable/blue_chair"/>
+    <item
+        app:state_empty="false"
+        app:state_sitting="true"
+        app:state_waving="false"
+        app:state_dead="false"
+        android:drawable="@drawable/av_blue_sitting"/>
+    <item
+        app:state_empty="false"
+        app:state_sitting="false"
+        app:state_waving="true"
+        app:state_dead="false">
+        <animation-list android:id="@+id/avBlueAnimation" android:oneshot="false">
+            <item android:drawable="@drawable/av_blue_waving1" android:duration="100" />
+            <item android:drawable="@drawable/av_blue_waving2" android:duration="100" />
+            <item android:drawable="@drawable/av_blue_waving3" android:duration="100" />
+            <item android:drawable="@drawable/av_blue_waving2" android:duration="100" />
+            <item android:drawable="@drawable/av_blue_waving1" android:duration="100" />
+        </animation-list>
+    </item>
+    <item
+        app:state_empty="false"
+        app:state_sitting="false"
+        app:state_waving="false"
+        app:state_dead="true"
+        android:drawable="@drawable/av_blue_dead"/>
+
+</selector>
