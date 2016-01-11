@@ -18,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * This class manages the game activity.
  */
