@@ -39,13 +39,13 @@
         android:layout_below="@+id/winningWaveCountLabel"
         android:layout_centerHorizontal="true" />
 
-    <!--<ImageView
+    <RelativeLayout
+        android:id="@+id/winnerPictureField"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/winnerImage"
-        android:src="@drawable/av_pink_waving3"
+        android:layout_height = "fill_parent"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/waveCountValue"
-        android:layout_centerHorizontal="true" />-->
+        android:layout_above="@+id/otherPlayersTable" />
 
     <TableLayout
         android:id="@+id/otherPlayersTable"

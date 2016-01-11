@@ -9,13 +9,11 @@
         app:winner_turquoise="false"
         app:winner_yellow="false">
         <animation-list android:id="@+id/winningBlueAnimation" android:oneshot="false">
-            <item android:drawable="@drawable/av_blue_sitting" android:duration="100" />
-            <item android:drawable="@drawable/av_blue_waving1" android:duration="100" />
-            <item android:drawable="@drawable/av_blue_waving2" android:duration="100" />
-            <item android:drawable="@drawable/av_blue_waving3" android:duration="100" />
-            <item android:drawable="@drawable/av_blue_waving2" android:duration="100" />
-            <item android:drawable="@drawable/av_blue_waving1" android:duration="100" />
-            <item android:drawable="@drawable/av_blue_sitting" android:duration="100" />
+            <item android:drawable="@drawable/av_blue_winning1" android:duration="100" />
+            <item android:drawable="@drawable/av_blue_winning2" android:duration="100" />
+            <item android:drawable="@drawable/av_blue_winning3" android:duration="100" />
+            <item android:drawable="@drawable/av_blue_winning4" android:duration="100" />
+            <item android:drawable="@drawable/av_blue_winning5" android:duration="100" />
         </animation-list>
     </item>
 
@@ -27,13 +25,11 @@
         app:winner_turquoise="false"
         app:winner_yellow="false">
         <animation-list android:id="@+id/winningGreenAnimation" android:oneshot="false">
-            <item android:drawable="@drawable/av_green_sitting" android:duration="100" />
-            <item android:drawable="@drawable/av_green_waving1" android:duration="100" />
-            <item android:drawable="@drawable/av_green_waving2" android:duration="100" />
-            <item android:drawable="@drawable/av_green_waving3" android:duration="100" />
-            <item android:drawable="@drawable/av_green_waving2" android:duration="100" />
-            <item android:drawable="@drawable/av_green_waving1" android:duration="100" />
-            <item android:drawable="@drawable/av_green_sitting" android:duration="100" />
+            <item android:drawable="@drawable/av_green_winning1" android:duration="100" />
+            <item android:drawable="@drawable/av_green_winning2" android:duration="100" />
+            <item android:drawable="@drawable/av_green_winning3" android:duration="100" />
+            <item android:drawable="@drawable/av_green_winning4" android:duration="100" />
+            <item android:drawable="@drawable/av_green_winning5" android:duration="100" />
         </animation-list>
     </item>
 
@@ -45,13 +41,11 @@
         app:winner_turquoise="false"
         app:winner_yellow="false">
         <animation-list android:id="@+id/winningPinkAnimation" android:oneshot="false">
-            <item android:drawable="@drawable/av_pink_sitting" android:duration="100" />
-            <item android:drawable="@drawable/av_pink_waving1" android:duration="100" />
-            <item android:drawable="@drawable/av_pink_waving2" android:duration="100" />
-            <item android:drawable="@drawable/av_pink_waving3" android:duration="100" />
-            <item android:drawable="@drawable/av_pink_waving2" android:duration="100" />
-            <item android:drawable="@drawable/av_pink_waving1" android:duration="100" />
-            <item android:drawable="@drawable/av_pink_sitting" android:duration="100" />
+            <item android:drawable="@drawable/av_pink_winning1" android:duration="100" />
+            <item android:drawable="@drawable/av_pink_winning2" android:duration="100" />
+            <item android:drawable="@drawable/av_pink_winning3" android:duration="100" />
+            <item android:drawable="@drawable/av_pink_winning4" android:duration="100" />
+            <item android:drawable="@drawable/av_pink_winning5" android:duration="100" />
         </animation-list>
     </item>
 
@@ -63,13 +57,11 @@
         app:winner_turquoise="false"
         app:winner_yellow="false">
         <animation-list android:id="@+id/winningPurpleAnimation" android:oneshot="false">
-            <item android:drawable="@drawable/av_purple_sitting" android:duration="100" />
-            <item android:drawable="@drawable/av_purple_waving1" android:duration="100" />
-            <item android:drawable="@drawable/av_purple_waving2" android:duration="100" />
-            <item android:drawable="@drawable/av_purple_waving3" android:duration="100" />
-            <item android:drawable="@drawable/av_purple_waving2" android:duration="100" />
-            <item android:drawable="@drawable/av_purple_waving1" android:duration="100" />
-            <item android:drawable="@drawable/av_purple_sitting" android:duration="100" />
+            <item android:drawable="@drawable/av_purple_winning1" android:duration="100" />
+            <item android:drawable="@drawable/av_purple_winning2" android:duration="100" />
+            <item android:drawable="@drawable/av_purple_winning3" android:duration="100" />
+            <item android:drawable="@drawable/av_purple_winning4" android:duration="100" />
+            <item android:drawable="@drawable/av_purple_winning5" android:duration="100" />
         </animation-list>
     </item>
 
@@ -81,13 +73,11 @@
         app:winner_turquoise="true"
         app:winner_yellow="false">
         <animation-list android:id="@+id/winningTurquoiseAnimation" android:oneshot="false">
-            <item android:drawable="@drawable/av_turquoise_sitting" android:duration="100" />
-            <item android:drawable="@drawable/av_turquoise_waving1" android:duration="100" />
-            <item android:drawable="@drawable/av_turquoise_waving2" android:duration="100" />
-            <item android:drawable="@drawable/av_turquoise_waving3" android:duration="100" />
-            <item android:drawable="@drawable/av_turquoise_waving2" android:duration="100" />
-            <item android:drawable="@drawable/av_turquoise_waving1" android:duration="100" />
-            <item android:drawable="@drawable/av_turquoise_sitting" android:duration="100" />
+            <item android:drawable="@drawable/av_turquoise_winning1" android:duration="100" />
+            <item android:drawable="@drawable/av_turquoise_winning2" android:duration="100" />
+            <item android:drawable="@drawable/av_turquoise_winning3" android:duration="100" />
+            <item android:drawable="@drawable/av_turquoise_winning4" android:duration="100" />
+            <item android:drawable="@drawable/av_turquoise_winning5" android:duration="100" />
         </animation-list>
     </item>
 
@@ -99,13 +89,11 @@
         app:winner_turquoise="false"
         app:winner_yellow="true">
         <animation-list android:id="@+id/winningYellowAnimation" android:oneshot="false">
-            <item android:drawable="@drawable/av_yellow_sitting" android:duration="100" />
-            <item android:drawable="@drawable/av_yellow_waving1" android:duration="100" />
-            <item android:drawable="@drawable/av_yellow_waving2" android:duration="100" />
-            <item android:drawable="@drawable/av_yellow_waving3" android:duration="100" />
-            <item android:drawable="@drawable/av_yellow_waving2" android:duration="100" />
-            <item android:drawable="@drawable/av_yellow_waving1" android:duration="100" />
-            <item android:drawable="@drawable/av_yellow_sitting" android:duration="100" />
+            <item android:drawable="@drawable/av_yellow_winning1" android:duration="100" />
+            <item android:drawable="@drawable/av_yellow_winning2" android:duration="100" />
+            <item android:drawable="@drawable/av_yellow_winning3" android:duration="100" />
+            <item android:drawable="@drawable/av_yellow_winning4" android:duration="100" />
+            <item android:drawable="@drawable/av_yellow_winning5" android:duration="100" />
         </animation-list>
     </item>
 

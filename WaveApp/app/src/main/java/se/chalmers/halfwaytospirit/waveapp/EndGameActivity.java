@@ -131,13 +131,6 @@ public class EndGameActivity extends AppCompatActivity {
         WinnerView winnerView = new WinnerView(this);
         winnerView.setIsWinnerBlue(true);
 
-        int size = Math.round(TouchZone.OUTER_RADIUS * 10);
-
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(size, size);
-        params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
-        params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
-        winnerView.setScaleType(ImageView.ScaleType.CENTER);
-
         int drawableId = R.drawable.winning_animation;
 
         switch (winnerName) {
@@ -165,7 +158,7 @@ public class EndGameActivity extends AppCompatActivity {
 
         winnerView.setImageDrawable(drawable);
 
-        ((ViewGroup)findViewById(R.id.endRootView)).addView(winnerView, params);
+        ((ViewGroup)findViewById(R.id.winnerPictureField)).addView(winnerView);
 
         TableLayout scoreTable = (TableLayout)findViewById(R.id.otherPlayersTable);
         scoreTable.getLayoutParams().height = RelativeLayout.LayoutParams.WRAP_CONTENT;
