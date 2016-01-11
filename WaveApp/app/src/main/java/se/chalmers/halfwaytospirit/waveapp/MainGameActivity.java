@@ -31,7 +31,8 @@ public class MainGameActivity extends AppCompatActivity {
     private GameManager gameManager;
     private TextView countDownText;
     private RelativeLayout countDownBackground;
-    private TextView playerLostArea;
+    private RelativeLayout playerLostArea;
+    private TextView playerLostText;
     private GameView gameView;
     private LinearLayout tryAgainWidget;
     private RelativeLayout waveStartView;
@@ -63,7 +64,8 @@ public class MainGameActivity extends AppCompatActivity {
 
         countDownText = (TextView) findViewById(R.id.countdownText);
         countDownBackground = (RelativeLayout) findViewById(R.id.countdownBackground);
-        playerLostArea = (TextView) findViewById(R.id.playerLostText);
+        playerLostArea = (RelativeLayout) findViewById(R.id.playerLostBackground);
+        playerLostText = (TextView) findViewById(R.id.playerLostText);
         tryAgainWidget = (LinearLayout) findViewById(R.id.tryAgainLayout);
         gameView = (GameView) findViewById(R.id.stadium_view);
         waveStartView = (RelativeLayout) findViewById(R.id.startWaveField);
@@ -72,7 +74,7 @@ public class MainGameActivity extends AppCompatActivity {
 
         Typeface pixelFont = Typeface.createFromAsset(getAssets(), "fonts/motorola.ttf");
         countDownText.setTypeface(pixelFont);
-        playerLostArea.setTypeface(pixelFont);
+        playerLostText.setTypeface(pixelFont);
         tryAgainButton.setTypeface(pixelFont);
         ((TextView)findViewById(R.id.startWaveLabel)).setTypeface(pixelFont);
 
@@ -187,7 +189,7 @@ public class MainGameActivity extends AppCompatActivity {
     }
 
     private void showPlayerLostNotification(String name) {
-        playerLostArea.setText(getString(R.string.playerMissedWaveText, name));
+        playerLostText.setText(getString(R.string.playerMissedWaveText, name));
         AnimatorUtility.showView(playerLostArea);
         playerLostArea.postDelayed(new Runnable() {
             @Override
