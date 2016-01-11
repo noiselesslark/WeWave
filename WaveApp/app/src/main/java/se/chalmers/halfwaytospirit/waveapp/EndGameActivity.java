@@ -1,8 +1,12 @@
 package se.chalmers.halfwaytospirit.waveapp;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +14,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -57,6 +63,8 @@ public class EndGameActivity extends AppCompatActivity {
         TextView countText = (TextView)findViewById(R.id.waveCountValue);
         countText.setTypeface(pixelFont);
         countText.setText(getString(R.string.wavesText, winnerCount));
+
+        showWinner(winnerName);
 
         TableLayout table = (TableLayout)findViewById(R.id.otherPlayersTable);
 
@@ -117,5 +125,49 @@ public class EndGameActivity extends AppCompatActivity {
         }
 
         return ContextCompat.getColor(this, id);
+    }
+
+    private void showWinner(String winnerName) {
+        WinnerView winnerView = new WinnerView(this);
+        winnerView.setIsWinnerBlue(true);
+
+        int size = Math.round(TouchZone.OUTER_RADIUS * 10);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(size, size);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+        params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+        winnerView.setScaleType(ImageView.ScaleType.CENTER);
+
+        int drawableId = R.drawable.winning_animation;
+
+        switch (winnerName) {
+            case "Blue":
+                winnerView.setIsWinnerBlue(true);
+                break;
+            case "Green":
+                winnerView.setIsWinnerGreen(true);
+                break;
+            case "Pink":
+                winnerView.setIsWinnerPink(true);
+                break;
+            case "Purple":
+                winnerView.setIsWinnerPurple(true);
+                break;
+            case "Turquoise":
+                winnerView.setIsWinnerTurquoise(true);
+                break;
+            case "Yellow":
+                winnerView.setIsWinnerYellow(true);
+                break;
+            }
+
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), drawableId, getTheme());
+
+        winnerView.setImageDrawable(drawable);
+
+        ((ViewGroup)findViewById(R.id.endRootView)).addView(winnerView, params);
+
+        TableLayout scoreTable = (TableLayout)findViewById(R.id.otherPlayersTable);
+        scoreTable.getLayoutParams().height = RelativeLayout.LayoutParams.WRAP_CONTENT;
     }
 }
