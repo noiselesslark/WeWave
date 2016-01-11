@@ -29,8 +29,6 @@ public class StartScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start_screen);
         Typeface pixelFont = Typeface.createFromAsset(getAssets(), "fonts/motorola.ttf");
 
-        TextView logoText = (TextView) findViewById(R.id.logoText);
-        logoText.setTypeface(pixelFont);
 
         Button startButton = (Button) findViewById(R.id.startPlayButton);
         startButton.setTypeface(pixelFont);

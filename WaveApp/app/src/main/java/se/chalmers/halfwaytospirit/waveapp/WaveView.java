@@ -85,13 +85,6 @@ public abstract class WaveView extends TouchZonesView {
     protected void onDraw(Canvas canvas){
         int pointRadius = TouchZonesView.STADIUM_OFFSET;
 
-        canvas.drawArc(stadium.getTopSemiCircle(), 180, 180, false, pathPaint);
-        canvas.drawArc(stadium.getBottomSemiCircle(), 0, 180, false, pathPaint);
-        canvas.drawLine(stadium.getXLeft(), stadium.getYTop(),
-                stadium.getXLeft(), stadium.getYBottom(), pathPaint);
-        canvas.drawLine(stadium.getXRight(), stadium.getYTop(),
-                stadium.getXRight(), stadium.getYBottom(), pathPaint);
-
         canvas.drawCircle(wavePosition.getCenterX(), wavePosition.getCenterY(), pointRadius, pointPaint);
 
         super.onDraw(canvas);

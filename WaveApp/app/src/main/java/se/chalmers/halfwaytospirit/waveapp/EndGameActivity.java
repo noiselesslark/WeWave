@@ -1,5 +1,6 @@
 package se.chalmers.halfwaytospirit.waveapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
@@ -40,17 +41,18 @@ public class EndGameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), MainGameActivity.class);
                 startActivity(intent);
+                ((Activity)view.getContext()).finish();
             }
         });
 
         Bundle extras = getIntent().getExtras();
-
         String winnerName = extras.getString(getString(R.string.winningPlayerNameId));
         int winnerCount = extras.getInt(getString(R.string.winningWaveCountId));
+
         TextView winLabel = (TextView)findViewById(R.id.youWinLabel);
-        String label = getString(R.string.winnerText, winnerName);
-        winLabel.setText(label);
+        winLabel.setText(getString(R.string.winnerText, winnerName));
         winLabel.setTypeface(pixelFont);
+        winLabel.setTextColor(getPlayerColour(winnerName));
 
         ((TextView)findViewById(R.id.winningWaveCountLabel)).setTypeface(pixelFont);
 
@@ -66,28 +68,39 @@ public class EndGameActivity extends AppCompatActivity {
                 String name = extras.getString(playerId);
                 int count = extras.getInt(name);
 
-                TableLayout.LayoutParams params = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                TableRow row = new TableRow(this);
-                row.setPadding(5,5,5,5);
-                row.setLayoutParams(params);
-
-                TextView nameTv = new TextView(this);
-                nameTv.setTextColor(getColour(name));
-                nameTv.setPadding(5, 5, 5, 5);
-                nameTv.setTypeface(pixelFont);
-                nameTv.setText(getString(R.string.playerText, name));
-
-                TextView countTv = new TextView(this);
-                countTv.setPadding(10,5,5,5);
-                countTv.setTypeface(pixelFont);
-                countTv.setText(getString(R.string.wavesText, count));
-
-                row.addView(nameTv);
-                row.addView(countTv);
-
-                table.addView(row);
+                table.addView(buildTableRow(name, count, pixelFont));
             }
         }
+    }
+
+    /**
+     * Builds a table row for the specified player.
+     * @param name - the name.
+     * @param count - the circuit count.
+     * @param pixelFont - the font to render with.
+     * @return A table row.
+     */
+    private TableRow buildTableRow(String name, int count, Typeface pixelFont) {
+        TableLayout.LayoutParams params = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        TableRow row = new TableRow(this);
+        row.setPadding(5, 5, 5, 5);
+        row.setLayoutParams(params);
+
+        TextView nameTv = new TextView(this);
+        nameTv.setTextColor(getPlayerColour(name));
+        nameTv.setPadding(5, 5, 5, 5);
+        nameTv.setTypeface(pixelFont);
+        nameTv.setText(getString(R.string.playerText, name));
+
+        TextView countTv = new TextView(this);
+        countTv.setPadding(10, 5, 5, 5);
+        countTv.setTypeface(pixelFont);
+        countTv.setText(getString(R.string.wavesText, count));
+
+        row.addView(nameTv);
+        row.addView(countTv);
+
+        return row;
     }
 
     /**
@@ -95,7 +108,7 @@ public class EndGameActivity extends AppCompatActivity {
      * @param colourName - the name of the colour.
      * @return the colour identifier.
      */
-    private int getColour(String colourName) {
+    private int getPlayerColour(String colourName) {
         int id = 0;
         switch(colourName) {
             case "Yellow":
@@ -112,8 +125,10 @@ public class EndGameActivity extends AppCompatActivity {
                 break;
             case "Pink":
                 id = R.color.colorPink;
+                break;
             case "Green":
                 id = R.color.colorGreen;
+                break;
         }
 
         return ContextCompat.getColor(this, id);

@@ -89,4 +89,14 @@ public class GameManager {
     public void incrementCircuitCount() {
         this.completedCircuits++;
     }
+
+    /**
+     * This method resets the game state.
+     */
+    public void resetGame() {
+        this.eliminatedPlayers = new ArrayList<>();
+        this.activePlayers = new ArrayList<>();
+        this.isGameRunning = false;
+        this.completedCircuits = 0;
+    }
 }
