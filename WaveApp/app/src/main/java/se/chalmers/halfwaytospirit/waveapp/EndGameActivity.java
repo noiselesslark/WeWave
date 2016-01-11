@@ -1,11 +1,8 @@
 package se.chalmers.halfwaytospirit.waveapp;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,16 +10,19 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.util.List;
-
+/**
+ * This class manages the end game screen.
+ */
 public class EndGameActivity extends AppCompatActivity {
-    List<PlayerData> playerData;
 
+    /**
+     * Called when the activity is created.
+     * @param savedInstanceState - the saved instance state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
