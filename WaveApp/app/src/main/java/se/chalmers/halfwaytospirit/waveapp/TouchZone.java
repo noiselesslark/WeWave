@@ -25,7 +25,7 @@ public class TouchZone extends ShapeDefinition {
     private Paint eliminatedOuterPaint;
 
     private Player player;
-    private int colourName;
+    private int colourId;
     private AvatarView avatar;
 
     /**
@@ -33,9 +33,9 @@ public class TouchZone extends ShapeDefinition {
      * @param x - the x-coordinate on the view for the centre of the touch zone.
      * @param y - the y-coordinate on the view fr the centre of the touch zone.
      */
-    public TouchZone(int x, int y, int colour, int colourName) {
+    public TouchZone(int x, int y, int colour, int colourId) {
         super(x, y);
-        this.colourName = colourName;
+        this.colourId = colourId;
 
         defaultInnerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         defaultInnerPaint.setColor(colour);
@@ -197,10 +197,6 @@ public class TouchZone extends ShapeDefinition {
      * @param isEliminated - whether the zone has been eliminated.
      */
     public void setEliminated(boolean isEliminated) {
-        if(isEliminated) {
-            this.avatar.setIsDead(true);
-            this.avatar.refreshDrawableState();
-        }
         this.isEliminated = isEliminated;
     }
 
@@ -224,8 +220,8 @@ public class TouchZone extends ShapeDefinition {
      * Gets the name of the colour.
      * @return the name of the colour.
      */
-    public int getColourName() {
-        return this.colourName;
+    public int getColourId() {
+        return this.colourId;
     }
 
     /**

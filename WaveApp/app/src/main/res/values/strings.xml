@@ -7,10 +7,14 @@
     <string name="weWaveText">WeWave</string>
     <string name="playText">PLAY</string>
 
-    <string name="winnerText">You waved it,</string>
-    <string name="end_game_score_label">Number of waves</string>
+    <string name="waveStartText">Wave starts here</string>
+
+    <string name="winnerText">You waved it,\n Player %1$s!</string>
+    <string name="end_game_score_label">Survived</string>
     <string name="lastScreenNewHighScoreText">New high score!</string>
     <string name="replayGame">Play again</string>
+    <string name="wavesText">%1$d waves</string>
+    <string name="playerText">Player %1$s:</string>
 
     <string name="playerPurple">Purple</string>
     <string name="playerPink">Pink</string>
@@ -18,9 +22,14 @@
     <string name="playerYellow">Yellow</string>
     <string name="playerTurquoise">Turquoise</string>
     <string name="playerBlue">Blue</string>
-    <string name="playerText">Player</string>
 
-    <string name="playerNameId">playername</string>
-    <string name="waveCountId">wavecount</string>
+    <string name="winningPlayerNameId">playername</string>
+    <string name="winningWaveCountId">wavecount</string>
+    <string name="player2Id">player2</string>
+    <string name="player3Id">player3</string>
+    <string name="player4Id">player4</string>
+    <string name="player5Id">player5</string>
+    <string name="player6Id">player6</string>
+    <string name="playeridprefix">player</string>
 
 </resources>
