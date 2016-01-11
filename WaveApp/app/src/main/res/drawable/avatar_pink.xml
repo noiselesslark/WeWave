@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android"
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         app:state_empty="true"
@@ -32,4 +32,4 @@
         app:state_waving="false"
         app:state_dead="true"
         android:drawable="@drawable/av_pink_dead"/>
-</selector>
+</animated-selector>

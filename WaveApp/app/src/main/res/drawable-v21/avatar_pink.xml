@@ -2,34 +2,63 @@
 <animated-selector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        app:state_empty="true"
+        app:state_empty="false"
         app:state_sitting="false"
         app:state_waving="false"
         app:state_dead="false"
         android:drawable="@drawable/pink_chair"/>
     <item
+        android:id="@+id/empty"
+        app:state_empty="true"
+        app:state_sitting="false"
+        app:state_waving="false"
+        app:state_dead="false"
+        android:drawable="@drawable/pink_chair"/>
+
+    <item
+        android:id="@+id/sitting"
         app:state_empty="false"
         app:state_sitting="true"
         app:state_waving="false"
         app:state_dead="false"
         android:drawable="@drawable/av_pink_sitting"/>
+
     <item
+        android:id="@+id/waving"
         app:state_empty="false"
         app:state_sitting="false"
         app:state_waving="true"
-        app:state_dead="false">
-        <animation-list android:id="@+id/avPinkAnimation" android:oneshot="false">
-            <item android:drawable="@drawable/av_pink_waving1" android:duration="100" />
-            <item android:drawable="@drawable/av_pink_waving2" android:duration="100" />
-            <item android:drawable="@drawable/av_pink_waving3" android:duration="100" />
-            <item android:drawable="@drawable/av_pink_waving2" android:duration="100" />
-            <item android:drawable="@drawable/av_pink_waving1" android:duration="100" />
-        </animation-list>
-    </item>
+        app:state_dead="false"
+        android:drawable="@drawable/av_pink_waving3"/>
+
     <item
+        android:id="@+id/dead"
         app:state_empty="false"
         app:state_sitting="false"
         app:state_waving="false"
         app:state_dead="true"
         android:drawable="@drawable/av_pink_dead"/>
+
+    <transition
+        android:fromId="@+id/sitting"
+        android:toId="@+id/waving">
+        <animation-list>
+            <item android:drawable="@drawable/av_pink_sitting" android:duration="50" />
+            <item android:drawable="@drawable/av_pink_waving1" android:duration="50" />
+            <item android:drawable="@drawable/av_pink_waving2" android:duration="50" />
+            <item android:drawable="@drawable/av_pink_waving3" android:duration="50" />
+        </animation-list>
+    </transition>
+
+    <transition
+        android:fromId="@+id/waving"
+        android:toId="@+id/sitting">
+        <animation-list>
+            <item android:drawable="@drawable/av_pink_waving3" android:duration="50" />
+            <item android:drawable="@drawable/av_pink_waving2" android:duration="50" />
+            <item android:drawable="@drawable/av_pink_waving1" android:duration="50" />
+            <item android:drawable="@drawable/av_pink_sitting" android:duration="50" />
+        </animation-list>
+    </transition>
+
 </animated-selector>

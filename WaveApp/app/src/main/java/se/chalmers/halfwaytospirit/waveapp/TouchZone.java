@@ -72,11 +72,9 @@ public class TouchZone extends ShapeDefinition {
     public void setTouched(boolean touched) {
         if(touched && !this.isEliminated) {
             this.avatar.setIsSitting(true);
-            this.avatar.refreshDrawableState();
         }
         else if(!touched && !isEliminated) {
             avatar.setIsWaving(true);
-            avatar.refreshDrawableState();
         }
         this.isTouched = touched;
     }
@@ -180,7 +178,6 @@ public class TouchZone extends ShapeDefinition {
     public void setEliminated(boolean isEliminated) {
         if(isEliminated) {
             this.avatar.setIsDead(true);
-            this.avatar.refreshDrawableState();
         }
         this.isEliminated = isEliminated;
     }

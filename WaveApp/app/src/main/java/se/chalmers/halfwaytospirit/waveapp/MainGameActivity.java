@@ -132,6 +132,7 @@ public class MainGameActivity extends AppCompatActivity {
 
             } else {
                 zone.setEnabled(false);
+                zone.getAvatar().setIsEmpty(true);
             }
         }
 
@@ -220,7 +221,6 @@ public class MainGameActivity extends AppCompatActivity {
             zone.setEnabled(true);
             zone.setEliminated(false);
             zone.getAvatar().setIsEmpty(true);
-            zone.getAvatar().refreshDrawableState();
         }
         gameView.invalidate();
         gameManager.resetGame();
@@ -289,7 +289,7 @@ public class MainGameActivity extends AppCompatActivity {
 
     /**
      * Ends the game.
-     * @param winningPlayer
+     * @param winningPlayer - the winning player.
      */
     private void endGame(Player winningPlayer) {
         wave.cancel();

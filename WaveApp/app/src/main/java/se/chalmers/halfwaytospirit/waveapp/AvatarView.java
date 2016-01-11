@@ -2,6 +2,7 @@ package se.chalmers.halfwaytospirit.waveapp;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 
 /**
@@ -54,7 +55,7 @@ public class AvatarView extends ImageView {
      */
     @Override
     public int[] onCreateDrawableState(int extraSpace) {
-        final int[] drawableState = super.onCreateDrawableState(extraSpace + 2);
+        final int[] drawableState = super.onCreateDrawableState(extraSpace + 1);
 
         if(isEmpty) {
             mergeDrawableStates(drawableState, STATE_EMPTY);
@@ -82,6 +83,7 @@ public class AvatarView extends ImageView {
     public void setIsEmpty(boolean isEmpty) {
         this.resetAllStates();
         this.isEmpty = isEmpty;
+        refreshDrawableState();
     }
 
     /**
@@ -91,6 +93,7 @@ public class AvatarView extends ImageView {
     public void setIsSitting(boolean isSitting) {
         this.resetAllStates();
         this.isSitting = isSitting;
+        refreshDrawableState();
     }
 
     /**
@@ -100,6 +103,7 @@ public class AvatarView extends ImageView {
     public void setIsWaving(boolean isWaving) {
         this.resetAllStates();
         this.isWaving = isWaving;
+        refreshDrawableState();
     }
 
     /**
@@ -109,6 +113,7 @@ public class AvatarView extends ImageView {
     public void setIsDead(boolean isDead) {
         this.resetAllStates();
         this.isDead = isDead;
+        refreshDrawableState();
     }
 
     /**
