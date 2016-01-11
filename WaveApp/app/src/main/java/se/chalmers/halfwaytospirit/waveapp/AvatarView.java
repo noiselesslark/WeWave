@@ -10,17 +10,13 @@ import android.widget.ImageView;
 public class AvatarView extends ImageView {
     private static final int[] STATE_EMPTY = {R.attr.state_empty};
     private static final int[] STATE_SITTING = {R.attr.state_sitting};
-    private static final int[] STATE_WAVING1 = {R.attr.state_waving1};
-    private static final int[] STATE_WAVING2 = {R.attr.state_waving2};
-    private static final int[] STATE_WAVING3 = {R.attr.state_waving3};
+    private static final int[] STATE_WAVING = {R.attr.state_waving};
     private static final int[] STATE_DEAD = {R.attr.state_dead};
 
 
     private boolean isEmpty = false;
     private boolean isSitting = false;
-    private boolean isWaving1 = false;
-    private boolean isWaving2 = false;
-    private boolean isWaving3 = false;
+    private boolean isWaving = false;
     private boolean isDead = false;
 
     /**
@@ -68,14 +64,8 @@ public class AvatarView extends ImageView {
             mergeDrawableStates(drawableState, STATE_SITTING);
         }
 
-        if(isWaving1) {
-            mergeDrawableStates(drawableState, STATE_WAVING1);
-        }
-        if(isWaving2) {
-            mergeDrawableStates(drawableState, STATE_WAVING2);
-        }
-        if(isWaving3) {
-            mergeDrawableStates(drawableState, STATE_WAVING3);
+        if(isWaving) {
+            mergeDrawableStates(drawableState, STATE_WAVING);
         }
 
         if(isDead) {
@@ -105,19 +95,11 @@ public class AvatarView extends ImageView {
 
     /**
      * Sets whether the avatar is waving for the different states.
-     * @param isWaving1 - whether waving or not.
+     * @param isWaving - whether waving or not.
      */
-    public void setIsWaving1(boolean isWaving1) {
+    public void setIsWaving(boolean isWaving) {
         this.resetAllStates();
-        this.isWaving1 = isWaving1;
-    }
-    public void setIsWaving2(boolean isWaving2) {
-        this.resetAllStates();
-        this.isWaving2 = isWaving2;
-    }
-    public void setIsWaving3(boolean isWaving3) {
-        this.resetAllStates();
-        this.isWaving3 = isWaving3;
+        this.isWaving = isWaving;
     }
 
     /**
@@ -135,9 +117,7 @@ public class AvatarView extends ImageView {
     private void resetAllStates() {
         this.isEmpty = false;
         this.isSitting = false;
-        this.isWaving1 = false;
-        this.isWaving2 = false;
-        this.isWaving3 = false;
+        this.isWaving = false;
         this.isDead = false;
     }
 }

@@ -64,7 +64,7 @@ public class GameView extends WaveView {
      * @param zone - the zone in which a player has lost.
      */
     protected void onPlayerLost(TouchZone zone) {
-        if(this.playerLostListener != null && zone != null && zone.getPlayer() != null) {
+        if(this.playerLostListener != null) {
             this.playerLostListener.onPlayerLost(zone.getPlayer());
 
             zone.setEliminated(true);
@@ -80,7 +80,7 @@ public class GameView extends WaveView {
     public void checkZoneActive(TouchZone zone) {
 
         if(manager.isGameRunning()) {
-            if (zone != this.activeTouchZone) {
+            if (zone != this.activeTouchZone && zone.getPlayer() != null) {
                 this.onPlayerLost(zone);
             } else {
                 this.detectedPlayerLift = true;
@@ -119,7 +119,7 @@ public class GameView extends WaveView {
      * Handles when a touch zone is left by the wave.
      */
     private void onTouchZoneLeave() {
-        if(!this.detectedPlayerLift) {
+        if(!this.detectedPlayerLift || (this.detectedPlayerLift && !activeTouchZone.isTouched())) {
             this.onPlayerLost(this.activeTouchZone);
         }
 
