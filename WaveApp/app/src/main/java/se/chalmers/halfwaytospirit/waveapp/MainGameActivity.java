@@ -18,11 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
-
 /**
  * This class manages the game activity.
  */
@@ -89,19 +84,13 @@ public class MainGameActivity extends AppCompatActivity {
             drawAvatar(zone);
         }
 
-        // Place the start arrow correctly
-        /*ImageView waveStartArrow = (ImageView) findViewById(R.id.startWaveArrow);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) waveStartArrow.getLayoutParams();
-        params.setMargins(0, 0, 0, Math.round(TouchZone.OUTER_RADIUS));
-        waveStartArrow.setLayoutParams(params);*/
-
-        startTimer();
+        startCountdown();
     }
 
     /**
      * Starts the timer before the actual game
      */
-    private void startTimer() {
+    private void startCountdown() {
         new CountDownTimer(6000, 500) {
             public void onTick(long millisUntilFinished) {
                 int count = Math.round(millisUntilFinished/1000);
@@ -134,6 +123,7 @@ public class MainGameActivity extends AppCompatActivity {
 
             } else {
                 zone.setEnabled(false);
+                zone.getAvatar().setIsEmpty(true);
             }
         }
 
@@ -172,6 +162,9 @@ public class MainGameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Shows the error when no players entered the game.
+     */
     private void showNoPlayerError() {
         countDownText.setText(getString(R.string.noPlayerError));
         countDownBackground.setBackgroundColor(ContextCompat.getColor(this, R.color.transparent));
@@ -188,6 +181,10 @@ public class MainGameActivity extends AppCompatActivity {
         AnimatorUtility.hideView(waveStartView);
     }
 
+    /**
+     * Shows when a player has lost.
+     * @param name - the name.
+     */
     private void showPlayerLostNotification(String name) {
         playerLostText.setText(getString(R.string.playerMissedWaveText, name));
         AnimatorUtility.showView(playerLostArea);
@@ -222,14 +219,13 @@ public class MainGameActivity extends AppCompatActivity {
             zone.setEnabled(true);
             zone.setEliminated(false);
             zone.getAvatar().setIsEmpty(true);
-            zone.getAvatar().refreshDrawableState();
         }
         gameView.invalidate();
         gameManager.resetGame();
 
         AnimatorUtility.hideView(tryAgainWidget);
         AnimatorUtility.showView(waveStartView);
-        startTimer();
+        startCountdown();
     }
 
     /**
@@ -291,7 +287,7 @@ public class MainGameActivity extends AppCompatActivity {
 
     /**
      * Ends the game.
-     * @param winningPlayer
+     * @param winningPlayer - the winning player.
      */
     private void endGame(Player winningPlayer) {
         wave.cancel();

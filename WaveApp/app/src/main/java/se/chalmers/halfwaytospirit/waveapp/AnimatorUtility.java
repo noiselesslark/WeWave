@@ -10,6 +10,10 @@ import android.view.animation.Animation;
 public class AnimatorUtility {
     private static final int fadeDuration = 1000;
 
+    /**
+     * Hides the view by having it fade away.
+     * @param view - the view.
+     */
     public static void hideView(final View view) {
         AlphaAnimation fade_out = new AlphaAnimation(1.0f, 0.0f);
         fade_out.setDuration(fadeDuration);
@@ -30,6 +34,10 @@ public class AnimatorUtility {
         view.startAnimation(fade_out);
     }
 
+    /**
+     * Shows the view by having it fade in.
+     * @param view - the view.
+     */
     public static void showView(final View view) {
         AlphaAnimation fade_in = new AlphaAnimation(0.0f, 1.0f);
         fade_in.setDuration(fadeDuration);

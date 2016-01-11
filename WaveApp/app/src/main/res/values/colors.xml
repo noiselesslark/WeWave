@@ -12,5 +12,5 @@
     <color name="buttonGray">#cccccc</color>
     <color name="transparent">#00000000</color>
     <color name="colorBlack">#000000</color>
-    <color name="blackOverlay">#000000cc</color>
+    <color name="blackOverlay">#90000000</color>
 </resources>
