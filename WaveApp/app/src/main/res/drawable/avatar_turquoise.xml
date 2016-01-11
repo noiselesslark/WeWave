@@ -8,7 +8,7 @@
         app:state_waving2="false"
         app:state_waving3="false"
         app:state_dead="false"
-        android:drawable="@drawable/img_down_chair_empty"/>
+        android:drawable="@drawable/turquoise_chair"/>
     <item
         app:state_empty="false"
         app:state_sitting="true"

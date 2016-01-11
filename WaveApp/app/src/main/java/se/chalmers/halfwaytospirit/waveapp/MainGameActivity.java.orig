@@ -80,7 +80,7 @@ public class MainGameActivity extends AppCompatActivity {
                 findViewById(R.id.countdownBackground).postDelayed(new Runnable() {
                     public void run() {
                countDownArea.setText(
-                        getString(R.string.countdownLetsText)+ System.getProperty("line.separator") +
+                        getString(R.string.countdownLetsText) + System.getProperty("line.separator") +
                                 getString(R.string.weWaveText));
 
                         startGame();
@@ -128,6 +128,17 @@ public class MainGameActivity extends AppCompatActivity {
             gameManager.setGameRunning(true);
 
             // Starts the animation of the path.
+<<<<<<< HEAD
+            WaveAnimation pathAnimation = new WaveAnimation(gameView, 360);
+            gameView.startAnimation(pathAnimation);
+        } else {
+            // Show the error.
+            TextView numberPlayerError = (TextView)findViewById(R.id.playerNumberError);
+            numberPlayerError.setText("At least 2 players" + System.getProperty("line.separator") +
+                    "are needed to" + System.getProperty("line.separator") +
+                    "launch" + System.getProperty("line.separator") + "the game.");
+                    numberPlayerError.setVisibility(View.VISIBLE);
+=======
             wave = new WaveAnimation(gameView, 360);
             wave.setCircuitCompleteListener(new IOnCircuitCompleteListener() {
                 @Override
@@ -137,19 +148,13 @@ public class MainGameActivity extends AppCompatActivity {
             });
 
             gameView.startAnimation(wave);
-        } else {
-            // Show the error.
-            TextView numberPlayerError = (TextView)findViewById(R.id.playerNumberError);
-            numberPlayerError.setText("At least 2 players" + System.getProperty("line.separator") +
-                    "are needed to" + System.getProperty("line.separator") +
-                    "launch" + System.getProperty("line.separator") + "the game.");
-                    numberPlayerError.setVisibility(View.VISIBLE);
+>>>>>>> master
         }
     }
 
     /**
      * Draws an avatar for the specified touch zone.
-     * @param zone - the touch zone.
+     * @param zone
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void drawAvatar(TouchZone zone){

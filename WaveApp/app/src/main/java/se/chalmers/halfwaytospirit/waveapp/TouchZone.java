@@ -69,8 +69,12 @@ public class TouchZone extends ShapeDefinition {
      * @param touched - the boolean value specifying whether zone is touched.
      */
     public void setTouched(boolean touched) {
-        if(touched) {
+        if(touched && !this.isEliminated) {
             this.avatar.setIsSitting(true);
+            this.avatar.refreshDrawableState();
+        }
+        else if(!touched && !isEliminated) {
+            this.avatar.setIsWaving(true);
             this.avatar.refreshDrawableState();
         }
         this.isTouched = touched;
@@ -173,6 +177,10 @@ public class TouchZone extends ShapeDefinition {
      * @param isEliminated - whether the zone has been eliminated.
      */
     public void setEliminated(boolean isEliminated) {
+        if(isEliminated) {
+            this.avatar.setIsDead(true);
+            this.avatar.refreshDrawableState();
+        }
         this.isEliminated = isEliminated;
     }
 
