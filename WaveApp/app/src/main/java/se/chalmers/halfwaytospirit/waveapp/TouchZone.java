@@ -178,6 +178,10 @@ public class TouchZone extends ShapeDefinition {
      * @param isEliminated - whether the zone has been eliminated.
      */
     public void setEliminated(boolean isEliminated) {
+        if(isEliminated) {
+            this.avatar.setIsDead(true);
+            this.avatar.refreshDrawableState();
+        }
         this.isEliminated = isEliminated;
     }
 
