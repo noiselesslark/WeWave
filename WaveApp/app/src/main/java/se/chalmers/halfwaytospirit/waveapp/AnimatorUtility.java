@@ -8,15 +8,14 @@ import android.view.animation.Animation;
  * This class is a utility for animating views.
  */
 public class AnimatorUtility {
-    private static final int fadeDuration = 1000;
 
     /**
      * Hides the view by having it fade away.
      * @param view - the view.
      */
-    public static void hideView(final View view) {
+    public static void hideView(final View view, int duration) {
         AlphaAnimation fade_out = new AlphaAnimation(1.0f, 0.0f);
-        fade_out.setDuration(fadeDuration);
+        fade_out.setDuration(duration);
         fade_out.setAnimationListener(new Animation.AnimationListener()
         {
             public void onAnimationStart(Animation arg0)
@@ -38,9 +37,9 @@ public class AnimatorUtility {
      * Shows the view by having it fade in.
      * @param view - the view.
      */
-    public static void showView(final View view) {
+    public static void showView(final View view, int duration) {
         AlphaAnimation fade_in = new AlphaAnimation(0.0f, 1.0f);
-        fade_in.setDuration(fadeDuration);
+        fade_in.setDuration(duration);
         fade_in.setAnimationListener(new Animation.AnimationListener()
         {
             public void onAnimationStart(Animation animation)

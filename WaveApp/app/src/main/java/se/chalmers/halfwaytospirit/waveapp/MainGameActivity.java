@@ -132,7 +132,7 @@ public class MainGameActivity extends AppCompatActivity {
         }else if (gameManager.getActivePlayers().size()==0) {
             showNoPlayerError();
         } else {
-            AnimatorUtility.hideView(countDownBackground);
+            AnimatorUtility.hideView(countDownBackground, errorDuration);
 
             gameView.setPlayerLostListener(new IOnPlayerLostListener() {
                 @Override
@@ -162,6 +162,7 @@ public class MainGameActivity extends AppCompatActivity {
         }
     }
 
+    private int errorDuration = 1000;
     /**
      * Shows the error when no players entered the game.
      */
@@ -177,8 +178,8 @@ public class MainGameActivity extends AppCompatActivity {
         }
         gameView.invalidate();
         gameManager.setGameRunning(true);
-        AnimatorUtility.showView(tryAgainWidget);
-        AnimatorUtility.hideView(waveStartView);
+        AnimatorUtility.showView(tryAgainWidget, errorDuration);
+        AnimatorUtility.hideView(waveStartView, errorDuration);
     }
 
     /**
@@ -187,13 +188,13 @@ public class MainGameActivity extends AppCompatActivity {
      */
     private void showPlayerLostNotification(String name) {
         playerLostText.setText(getString(R.string.playerMissedWaveText, name));
-        AnimatorUtility.showView(playerLostArea);
+        AnimatorUtility.showView(playerLostArea, 200);
         playerLostArea.postDelayed(new Runnable() {
             @Override
             public void run() {
-                AnimatorUtility.hideView(playerLostArea);
+                AnimatorUtility.hideView(playerLostArea, errorDuration);
             }
-        }, 300);
+        }, 500);
     }
 
     /**
@@ -202,8 +203,8 @@ public class MainGameActivity extends AppCompatActivity {
     private void showOnePlayerError() {
         countDownText.setText(getString(R.string.playerNumberError));
 
-        AnimatorUtility.showView(tryAgainWidget);
-        AnimatorUtility.hideView(waveStartView);
+        AnimatorUtility.showView(tryAgainWidget, errorDuration);
+        AnimatorUtility.hideView(waveStartView, errorDuration);
     }
 
     /**
@@ -211,7 +212,7 @@ public class MainGameActivity extends AppCompatActivity {
      */
     private void restartGame() {
         countDownBackground.setBackgroundColor(ContextCompat.getColor(this, R.color.fadeOutBackground));
-        AnimatorUtility.showView(countDownBackground);
+        AnimatorUtility.showView(countDownBackground, errorDuration);
         countDownText.setTextColor(ContextCompat.getColor(this, R.color.colorBlack));
         countDownText.setBackgroundColor(ContextCompat.getColor(this, R.color.transparent));
 
@@ -223,8 +224,8 @@ public class MainGameActivity extends AppCompatActivity {
         gameView.invalidate();
         gameManager.resetGame();
 
-        AnimatorUtility.hideView(tryAgainWidget);
-        AnimatorUtility.showView(waveStartView);
+        AnimatorUtility.hideView(tryAgainWidget, errorDuration);
+        AnimatorUtility.showView(waveStartView, errorDuration);
         startCountdown();
     }
 
