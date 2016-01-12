@@ -193,7 +193,7 @@ public class MainGameActivity extends AppCompatActivity {
             public void run() {
                 AnimatorUtility.hideView(playerLostArea);
             }
-        }, 100);
+        }, 300);
     }
 
     /**
