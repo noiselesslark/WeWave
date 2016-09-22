@@ -1,1 +1,1 @@
-# WaveApp
+# WeWave
